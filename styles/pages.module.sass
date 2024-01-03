@@ -1,0 +1,40 @@
+@import './designSystem'
+
+.pages
+  &.home h1::before
+    content: '숏뷰 뉴스 {short.view: news}'
+
+  &.notice h1::before
+    content: '안내사항 Notice.'
+
+  .pages-content
+    display: flex
+    flex-direction: column
+    gap: rem(25)
+    padding: rem(15) rem(15) rem(25)
+    color: var(--txt-blockquote)
+
+    +mq(minLarge)
+      gap: rem(50)
+      padding: rem(25) rem(25) rem(50)
+
+    > div
+      display: flex
+      flex-direction: column
+      gap: rem(15)
+
+      p
+        text-align: center
+        font-weight: 300
+        text-wrap: balance
+
+        +mq(minLarge)
+          display: flex
+          flex-direction: column
+
+    hr
+      margin: rem(20) 0
+      border: 1px solid var(--border)
+
+      +mq(minLarge)
+        margin: rem(25) 0

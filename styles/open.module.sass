@@ -1,0 +1,91 @@
+@import './designSystem'
+
+.open_sources
+  display: flex
+  align-items: center
+  flex-direction: column
+
+  h1:before
+    content: '오픈소스 Open Sources.'
+
+  .open_sources-content
+    display: flex
+    flex-direction: column
+    gap: rem(25)
+    margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
+    padding: rem(15)
+    width: 100%
+    color: var(--txt-blockquote)
+
+    +mq(minLarge)
+      gap: rem(50)
+      padding: rem(25)
+
+    dl
+      display: flex
+      justify-content: center
+      gap: rem(15)
+      font-size: rem(16)
+
+      +mq(maxMedium)
+        flex-direction: column
+        align-items: center
+
+      +mq(minLarge)
+        gap: rem(50)
+
+      div
+        display: flex
+        gap: rem(25)
+
+        +mq(maxMedium)
+          width: 100%
+          justify-content: center
+
+      dt, dd
+        line-height: 1
+
+        +mq(maxMedium)
+          +coln
+
+      dt
+        color: var(--txt-subject)
+
+        +mq(maxMedium)
+          width: rem(120)
+          text-align: right
+
+      dd
+        font-weight: 900
+        color: $hex-accent
+
+        +mq(maxMedium)
+          width: rem(150)
+
+    hr
+      margin: rem(20) 0
+      border: 1px solid var(--border)
+
+      +mq(minLarge)
+        margin: rem(25) 0
+
+    .list
+      margin: rem(50) auto 0
+      width: 100%
+      max-width: rem(720)
+
+      & :last-of-type hr
+        display: none
+
+      pre, code
+        white-space: pre-wrap
+
+@keyframes foreground
+  0%
+    opacity: 0
+
+  33.333%,50%
+    opacity: 1
+
+  16.667%,66.667%
+    opacity: 0

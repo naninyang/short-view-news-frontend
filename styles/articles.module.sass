@@ -1,0 +1,198 @@
+@import './designSystem'
+
+.articles
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(50))
+  font-size: rem(16)
+
+  h2
+    padding-right: rem(20)
+    padding-left: rem(20)
+    max-width: rem(575)
+    margin: 0 auto
+
+    +mq(minSmall)
+      padding-right: 0
+      padding-left: 0
+
+  .loading, .error
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: rem(71)
+    min-height: calc(100dvh - rem(50))
+    font-weight: 700
+    color: $hex-accent
+    text-align: center
+
+  .error
+    gap: rem(15)
+
+    button
+      background: none
+      text-decoration: underline
+      color: $hex-accent
+
+  .ref
+    position: absolute
+    top: auto!important
+    right: auto!important
+    bottom: rem(-96)
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: flex-end
+    width: 100%
+    height: rem(1000)
+
+    p
+      font-weight: 700
+      color: $hex-accent
+      text-align: center
+
+  .article-content
+    position: relative
+    min-height: 100dvh
+    background-color: var(--default-bg)
+    transition: all .4s cubic-bezier(.4,0,.2,1)
+
+    +mq(minSmall)
+      padding-top: rem(25)
+
+  .article-list
+    display: flex
+    flex-direction: column
+    margin: 0 auto
+    width: 100%
+
+    +mq(minSmall)
+      border: 1px solid var(--border)
+      border-radius: rem(5)
+      max-width: rem(575)
+
+  article
+    display: flex
+    flex-direction: column
+    gap: rem(15)
+    border-bottom: 1px solid var(--border)
+
+    &:last-of-type
+      border-bottom: 0
+
+    a
+      display: block
+
+    img
+      display: block
+      width: 100%
+      height: auto
+
+    .description
+      a
+        position: relative
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        font-size: rem(14)
+        font-weight: 700
+        line-height: 1.5
+        color: var(--txt-subject)
+        text-wrap: balance
+
+        +mq(minLarge)
+          font-size: rem(16)
+
+        &::before
+          content: '댓글달기'
+          opacity: 0
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          position: absolute
+          bottom: 0
+          left: rem(15)
+          z-index: 1
+          background-color: var(--txt-subject)
+          display: flex
+          align-items: center
+          border-radius: rem(2)
+          height: 0
+          padding: 0 rem(7)
+          font-size: rem(12)
+          color: var(--bg-secondary)
+
+        &:hover, &:focus
+          color: $hex-accent
+
+          &::before
+            bottom: rem(-10)
+            opacity: 1
+            height: rem(20)
+
+      .comment
+        padding: rem(15)
+        font-size: rem(14)
+        line-height: 1.6
+        color: var(--txt-blockquote)
+
+        +mq(minLarge)
+          font-size: rem(16)
+
+    .opengraph
+      padding: rem(15)
+
+      a
+        &:focus
+          strong
+            color: var(--default-text)
+            text-decoration: underline
+
+      img
+        width: 100%
+        height: auto
+        border-radius: rem(10)
+
+        +mq(minLarge)
+          border-radius: rem(20)
+
+      .og-container
+        background-color: var(--bg-primary)
+        border-radius: rem(15)
+        padding: rem(15)
+
+        .og-info
+          display: flex
+          flex-direction: column
+          gap: rem(10)
+          margin-top: rem(15)
+
+          .created
+            display: flex
+            justify-content: space-between
+            color: var(--txt-summary)
+
+            cite
+              font-size: rem(12)
+              font-weight: 300
+              line-height: 1
+
+            time
+              font-size: rem(12)
+
+          .summary
+            display: flex
+            flex-direction: column
+            gap: rem(2)
+
+            strong
+              font-size: rem(14)
+              font-weight: 900
+              line-height: 1.5
+              color: $hex-accent
+
+              +mq(minLarge)
+                font-size: rem(16)
+
+            .description
+              font-size: rem(12)
+              line-height: 1.5
+              color: var(--txt-summary)
+
+              +mq(minLarge)
+                font-size: rem(14)

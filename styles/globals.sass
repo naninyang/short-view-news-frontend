@@ -1,0 +1,174 @@
+@import './designSystem'
+
+*, ::before, ::after
+  box-sizing: border-box
+
+\::selection
+  background-color: $hex-accent
+  color: $hex-white
+
+html
+  font-size: 16px
+
+body
+  margin: 0
+  font-size: 16px
+  word-break: keep-all
+  -webkit-text-size-adjust: none
+  transition: all .4s cubic-bezier(.4,0,.2,1)
+
+body, pre, input, button, textarea, select
+  font-size: 1rem
+  font-weight: 400
+  text-size-adjust: 100%
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+
+body[data-theme="dark"]
+  --txt-subject: #{$hex-light-subject}
+  --txt-summary: #{$hex-light-summary}
+  --txt-blockquote: #{$hex-white}
+  --bg-primary: #{$hex-dark-summary}
+  --bg-secondary: #{$hex-dark-background}
+  --border: #{$hex-dark-border}
+  --bg-primary-opacity: rgba(0, 0, 0, .7)
+  --default-text: #{$hex-white}
+  --default-bg: #{$hex-black}
+
+body, body[data-theme="light"]
+  --txt-subject: #{$hex-dark-subject}
+  --txt-summary: #{$hex-dark-summary}
+  --txt-blockquote: #{$hex-black}
+  --bg-primary: #{$hex-light-summary}
+  --bg-secondary: #{$hex-light-background}
+  --border: #{$hex-light-border}
+  --bg-primary-opacity: rgba(255, 255, 255, .7)
+  --default-text: #{$hex-black}
+  --default-bg: #{$hex-white}
+
+body
+  background-color: var(--default-bg)
+
+main
+  margin-top: calc(env(safe-area-inset-top) + rem(50))
+
+h1, h2, h3, h4, h5, h6
+  margin-top: 0
+  margin-bottom: 0
+
+img
+  +image-rendering
+
+a
+  text-decoration: none
+  -webkit-tap-highlight-color: rgba(255,255,255,.10)
+
+fieldset
+  margin: 0
+  padding: 0
+
+legend
+  position: absolute
+  overflow: hidden
+  margin: 0
+  width: 1px
+  height: 1px
+  clip: rect(1px, 1px, 1px, 1px)
+
+label
+  cursor: pointer
+
+img, fieldset
+  border: 0
+
+p, ul, dl, pre
+  margin-top: 0
+  margin-bottom: 0
+
+ul, ol
+  margin-top: 0
+  margin-bottom: 0
+  padding-left: 0
+  list-style-type: none
+
+dd
+  margin-left: 0
+
+button
+  cursor: pointer
+  border: 0
+  padding: 0
+
+figure
+  margin: 0
+
+address, cite
+  font-style: normal
+
+iframe
+  display: block
+
+.ReactModal__Overlay
+  padding: calc(env(safe-area-inset-top) + rem(25)) calc(env(safe-area-inset-right) + rem(25)) calc(env(safe-area-inset-bottom) + rem(25)) calc(env(safe-area-inset-left) + rem(25))
+
+  +mq(minLarge)
+    padding: calc(env(safe-area-inset-top) + rem(50)) calc(env(safe-area-inset-right) + rem(50)) calc(env(safe-area-inset-bottom) + rem(50)) calc(env(safe-area-inset-left) + rem(50))
+
+.ReactModal__Content
+  border-radius: rem(15)
+  max-height: calc(100dvh - rem(25))
+
+  +mq(minLarge)
+    border-radius: rem(25)
+    max-height: calc(100dvh - rem(50))
+
+.scrollbar-container
+  position: relative
+  height: 100%
+
+.ptr
+  z-index: 1
+
+.ptr--dragging, .ptr--pull-down-treshold-breached
+  a
+    touch-action: none
+    user-select: none
+
+.ptr__pull-down--pull-more
+  text-align: center
+
+.top-link
+  position: fixed
+  top: calc(env(safe-area-inset-top) + rem(10))
+  left: calc(env(safe-area-inset-left) + rem(25))
+  z-index: 1050
+
+  a, button
+    background-color: transparent
+    transition: border .4s cubic-bezier(.4,0,.2,1)
+    display: inline-flex
+    align-items: center
+    gap: rem(5)
+    padding: 0 rem(5)
+    height: rem(30)
+
+    i
+      transition: transform .4s cubic-bezier(.4,0,.2,1)
+      width: rem(18)
+      height: rem(18)
+
+    span
+      transition: color .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(14)
+      line-height: 1
+      color: var(--txt-summary)
+
+      +mq(maxExtraSmall)
+        +screen-reader-only
+
+    &:hover, &:focus
+      i
+        transform: translateX(rem(-5))
+
+      span
+        color: var(--default-text)

@@ -1,0 +1,212 @@
+@import './designSystem'
+
+.main
+  padding: 0 env(safe-area-inset-right) rem(125) env(safe-area-inset-left) !important
+
+  .main-content
+    gap: rem(75)
+    padding-bottom: rem(50)
+
+    +mq(minLarge)
+      gap: rem(100)
+      padding-bottom: rem(100)
+
+    .description
+      display: flex
+      flex-direction: column
+      gap: rem(75)
+
+      > div
+        display: flex
+        flex-direction: column
+        justify-content: center
+        gap: rem(15)
+
+        +mq(minLarge)
+          flex-direction: row
+          align-items: center
+          gap: rem(25)
+
+        > div
+          display: flex
+          flex-direction: column
+          gap: rem(10)
+
+        &::before
+          content: ''
+          display: block
+          margin: 0 auto
+          border: 1px solid var(--border)
+          border-radius: vw(15, 320)
+          width: 100%
+          max-width: rem(540)
+
+          +mq(minLarge)
+            margin: 0
+            border-radius: rem(15)
+
+        h2
+          display: flex
+          flex-direction: column
+          align-items: center
+          font-size: rem(20)
+          line-height: 1
+
+          +mq(minLarge)
+            flex-direction: row
+            gap: rem(5)
+
+          i
+            display: block
+            width: rem(27)
+            height: rem(27)
+
+        p
+          font-size: rem(14)
+          line-height: 1.7
+
+          +mq(minLarge)
+            text-align: left
+
+        &[data-summary]
+          &::before
+            display: none
+
+          p
+            text-align: center
+            line-height: 1.5
+
+          +mq(minLarge)
+            justify-content: center
+
+            p
+              font-size: rem(20)
+
+        &[data-youtube]
+          &::before
+            aspect-ratio: 645 / 646.5
+
+            body[data-theme="dark"] &
+              background: url('/mobile-youtube-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-youtube-light.webp') no-repeat 50% 50%/contain
+
+            +mq(minLarge)
+              aspect-ratio: 964 / 584
+
+              body[data-theme="dark"] &
+                background: url('/desktop-youtube-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-youtube-light.webp') no-repeat 50% 50%/contain
+
+        &[data-naver]
+          &::before
+            aspect-ratio: 645 / 1006
+
+            body[data-theme="dark"] &
+              background: url('/mobile-naver-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-naver-light.webp') no-repeat 50% 50%/contain
+
+            +mq(minLarge)
+              aspect-ratio: 1166 / 939
+
+              body[data-theme="dark"] &
+                background: url('/desktop-naver-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-naver-light.webp') no-repeat 50% 50%/contain
+
+        &[data-twitter]
+          &::before
+            aspect-ratio: 645 / 912.5
+
+            body[data-theme="dark"] &
+              background: url('/mobile-twitter-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-twitter-light.webp') no-repeat 50% 50%/contain
+
+            +mq(minLarge)
+              aspect-ratio: 1121 / 753
+
+              body[data-theme="dark"] &
+                background: url('/desktop-twitter-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-twitter-light.webp') no-repeat 50% 50%/contain
+
+  dl
+    border-top: 1px solid var(--border)
+    padding-top: rem(75)
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: rem(25)
+    text-align: center
+
+    +mq(minLarge)
+      flex-direction: row
+      justify-content: center
+      gap: 0
+      border: 0
+      padding-top: 0
+
+      div
+        position: relative
+        padding: 0 rem(75)
+
+        &::before
+          content: ''
+          display: block
+          position: absolute
+          top: 0
+          left: 0
+          width: 1px
+          height: 100%
+          background-color: var(--border)
+
+        &:first-of-type::before
+          display: none
+
+    dt
+      font-size: rem(14)
+      font-weight: 300
+      color: var(--txt-subject)
+
+      +mq(minLarge)
+        font-size: rem(16)
+
+    dd
+      margin-top: rem(5)
+      font-size: rem(58)
+      font-weight: 900
+      line-height: 1
+
+      +mq(minLarge)
+        font-size: rem(50)
+
+  .apple
+    border-top: 1px solid var(--border)
+    padding-top: rem(75)
+    text-align: center
+
+    h2
+      margin-bottom: rem(50)
+
+    p
+      text-align: center
+      font-weight: 300
+
+      +mq(minLarge)
+        display: flex
+        flex-direction: column
+
+      i
+        display: inline-block
+        width: rem(32)
+        height: rem(32)
+        vertical-align: bottom

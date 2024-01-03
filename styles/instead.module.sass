@@ -1,0 +1,301 @@
+@import './designSystem'
+
+.instead
+  display: flex
+  flex-direction: column
+  gap: rem(25)
+  padding: 0 calc(env(safe-area-inset-right) + rem(15)) 0 calc(env(safe-area-inset-left) + rem(15))
+
+  +mq(minLarge)
+    padding: 0 calc(env(safe-area-inset-right) + rem(25)) 0 calc(env(safe-area-inset-left) + rem(25))
+
+  .loading
+    display: flex
+    flex: 1
+    align-items: center
+    color: $hex-accent
+
+  &.instead
+    &:not(.instead-container)
+      align-items: center
+      padding: rem(15) rem(15) rem(121)
+      min-height: calc(100dvh - rem(50) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+      +mq(minLarge)
+        padding: rem(25) rem(25) rem(141)
+
+      article
+        gap: rem(15)
+        max-width: rem(767)
+
+        header
+          +mq(minMedium)
+            padding-right: 0
+            padding-left: 0
+
+        .og-container
+          user-select: none
+          cursor: default
+
+          +mq(minMedium)
+            padding-right: 0
+            padding-left: 0
+
+        .opengraph
+          a
+            top: rem(17)
+            z-index: 2
+            right: auto
+            left: rem(27)
+
+            +mq(minSmall)
+              left: rem(27)
+
+            +mq(minMedium)
+              left: rem(7)
+
+          & + .description
+            +mq(minMedium)
+              padding-right: 0
+              padding-left: 0
+
+  &.instead-container
+    padding: 0
+    overflow: hidden
+    max-height: calc(100dvh - rem(191))
+
+    article
+      display: flex
+      flex-direction: column
+      padding-bottom: rem(15)
+      max-height: calc(100dvh - rem(191))
+
+      +mq(minLarge)
+        padding-bottom: rem(25)
+
+  article
+    display: flex
+    flex-direction: column
+
+    header
+      display: flex
+      flex-direction: column
+      gap: rem(5)
+      position: relative
+      padding: rem(15)
+
+      +mq(minLarge)
+        gap: rem(15)
+        padding: rem(25)
+
+      button
+        position: absolute
+        top: rem(15)
+        right: rem(15)
+        background: none
+        width: rem(26)
+        height: rem(26)
+
+        +mq(minLarge)
+          top: rem(25)
+          right: rem(25)
+          width: rem(50)
+          height: rem(50)
+
+        i
+          width: rem(26)
+          height: rem(26)
+
+          +mq(minLarge)
+            width: rem(50)
+            height: rem(50)
+
+        span
+          +screen-reader-only
+
+        & + h1
+          padding-right: rem(35)
+
+          +mq(minLarge)
+            padding-right: rem(70)
+
+    h1
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(20)
+      line-height: 1.3
+      color: var(--txt-blockquote)
+
+      +mq(minLarge)
+        font-size: rem(38)
+
+    img
+      display: block
+      width: 100%
+      height: auto
+
+    .opengraph
+      position: relative
+
+    .scrollbar-container
+      display: flex
+      flex-direction: column
+      flex: 1
+      overflow: hidden
+      gap: rem(15)
+
+    .scrollbar-container, .opengraph
+      a
+        display: flex
+        align-items: center
+        position: absolute
+        top: rem(37)
+        right: rem(37)
+        background-color: var(--bg-primary-opacity)
+        border-radius: rem(25)
+        height: rem(25)
+        padding: 0 rem(15)
+        font-size: rem(12)
+        color: var(--txt-subject)
+        line-height: 1
+
+        +mq(minSmall)
+          z-index: 2
+          top: rem(7)
+          right: auto
+          left: rem(27)
+
+        +mq(minLarge)
+          left: rem(37)
+
+        &:hover, &:focus
+          color: var(--default-text)
+
+      .og-container
+        display: flex
+        flex-direction: column
+        gap: rem(17)
+        padding: 0 rem(15)
+        user-select: none
+        cursor: default
+
+        +mq(minSmall)
+          flex-direction: row
+
+        +mq(minLarge)
+          padding: 0 rem(25)
+
+        > img
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+        .thumbnails
+          position: relative
+          overflow: hidden
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+          img
+            +mq(minSmall)
+              width: 100%
+              height: 100%
+
+          .thumbnail-origin
+            object-fit: contain
+            position: relative
+            z-index: 1
+
+          .thumbnail-background
+            position: absolute
+            top: 0
+            left: 0
+            object-fit: cover
+            backdrop-filter: blur(rem(200))
+
+        .og-info
+          display: flex
+          flex-direction: column
+
+          +mq(minSmall)
+            gap: rem(12)
+            +col
+
+          .detail
+            display: flex
+            gap: rem(7)
+
+            img
+              border-radius: 100%
+              width: rem(36)
+              height: rem(36)
+
+            .user-info
+              display: flex
+              flex-direction: column
+              gap: rem(7)
+              font-size: rem(16)
+              line-height: 1.25
+              color: var(--txt-subject)
+
+              .user
+                display: flex
+                gap: rem(7)
+                line-height: 1
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+                cite
+                  display: flex
+                  gap: rem(7)
+                  align-items: center
+
+                  &::after
+                    content: '•'
+                    font-size: rem(12)
+
+          .summary
+            display: flex
+            flex-direction: column
+            gap: rem(7)
+
+            strong
+              font-size: rem(16)
+              font-weight: 700
+              line-height: 1.5
+              color: var(--txt-summary)
+
+            .user
+              display: flex
+              gap: rem(7)
+
+              img
+                border-radius: 100%
+                width: rem(36)
+                height: rem(36)
+
+              .user-info
+                display: flex
+                flex-direction: column
+                gap: rem(2)
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+          .description
+            font-size: rem(12)
+            color: var(--txt-subject)
+            +line-abbr(2, 36, 1.5)
+
+    .scrollbar-container > .description, .opengraph + .description
+      padding: 0 rem(15)
+      font-size: rem(16)
+      line-height: 1.25
+      color: var(--txt-blockquote)
+
+      +mq(minLarge)
+        padding: 0 rem(25)
+        font-size: rem(20)
