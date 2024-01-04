@@ -1,4 +1,4 @@
-import { YouTubeItemData, YouTubePlaylistData } from 'types';
+import { NaverItemData, YouTubeItemData, YouTubePlaylistData } from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -98,4 +98,89 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
 
   const sortedRowsData = rowsData.sort((a: YouTubePlaylistData, b: YouTubePlaylistData) => b.idx.localeCompare(a.idx));
   return sortedRowsData;
+}
+
+export async function getNaverNewsData(start?: number, count?: number) {
+  const response = await fetch(
+    `${process.env.STRAPI_URL}naver-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
+      },
+    },
+  );
+  const data = await response.json();
+  const filesData = data.data;
+  const rowsData: NaverItemData[] = filesData.map((data: any) => ({
+    idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
+    title: data.attributes.title,
+    description: data.attributes.description,
+    thumbnail: data.attributes.thumbnail,
+    created: data.attributes.created,
+    oid: data.attributes.oid,
+    aid: data.attributes.aid,
+  }));
+
+  const sortedRowsData = rowsData.sort((a: NaverItemData, b: NaverItemData) => b.idx.localeCompare(a.idx));
+  const fullData = await Promise.all(
+    sortedRowsData.map(async (article) => {
+      const url = `https://n.news.naver.com/article/${article.oid}/${article.aid}`;
+      const newsMetaData = await fetchArticleMetadata(url);
+      return {
+        ...article,
+        newsMetaData,
+      };
+    }),
+  );
+
+  return fullData;
+}
+
+export async function getNaverEntertainmentData(start?: number, count?: number) {
+  const response = await fetch(
+    `${process.env.STRAPI_URL}naver-entertainment-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
+      },
+    },
+  );
+  const data = await response.json();
+  const filesData = data.data;
+  const rowsData: NaverItemData[] = filesData.map((data: any) => ({
+    idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
+    title: data.attributes.title,
+    description: data.attributes.description,
+    thumbnail: data.attributes.thumbnail,
+    created: data.attributes.created,
+    oid: data.attributes.oid,
+    aid: data.attributes.aid,
+  }));
+
+  const sortedRowsData = rowsData.sort((a: NaverItemData, b: NaverItemData) => b.idx.localeCompare(a.idx));
+  const fullData = await Promise.all(
+    sortedRowsData.map(async (article) => {
+      const url = `https://n.news.naver.com/entertain/article/${article.oid}/${article.aid}`;
+      const entertainmentMetaData = await fetchArticleMetadata(url);
+      return {
+        ...article,
+        entertainmentMetaData,
+      };
+    }),
+  );
+
+  return fullData;
+}
+
+async function fetchArticleMetadata(url: string) {
+  try {
+    const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch article metadata', error);
+    return {};
+  }
 }

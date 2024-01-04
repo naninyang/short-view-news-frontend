@@ -175,7 +175,6 @@ export type CommentResponse = {
 };
 
 export interface YouTubeItemData {
-  id: string;
   idx: string;
   video_id: string;
   description: string;
@@ -298,4 +297,16 @@ export interface PlaylistRowData {
     comment10?: string;
     videoId10: string;
   };
+}
+
+export interface NaverItemData {
+  idx: string;
+  title: string;
+  description: string;
+  oid: string;
+  aid: string;
+  thumbnail: string;
+  created: string;
+  newsMetaData: any;
+  entertainmentMetaData: any;
 }

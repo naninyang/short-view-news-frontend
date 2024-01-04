@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { Article } from 'types';
+import { NaverItemData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import ArticleDetail from '@/components/Article';
 import AnchorLink from '@/components/Anchor';
@@ -44,7 +44,7 @@ function ArticlesNews() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/api/articlesNews?start=${pageIndex * 20}&count=20`;
+    return `/api/articlesNews?start=${pageIndex + 1}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -142,7 +142,7 @@ function ArticlesNews() {
         <div className={styles['article-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={styles['article-list']}>
-              {articles.map((article: Article) => (
+              {articles.map((article: NaverItemData) => (
                 <article key={article.idx}>
                   <div className={styles.description}>
                     {isDesktop ? (
@@ -161,7 +161,7 @@ function ArticlesNews() {
                       </Link>
                     )}
                     <Image
-                      src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
+                      src={`https://cat-svn.netlify.app/images/${article?.thumbnail}${
                         article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
                       }`}
                       width={640}
@@ -178,9 +178,7 @@ function ArticlesNews() {
                         <div className={styles['og-info']}>
                           <div className={styles.created}>
                             <cite>{article.newsMetaData?.ogCreator}</cite>
-                            {/* <time dateTime={article.newsMetaData?.datestampTimeAttribute}>
-                              {article.newsMetaData?.datestampTimeContent}
-                            </time> */}
+                            <time dateTime={article.created}>{article.created}</time>
                           </div>
                           <div className={styles.summary}>
                             <strong>{article.newsMetaData?.ogTitle}</strong>
