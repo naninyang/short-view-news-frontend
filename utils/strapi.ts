@@ -1,4 +1,4 @@
-import { NaverItemData, YouTubeItemData, YouTubePlaylistData } from 'types';
+import { NaverItemsData, YouTubeItemData, YouTubePlaylistData } from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -112,7 +112,7 @@ export async function getNaverNewsData(start?: number, count?: number) {
   );
   const data = await response.json();
   const filesData = data.data;
-  const rowsData: NaverItemData[] = filesData.map((data: any) => ({
+  const rowsData: NaverItemsData[] = filesData.map((data: any) => ({
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     title: data.attributes.title,
     description: data.attributes.description,
@@ -122,7 +122,7 @@ export async function getNaverNewsData(start?: number, count?: number) {
     aid: data.attributes.aid,
   }));
 
-  const sortedRowsData = rowsData.sort((a: NaverItemData, b: NaverItemData) => b.idx.localeCompare(a.idx));
+  const sortedRowsData = rowsData.sort((a: NaverItemsData, b: NaverItemsData) => b.idx.localeCompare(a.idx));
   const fullData = await Promise.all(
     sortedRowsData.map(async (article) => {
       const url = `https://n.news.naver.com/article/${article.oid}/${article.aid}`;
@@ -149,7 +149,7 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
   );
   const data = await response.json();
   const filesData = data.data;
-  const rowsData: NaverItemData[] = filesData.map((data: any) => ({
+  const rowsData: NaverItemsData[] = filesData.map((data: any) => ({
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     title: data.attributes.title,
     description: data.attributes.description,
@@ -159,7 +159,7 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
     aid: data.attributes.aid,
   }));
 
-  const sortedRowsData = rowsData.sort((a: NaverItemData, b: NaverItemData) => b.idx.localeCompare(a.idx));
+  const sortedRowsData = rowsData.sort((a: NaverItemsData, b: NaverItemsData) => b.idx.localeCompare(a.idx));
   const fullData = await Promise.all(
     sortedRowsData.map(async (article) => {
       const url = `https://n.news.naver.com/entertain/article/${article.oid}/${article.aid}`;

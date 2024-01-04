@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { NaverItemData } from 'types';
+import { NaverItemsData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import ArticleDetail from '@/components/Article';
 import AnchorLink from '@/components/Anchor';
@@ -142,26 +142,31 @@ function ArticlesEntertainment() {
         <div className={styles['article-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={styles['article-list']}>
-              {articles.map((article: NaverItemData) => (
+              {articles.map((article: NaverItemsData) => (
                 <article key={article.idx}>
                   <div className={styles.description}>
                     {isDesktop ? (
                       <Link
                         key={article.idx}
                         href={`/articles?articleId=${article.idx}`}
-                        as={`/article/${article.idx}`}
+                        as={`/article-entertainment/${article.idx}`}
                         scroll={false}
                         shallow={true}
                       >
                         <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
                       </Link>
                     ) : (
-                      <Link key={article.idx} href={`/article/${article.idx}`} scroll={false} shallow={true}>
+                      <Link
+                        key={article.idx}
+                        href={`/articlearticle-entertainment/${article.idx}`}
+                        scroll={false}
+                        shallow={true}
+                      >
                         <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
                       </Link>
                     )}
                     <Image
-                      src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
+                      src={`https://cat-svn.netlify.app/images/${article?.thumbnail}${
                         article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
                       }`}
                       width={640}

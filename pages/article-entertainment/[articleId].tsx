@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { CommentResponse, PlaylistRowData } from 'types';
-import Seo from '@/components/Seo';
-import YouTubeController from '@/components/YouTubeController';
-import AnchorLink from '@/components/Anchor';
-import { images } from '@/components/images';
+import axios from 'axios';
+import Image from 'next/image';
+import { CommentResponse, NaverItemData } from 'types';
 import { foramtDate } from '@/components/ForamtDate';
+import { images } from '@/components/images';
+import AnchorLink from '@/components/Anchor';
+import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
-import styles from '@/styles/watch.module.sass';
+import styles from '@/styles/article.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
 
 const BackButton = styled.i({
@@ -21,18 +22,7 @@ const BackButton = styled.i({
   },
 });
 
-const Comment = styled.p({
-  '&::before': {
-    'body[data-theme="dark"] &': {
-      background: `url(${images.misc.commentLight}) no-repeat 50% 50%/contain`,
-    },
-    'body &, body[data-theme="light"] &': {
-      background: `url(${images.misc.commentDark}) no-repeat 50% 50%/contain`,
-    },
-  },
-});
-
-export default function watchDetail({ watchData }: { watchData: PlaylistRowData | null }) {
+export default function ArticleDetail({ articleData }: { articleData: NaverItemData | null }) {
   const router = useRouter();
   let savedScrollPosition;
 
@@ -43,38 +33,10 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
     }
   };
 
-  const [timeoutReached, setTimeoutReached] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeoutReached(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!watchData) {
-    if (timeoutReached) {
-      return (
-        <main className={styles.watch}>
-          <p className={styles.error}>
-            뉴스를 불러오지 못했습니다. 삭제된 기사이거나 인터넷 속도가 느립니다.{' '}
-            <AnchorLink href="/watches">뒤로가기</AnchorLink>
-          </p>
-        </main>
-      );
-    } else {
-      return (
-        <main className={styles.watch}>
-          <p className={styles.loading}>기사 불러오는 중...</p>
-        </main>
-      );
-    }
-  }
-
   const [formData, setFormData] = useState({
-    collection: `youtube-${watchData.attributes.type}-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch-news/${watchData.attributes.idx}`,
-    idx: watchData.attributes.idx,
+    collection: `naver-${articleData?.attributes.type}-${process.env.NODE_ENV}`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article/${articleData?.attributes.idx}`,
+    idx: articleData?.attributes.idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
@@ -84,25 +46,20 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
     e.preventDefault();
 
     try {
-      const requestOptions: RequestInit = {
-        method: 'POST',
-        body: JSON.stringify(formData),
-      };
-
-      const response = await fetch(`/api/comments`, requestOptions);
+      const response = await axios.post(`/api/comments`, formData);
       if (response.status === 200) {
-        await fetchCommentData();
+        await fetchNaverData();
       }
     } catch (error) {
-      await fetchCommentData();
+      await fetchNaverData();
     }
   };
 
   const [commentData, setCommentData] = useState<CommentResponse[]>([]);
-  const fetchCommentData = async () => {
+  const fetchNaverData = async () => {
     try {
       const response = await fetch(
-        `/api/comments?collection=youtube-${watchData?.attributes.type}-${process.env.NODE_ENV}&idx=${watchData?.attributes.idx}`,
+        `/api/comments?collection=youtube-${articleData?.attributes.type}-${process.env.NODE_ENV}&idx=${articleData?.attributes.idx}`,
       );
       const data = await response.json();
       setCommentData(Array.isArray(data.data) ? data.data : [data.data]);
@@ -112,26 +69,11 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
   };
 
   useEffect(() => {
-    fetchCommentData();
+    fetchNaverData();
   }, []);
 
   return (
-    <main className={styles.watch}>
-      {watchData.attributes.type === 'playlist' ? (
-        <Seo
-          pageTitle={watchData.attributes.subject}
-          pageDescription={watchData.attributes.description1}
-          pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId1}/maxresdefault.jpg`}
-          pageOgType="video.other"
-        />
-      ) : (
-        <Seo
-          pageTitle={watchData.attributes.title}
-          pageDescription={watchData.attributes.description}
-          pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId}/maxresdefault.jpg`}
-          pageOgType="video.other"
-        />
-      )}
+    <main className={styles.article}>
       <div className="top-link">
         {savedScrollPosition ? (
           <button onClick={handleBackClick}>
@@ -139,22 +81,65 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
             <span>뒤로가기</span>
           </button>
         ) : (
-          <AnchorLink href="/watches">
+          <AnchorLink href="/articles">
             <BackButton />
             <span>뒤로가기</span>
           </AnchorLink>
         )}
       </div>
-      <article className={styles['article-news']}>
+      <article>
+        <Seo
+          pageTitle={`${articleData?.attributes.title}`}
+          pageDescription={`${articleData?.attributes.description}`}
+          pageImg={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+            articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
+          }`}
+          pageOgType="article"
+        />
         <header>
-          <h1>{watchData.attributes.title}</h1>
-          <time>{watchData.attributes.created}</time>
+          <h1>{articleData?.attributes.title}</h1>
         </header>
-        <YouTubeController videoId={watchData.attributes.videoId} isPlaylist={false} />
-        <div className={styles.description}>
-          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description }} />
-          <p>{watchData.attributes.comment}</p>
-        </div>
+        {articleData ? (
+          <>
+            <div className={styles.description}>
+              <p dangerouslySetInnerHTML={{ __html: articleData.attributes.description }} />
+              <Image
+                src={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+                  articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                }`}
+                width={640}
+                height={480}
+                unoptimized
+                priority
+                alt=""
+              />
+            </div>
+            {articleData.metaData && (
+              <AnchorLink
+                href={`https://n.news.naver.com/article/${articleData.attributes.oid}/${articleData.attributes.aid}`}
+              >
+                <div className={styles['og-container']}>
+                  <img src={articleData.metaData?.ogImage} alt="" />
+                  <div className={styles['og-info']}>
+                    <div className={styles.created}>
+                      <cite>{articleData.metaData?.ogCreator}</cite>
+                      <time dateTime={articleData.attributes.created}>{articleData.attributes.created}</time>
+                    </div>
+                    <div className={styles.summary}>
+                      <strong>{articleData.metaData?.ogTitle}</strong>
+                      <div className={styles.description}>
+                        {articleData.metaData?.ogDescription}
+                        ...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </AnchorLink>
+            )}
+          </>
+        ) : (
+          <p className={styles.loading}>본문 불러오는 중</p>
+        )}
       </article>
       <div className={commentStyles['comment-control']}>
         <form onSubmit={handleSubmit}>
@@ -219,16 +204,18 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const watchId = context.params?.watchId;
-  let watchData = null;
+  const articleId = context.params?.articleId;
+  let articleData = null;
 
-  if (watchId && typeof watchId === 'string') {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/watchItem?id=${watchId.substring(14)}`);
-    const data = (await response.json()) as { data: PlaylistRowData[] };
-    watchData = data.data;
+  if (articleId && typeof articleId === 'string') {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/naverEntertainment?id=${articleId.substring(14)}`,
+    );
+    const data = (await response.json()) as { data: NaverItemData[] };
+    articleData = data;
   }
 
-  if (!watchData) {
+  if (!articleData) {
     return {
       props: {
         watchData: null,
@@ -238,7 +225,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      watchData,
+      articleData,
     },
     revalidate: 1,
   };

@@ -305,7 +305,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/watchPlaylist?id=${watchId.substring(14)}`);
     const data = (await response.json()) as { data: PlaylistRowData[] };
     watchData = data.data;
-    console.log('watchData: ', watchData);
   }
 
   if (!watchData) {

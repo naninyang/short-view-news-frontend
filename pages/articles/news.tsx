@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { NaverItemData } from 'types';
+import { NaverItemsData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import ArticleDetail from '@/components/Article';
 import AnchorLink from '@/components/Anchor';
@@ -142,21 +142,21 @@ function ArticlesNews() {
         <div className={styles['article-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={styles['article-list']}>
-              {articles.map((article: NaverItemData) => (
+              {articles.map((article: NaverItemsData) => (
                 <article key={article.idx}>
                   <div className={styles.description}>
                     {isDesktop ? (
                       <Link
                         key={article.idx}
                         href={`/articles?articleId=${article.idx}`}
-                        as={`/article/${article.idx}`}
+                        as={`/article-news/${article.idx}`}
                         scroll={false}
                         shallow={true}
                       >
                         <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
                       </Link>
                     ) : (
-                      <Link key={article.idx} href={`/article/${article.idx}`} scroll={false} shallow={true}>
+                      <Link key={article.idx} href={`/article-news/${article.idx}`} scroll={false} shallow={true}>
                         <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
                       </Link>
                     )}

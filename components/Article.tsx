@@ -18,6 +18,7 @@ type ArticleData = {
   title: string;
   oid: string;
   aid: string;
+  created: string;
   newsMetaData?: {
     ogTitle: string;
     ogUrl: string;
@@ -124,7 +125,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
               <div className={styles.description}>
                 <p dangerouslySetInnerHTML={{ __html: articleItem.description }} />
                 <Image
-                  src={`https://cat-svn.netlify.app/img/${articleItem?.thumbnail}${
+                  src={`https://cat-svn.netlify.app/images/${articleItem?.thumbnail}${
                     articleItem?.thumbnail?.endsWith('.gif') ? '' : '.webp'
                   }`}
                   width={640}
@@ -141,9 +142,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                     <div className={styles['og-info']}>
                       <div className={styles.created}>
                         <cite>{articleItem.newsMetaData?.ogCreator}</cite>
-                        {/* <time dateTime={articleItem.newsMetaData?.datestampTimeAttribute}>
-                        {articleItem.newsMetaData?.datestampTimeContent}
-                      </time> */}
+                        <time dateTime={articleItem.created}>{articleItem.created}</time>
                       </div>
                       <div className={styles.summary}>
                         <strong>{articleItem.newsMetaData?.ogTitle}</strong>
@@ -162,9 +161,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                     <div className={styles['og-info']}>
                       <div className={styles.created}>
                         <cite>{articleItem.entertainmentMetaData?.ogCreator}</cite>
-                        {/* <time dateTime={articleItem.entertainmentMetaData?.datestampTimeAttribute}>
-                        {articleItem.entertainmentMetaData?.datestampTimeContent}
-                      </time> */}
+                        <time dateTime={articleItem.created}>{articleItem.created}</time>
                       </div>
                       <div className={styles.summary}>
                         <strong>{articleItem.entertainmentMetaData?.ogTitle}</strong>

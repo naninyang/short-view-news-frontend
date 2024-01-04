@@ -299,7 +299,7 @@ export interface PlaylistRowData {
   };
 }
 
-export interface NaverItemData {
+export interface NaverItemsData {
   idx: string;
   title: string;
   description: string;
@@ -309,4 +309,18 @@ export interface NaverItemData {
   created: string;
   newsMetaData: any;
   entertainmentMetaData: any;
+}
+
+export interface NaverItemData {
+  attributes: {
+    type: string;
+    idx: string;
+    created: string;
+    title: string;
+    description: string;
+    oid: string;
+    aid: string;
+    thumbnail: string;
+  };
+  metaData: any;
 }

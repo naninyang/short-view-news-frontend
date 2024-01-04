@@ -1,64 +1,32 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
-import matter from 'front-matter';
-import getGithubToken from '@/utils/github';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async (req: VercelRequest, res: VercelResponse) => {
-  const start = Number(req.query.start) || 0;
-  const count = Number(req.query.count) || 20;
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const id = req.query.id as string;
 
-  let token = await getGithubToken();
-
-  if (token) {
-    const decodedToken: any = jwt.decode(token);
-    if (decodedToken && decodedToken.exp * 1000 < Date.now()) {
-      token = await getGithubToken();
-    }
+  if (!id) {
+    return res.status(400).send('Please provide an id.');
   }
 
   try {
-    const commitResponse = await axios.get(
-      `https://api.github.com/repos/naninyang/short-view-news-db/git/ref/heads/main`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const response = await fetch(`${process.env.STRAPI_URL}naver-news-productions/${id}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
       },
+    });
+    const articleData = await response.json();
+    const metaResponse = await fetch(
+      `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
+        `https://n.news.naver.com/article/${articleData.data.attributes.oid}/${articleData.data.attributes.aid}`,
+      )}`,
     );
-    const latestCommitSha = commitResponse.data.object.sha;
+    const metaData = await metaResponse.json();
+    const mergedData = {
+      ...articleData.data,
+      metaData,
+    };
 
-    const treeResponse = await axios.get(
-      `https://api.github.com/repos/naninyang/short-view-news-db/git/trees/${latestCommitSha}?recursive=1`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-
-    const mdFiles = treeResponse.data.tree
-      .filter(
-        (file: any) =>
-          file.path.startsWith(`src/pages/naver-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
-      )
-      .sort((a: any, b: any) => b.path.localeCompare(a.path))
-      .slice(start, start + count);
-
-    const fileContents = await Promise.all(
-      mdFiles.map((file: any) =>
-        axios.get(file.url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-      ),
-    );
-    const fileData = fileContents.map((contentResponse) => contentResponse.data.content);
-    const parsedData = fileData.map((content) => matter(Buffer.from(content, 'base64').toString('utf-8')));
-
-    res.status(200).send(parsedData);
+    res.status(200).json(mergedData);
   } catch (error) {
-    res.status(500).send('Failed to fetch data from GitHub');
+    res.status(500).json({ message: 'Server error' });
   }
-};
+}

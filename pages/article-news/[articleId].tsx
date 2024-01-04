@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import Image from 'next/image';
-import { Article } from 'types';
+import { CommentResponse, NaverItemData } from 'types';
 import { foramtDate } from '@/components/ForamtDate';
 import { images } from '@/components/images';
 import AnchorLink from '@/components/Anchor';
@@ -11,14 +11,6 @@ import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
-
-type DataResponse = {
-  collection: string;
-  created: string;
-  idx: string;
-  username: string;
-  comment: string;
-};
 
 const BackButton = styled.i({
   display: 'block',
@@ -30,7 +22,7 @@ const BackButton = styled.i({
   },
 });
 
-export default function ArticleDetail({ article }: { article: Article | null }) {
+export default function ArticleDetail({ articleData }: { articleData: NaverItemData | null }) {
   const router = useRouter();
   let savedScrollPosition;
 
@@ -42,9 +34,9 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
   };
 
   const [formData, setFormData] = useState({
-    collection: `naver-${article?.type}-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article/${article?.idx}`,
-    idx: article?.idx,
+    collection: `naver-${articleData?.attributes.type}-${process.env.NODE_ENV}`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article/${articleData?.attributes.idx}`,
+    idx: articleData?.attributes.idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
@@ -63,13 +55,14 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
     }
   };
 
-  const [naverData, setNaverData] = useState<DataResponse[]>([]);
+  const [commentData, setCommentData] = useState<CommentResponse[]>([]);
   const fetchNaverData = async () => {
     try {
-      const response = await axios.get(
-        `/api/comments?collection=naver-${article?.type}-${process.env.NODE_ENV}&idx=${article?.idx}`,
+      const response = await fetch(
+        `/api/comments?collection=youtube-${articleData?.attributes.type}-${process.env.NODE_ENV}&idx=${articleData?.attributes.idx}`,
       );
-      setNaverData(Array.isArray(response.data) ? response.data : [response.data]);
+      const data = await response.json();
+      setCommentData(Array.isArray(data.data) ? data.data : [data.data]);
     } catch (error) {
       console.error('Error fetching page info:', error);
     }
@@ -96,23 +89,23 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
       </div>
       <article>
         <Seo
-          pageTitle={`${article?.title}`}
-          pageDescription={`${article?.description}`}
-          pageImg={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
-            article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+          pageTitle={`${articleData?.attributes.title}`}
+          pageDescription={`${articleData?.attributes.description}`}
+          pageImg={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+            articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
           }`}
           pageOgType="article"
         />
         <header>
-          <h1>{article?.title}</h1>
+          <h1>{articleData?.attributes.title}</h1>
         </header>
-        {article ? (
+        {articleData ? (
           <>
             <div className={styles.description}>
-              <p dangerouslySetInnerHTML={{ __html: article.description }} />
+              <p dangerouslySetInnerHTML={{ __html: articleData.attributes.description }} />
               <Image
-                src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
-                  article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                src={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+                  articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
                 }`}
                 width={640}
                 height={480}
@@ -121,42 +114,21 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
                 alt=""
               />
             </div>
-            {article.newsMetaData ? (
-              <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+            {articleData.metaData && (
+              <AnchorLink
+                href={`https://n.news.naver.com/article/${articleData.attributes.oid}/${articleData.attributes.aid}`}
+              >
                 <div className={styles['og-container']}>
-                  <img src={article.newsMetaData?.ogImage} alt="" />
+                  <img src={articleData.metaData?.ogImage} alt="" />
                   <div className={styles['og-info']}>
                     <div className={styles.created}>
-                      <cite>{article.newsMetaData?.ogCreator}</cite>
-                      {/* <time dateTime={article.newsMetaData?.datestampTimeAttribute}>
-                      {article.newsMetaData?.datestampTimeContent}
-                    </time> */}
+                      <cite>{articleData.metaData?.ogCreator}</cite>
+                      <time dateTime={articleData.attributes.created}>{articleData.attributes.created}</time>
                     </div>
                     <div className={styles.summary}>
-                      <strong>{article.newsMetaData?.ogTitle}</strong>
+                      <strong>{articleData.metaData?.ogTitle}</strong>
                       <div className={styles.description}>
-                        {article.newsMetaData?.ogDescription}
-                        ...
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </AnchorLink>
-            ) : (
-              <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
-                <div className={styles['og-container']}>
-                  <img src={article.entertainmentMetaData?.ogImage} alt="" />
-                  <div className={styles['og-info']}>
-                    <div className={styles.created}>
-                      <cite>{article.entertainmentMetaData?.ogCreator}</cite>
-                      {/* <time dateTime={article.entertainmentMetaData?.datestampTimeAttribute}>
-                      {article.entertainmentMetaData?.datestampTimeContent}
-                    </time> */}
-                    </div>
-                    <div className={styles.summary}>
-                      <strong>{article.entertainmentMetaData?.ogTitle}</strong>
-                      <div className={styles.description}>
-                        {article.entertainmentMetaData?.ogDescription}
+                        {articleData.metaData?.ogDescription}
                         ...
                       </div>
                     </div>
@@ -207,22 +179,23 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
             </button>
           </fieldset>
         </form>
-        {naverData && (
+        {commentData && (
           <div className={commentStyles.comments}>
-            <strong>댓글 {naverData.length}개</strong>
-            {naverData.map((comment, index) => (
-              <div key={index} className={commentStyles.comment}>
-                <div className={commentStyles.user}>
-                  <cite>{comment.username}</cite>
-                  <time>{foramtDate(comment.created)}</time>
+            <strong>댓글 {commentData.length - 1}개</strong>
+            {commentData.length > 1 &&
+              commentData.map((comment, index) => (
+                <div key={index} className={commentStyles.comment}>
+                  <div className={commentStyles.user}>
+                    <cite>{comment.username}</cite>
+                    <time>{foramtDate(comment.created)}</time>
+                  </div>
+                  <div className={commentStyles.desc}>
+                    {comment.comment.split('\n').map((line) => {
+                      return <p>{line}</p>;
+                    })}
+                  </div>
                 </div>
-                <div className={commentStyles.desc}>
-                  {comment.comment.split('\n').map((line) => {
-                    return <p>{line}</p>;
-                  })}
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
@@ -234,14 +207,23 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const articleId = context.params?.articleId;
   let articleData = null;
 
-  if (articleId) {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articleItem?idx=${articleId}`);
-    articleData = response.data;
+  if (articleId && typeof articleId === 'string') {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/naverNews?id=${articleId.substring(14)}`);
+    const data = (await response.json()) as { data: NaverItemData[] };
+    articleData = data;
+  }
+
+  if (!articleData) {
+    return {
+      props: {
+        articleData: null,
+      },
+    };
   }
 
   return {
     props: {
-      article: articleData,
+      articleData,
     },
     revalidate: 1,
   };
