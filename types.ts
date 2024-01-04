@@ -165,3 +165,137 @@ export interface NotionRichText {
 export interface NotionDate {
   start: string;
 }
+
+export type CommentResponse = {
+  collection: string;
+  created: string;
+  idx: string;
+  username: string;
+  comment: string;
+};
+
+export interface YouTubeItemData {
+  id: string;
+  idx: string;
+  video_id: string;
+  description: string;
+  comment: string;
+  created: string;
+  title: string;
+}
+
+export interface YouTubePlaylistData {
+  idx: string;
+  subject: string;
+  created: string;
+  type?: string;
+  title: string;
+  description: string;
+  video_id: string;
+  comment: string;
+  title1: string;
+  description1: string;
+  comment1: string;
+  video_id1: string;
+  title2?: string;
+  description2?: string;
+  comment2?: string;
+  video_id2: string;
+  title3?: string;
+  description3?: string;
+  comment3?: string;
+  video_id3: string;
+  title4?: string;
+  description4?: string;
+  comment4?: string;
+  video_id4: string;
+  title5?: string;
+  description5?: string;
+  comment5?: string;
+  video_id5: string;
+  title6?: string;
+  description6?: string;
+  comment6?: string;
+  video_id6: string;
+  title7?: string;
+  description7?: string;
+  comment7?: string;
+  video_id7: string;
+  title8?: string;
+  description8?: string;
+  comment8?: string;
+  video_id8: string;
+  title9?: string;
+  description9?: string;
+  comment9?: string;
+  video_id9: string;
+  title10?: string;
+  description10?: string;
+  comment10?: string;
+  video_id10: string;
+}
+
+export interface NewsRowData {
+  attributes: {
+    idx: string;
+    type: string;
+    video_id: string;
+    description: string;
+    comment: string;
+    created: string;
+    title: string;
+  };
+}
+
+export interface PlaylistRowData {
+  attributes: {
+    idx: string;
+    type: string;
+    subject: string;
+    title: string;
+    description: string;
+    comment: string;
+    videoId: string;
+    created: string;
+    subject1: string;
+    description1: string;
+    comment1: string;
+    videoId1: string;
+    subject2?: string;
+    description2?: string;
+    comment2?: string;
+    videoId2: string;
+    subject3?: string;
+    description3?: string;
+    comment3?: string;
+    videoId3: string;
+    subject4?: string;
+    description4?: string;
+    comment4?: string;
+    videoId4: string;
+    subject5?: string;
+    description5?: string;
+    comment5?: string;
+    videoId5: string;
+    subject6?: string;
+    description6?: string;
+    comment6?: string;
+    videoId6: string;
+    subject7?: string;
+    description7?: string;
+    comment7?: string;
+    videoId7: string;
+    subject8?: string;
+    description8?: string;
+    comment8?: string;
+    videoId8: string;
+    subject9?: string;
+    description9?: string;
+    comment9?: string;
+    videoId9: string;
+    subject10?: string;
+    description10?: string;
+    comment10?: string;
+    videoId10: string;
+  };
+}

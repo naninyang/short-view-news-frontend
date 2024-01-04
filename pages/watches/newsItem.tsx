@@ -7,19 +7,11 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
+import { YouTubeItemData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import YouTubeController from '@/components/YouTubeController';
 import WatchDetail from '@/components/Watch';
 import styles from '@/styles/watches.module.sass';
-
-type SheetData = {
-  idx: string;
-  video_id: string;
-  title: string;
-  description: string;
-  comment: string;
-  created: string;
-};
 
 Modal.setAppElement('#__next');
 
@@ -49,7 +41,7 @@ export default function WatchesNewsItem() {
   });
 
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const watchId = Array.isArray(router.query.watchId) ? router.query.watchId[0] : router.query.watchId;
+  const itemId = Array.isArray(router.query.itemId) ? router.query.itemId[0] : router.query.itemId;
 
   const sheets = data ? [].concat(...data) : [];
   const isLoading = !data && !error;
@@ -72,14 +64,14 @@ export default function WatchesNewsItem() {
     if (!target || isLoading) return;
   }, [target, isLoading]);
 
-  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === watchId) : undefined;
+  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === itemId) : undefined;
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
     };
 
-    if (watchId !== undefined) {
+    if (itemId !== undefined) {
       window.addEventListener('wheel', preventScroll, { passive: false });
       window.addEventListener('touchmove', preventScroll, { passive: false });
     } else {
@@ -91,7 +83,7 @@ export default function WatchesNewsItem() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
     };
-  }, [watchId]);
+  }, [itemId]);
 
   const handleResize = () => {
     const width = window.innerWidth;
@@ -112,7 +104,7 @@ export default function WatchesNewsItem() {
 
   const isDesktop = useDesktop();
 
-  const renderCard = ({ data }: { data: SheetData }) => (
+  const renderCard = ({ data }: { data: YouTubeItemData }) => (
     <div className={styles.item}>
       <figure>
         <YouTubeController videoId={data.video_id} isPlaylist={false} />
@@ -121,15 +113,15 @@ export default function WatchesNewsItem() {
             {isDesktop ? (
               <Link
                 key={data.idx}
-                href={`/watches?watchId=${data.idx}`}
-                as={`/watch/${data.idx}`}
+                href={`/watches?itemId=${data.idx}`}
+                as={`/watch-news/${data.idx}`}
                 scroll={false}
                 shallow={true}
               >
                 {data.title} <time>{data.created}</time>
               </Link>
             ) : (
-              <Link key={data.idx} href={`/watch/${data.idx}`} scroll={false} shallow={true}>
+              <Link key={data.idx} href={`/watch-news/${data.idx}`} scroll={false} shallow={true}>
                 {data.title} <time>{data.created}</time>
               </Link>
             )}
@@ -149,7 +141,7 @@ export default function WatchesNewsItem() {
   return (
     <>
       <Modal
-        isOpen={!!watchId}
+        isOpen={!!itemId}
         onRequestClose={() => router.push('/watches', undefined, { scroll: false })}
         contentLabel="Watch Modal"
         style={modalContainer}

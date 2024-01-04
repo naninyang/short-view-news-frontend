@@ -1,57 +1,4 @@
-export interface YouTubeItemData {
-  idx: string;
-  video_id: string;
-  description: string;
-  comment: string;
-  created: string;
-  title: string;
-}
-
-export interface YouTubePlaylistData {
-  idx: string;
-  subject: string;
-  created: string;
-  title1: string;
-  description1: string;
-  comment1: string;
-  video_id1: string;
-  title2?: string;
-  description2?: string;
-  comment2?: string;
-  video_id2: string;
-  title3?: string;
-  description3?: string;
-  comment3?: string;
-  video_id3: string;
-  title4?: string;
-  description4?: string;
-  comment4?: string;
-  video_id4: string;
-  title5?: string;
-  description5?: string;
-  comment5?: string;
-  video_id5: string;
-  title6?: string;
-  description6?: string;
-  comment6?: string;
-  video_id6: string;
-  title7?: string;
-  description7?: string;
-  comment7?: string;
-  video_id7: string;
-  title8?: string;
-  description8?: string;
-  comment8?: string;
-  video_id8: string;
-  title9?: string;
-  description9?: string;
-  comment9?: string;
-  video_id9: string;
-  title10?: string;
-  description10?: string;
-  comment10?: string;
-  video_id10: string;
-}
+import { YouTubeItemData, YouTubePlaylistData } from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -62,7 +9,7 @@ const formatDate = (datetime: string) => {
   const minutes = date.getMinutes().toString().padStart(2, '0');
   const seconds = date.getSeconds().toString().padStart(2, '0');
 
-  return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+  return `${year}${month}${day}${hours}${minutes}${seconds}`;
 };
 
 export async function getYouTubeItemData(start?: number, count?: number) {
@@ -72,14 +19,13 @@ export async function getYouTubeItemData(start?: number, count?: number) {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
-        'Content-Type': 'application/json',
       },
     },
   );
   const data = await response.json();
   const filesData = data.data;
   const rowsData: YouTubeItemData[] = filesData.map((data: any) => ({
-    idx: formatDate(data.attributes.createdAt),
+    idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     video_id: data.attributes.videoId,
     description: data.attributes.description,
     comment: data.attributes.comment,
@@ -105,7 +51,7 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
   const data = await response.json();
   const filesData = data.data;
   const rowsData: YouTubePlaylistData[] = filesData.map((data: any) => ({
-    idx: formatDate(data.attributes.createdAt),
+    idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     title: data.attributes.subject,
     created: data.attributes.created,
     title1: data.attributes.subject1,

@@ -6,50 +6,11 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
+import { YouTubePlaylistData } from 'types';
 import YouTubeController from '@/components/YouTubeController';
 import { images } from '@/components/images';
 import styled from '@emotion/styled';
 import styles from '@/styles/watches.module.sass';
-import { YouTubePlaylistData } from '@/utils/strapi';
-
-type SheetData = {
-  idx: string;
-  titles: string;
-  video_ids: string;
-  title: string;
-  description: string;
-  created: string;
-  title1: string;
-  description1: string;
-  comment1: string;
-  title2?: string;
-  description2?: string;
-  comment2?: string;
-  title3?: string;
-  description3?: string;
-  comment3?: string;
-  title4?: string;
-  description4?: string;
-  comment4?: string;
-  title5?: string;
-  description5?: string;
-  comment5?: string;
-  title6?: string;
-  description6?: string;
-  comment6?: string;
-  title7?: string;
-  description7?: string;
-  comment7?: string;
-  title8?: string;
-  description8?: string;
-  comment8?: string;
-  title9?: string;
-  description9?: string;
-  comment9?: string;
-  title10?: string;
-  description10?: string;
-  comment10?: string;
-};
 
 Modal.setAppElement('#__next');
 
@@ -92,7 +53,7 @@ export default function WatchesPlaylist() {
   });
 
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const watchId = Array.isArray(router.query.watchId) ? router.query.watchId[0] : router.query.watchId;
+  const playlistId = Array.isArray(router.query.playlistId) ? router.query.playlistId[0] : router.query.playlistId;
 
   const sheets = data ? [].concat(...data) : [];
   const isLoading = !data && !error;
@@ -115,14 +76,14 @@ export default function WatchesPlaylist() {
     if (!target || isLoading) return;
   }, [target, isLoading]);
 
-  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === watchId) : undefined;
+  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === playlistId) : undefined;
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
     };
 
-    if (watchId !== undefined) {
+    if (playlistId !== undefined) {
       window.addEventListener('wheel', preventScroll, { passive: false });
       window.addEventListener('touchmove', preventScroll, { passive: false });
     } else {
@@ -134,7 +95,7 @@ export default function WatchesPlaylist() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
     };
-  }, [watchId]);
+  }, [playlistId]);
 
   const handleResize = () => {
     const width = window.innerWidth;
@@ -162,7 +123,7 @@ export default function WatchesPlaylist() {
           isPlaylist={true}
         />
         <figcaption>
-          <Link key={data.idx} href={`/watch/${data.idx}`} scroll={false} shallow={true}>
+          <Link key={data.idx} href={`/watch-playlist/${data.idx}`} scroll={false} shallow={true}>
             <div className={styles['playlist-description']}>
               <strong>{data.title1}</strong>
               <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
