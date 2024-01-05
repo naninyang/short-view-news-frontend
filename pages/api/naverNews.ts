@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const response = await fetch(`${process.env.STRAPI_URL}naver-news-productions/${id}`, {
+    const response = await fetch(`${process.env.STRAPI_URL}/api/naver-news-productions/${id}`, {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
       },

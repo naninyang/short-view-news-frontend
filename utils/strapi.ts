@@ -14,7 +14,7 @@ const formatDate = (datetime: string) => {
 
 export async function getYouTubeItemData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}youtube-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/youtube-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -39,7 +39,7 @@ export async function getYouTubeItemData(start?: number, count?: number) {
 
 export async function getYouTubePlaylistData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}youtube-playlist-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/youtube-playlist-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -102,7 +102,7 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
 
 export async function getNaverNewsData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}naver-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/naver-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -139,7 +139,7 @@ export async function getNaverNewsData(start?: number, count?: number) {
 
 export async function getNaverEntertainmentData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}naver-entertainment-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/naver-entertainment-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -174,30 +174,16 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
   return fullData;
 }
 
-async function fetchArticleMetadata(url: string) {
-  try {
-    const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Failed to fetch article metadata', error);
-    return {};
-  }
-}
-
 export async function getPreviewData(start?: number, count?: number) {
-  const response = await fetch(
-    `${process.env.STRAPI_URL}instead-prodctions?pagination[page]=${start}&pagination[pageSize]=${count}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
-      },
+  const url = `${process.env.STRAPI_URL}/api/instead-productions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
     },
-  );
-  console.log(`${process.env.STRAPI_URL}instead-productions?pagination[page]=${start}&pagination[pageSize]=${count}`);
+  });
   const data = await response.json();
-  console.log('data: ', data);
   const filesData = data.data;
   const rowsData: Instead[] = filesData.map((data: any) => ({
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
@@ -218,6 +204,17 @@ export async function getPreviewData(start?: number, count?: number) {
   );
 
   return fullData;
+}
+
+async function fetchArticleMetadata(url: string) {
+  try {
+    const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch article metadata', error);
+    return {};
+  }
 }
 
 async function fetchPreviewMetadata(url: string) {

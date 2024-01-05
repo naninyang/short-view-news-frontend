@@ -5,7 +5,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 import AnchorLink from './Anchor';
 import { images } from './images';
-import { foramtDate } from './ForamtDate';
+import { FormatDate } from './FormatDate';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
@@ -219,7 +219,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                       <div key={index} className={commentStyles.comment}>
                         <div className={commentStyles.user}>
                           <cite>{comment.username}</cite>
-                          <time>{foramtDate(comment.created)}</time>
+                          <time>{FormatDate(comment.created)}</time>
                         </div>
                         <div className={commentStyles.desc}>
                           {comment.comment.split('\n').map((line) => {

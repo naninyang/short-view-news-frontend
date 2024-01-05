@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { Instead } from 'types';
+import { Instead, PreviewComment, PreviewRowData } from 'types';
 import { useMediaQuery } from 'react-responsive';
 import { images } from '@/components/images';
-import { foramtDate } from '@/components/ForamtDate';
-import AnchorLink from '@/components/Anchor';
+import { FormatDate } from '@/components/FormatDate';
+import Anchor from '@/components/Anchor';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/instead.module.sass';
@@ -39,7 +39,7 @@ export function useTablet() {
   return isTablet;
 }
 
-export default function InsteadDetail({ instead }: { instead: Instead | null }) {
+export default function InsteadDetail({ instead }: { instead: PreviewRowData | null }) {
   const router = useRouter();
   let savedScrollPosition;
 
@@ -52,8 +52,8 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
 
   const [formData, setFormData] = useState({
     collection: `instead-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${instead?.idx}`,
-    idx: instead?.idx,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${instead?.attributes.idx}`,
+    idx: instead?.attributes.idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
@@ -75,7 +75,9 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
   const [previewData, setPreviewData] = useState<DataResponse[]>([]);
   const fetchPreviewData = async () => {
     try {
-      const response = await axios.get(`/api/comments?collection=instead-${process.env.NODE_ENV}&idx=${instead?.idx}`);
+      const response = await axios.get(
+        `/api/comments?collection=instead-${process.env.NODE_ENV}&idx=${instead?.attributes.idx}`,
+      );
       setPreviewData(Array.isArray(response.data) ? response.data : [response.data]);
     } catch (error) {
       console.error('Error fetching page info:', error);
@@ -88,6 +90,18 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
 
   const isTablet = useTablet();
 
+  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+    return (
+      <>
+        {comment.map((cmt, index) => (
+          <p className={styles.comment} key={index}>
+            {cmt.children[0].text}
+          </p>
+        ))}
+      </>
+    );
+  };
+
   return (
     <main className={styles.instead}>
       <div className="top-link">
@@ -97,64 +111,61 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
             <span>뒤로가기</span>
           </button>
         ) : (
-          <AnchorLink href="/insteads">
+          <Anchor href="/insteads">
             <BackButton />
             <span>뒤로가기</span>
-          </AnchorLink>
+          </Anchor>
         )}
       </div>
       <article>
         <Seo
-          pageTitle={`${instead?.title}`}
-          pageDescription={`${instead?.description}`}
-          pageImg={instead?.insteadMetaData?.ogImage}
+          pageTitle={`${instead?.attributes.title}`}
+          pageDescription={`${instead?.attributes.description}`}
+          pageImg={instead?.metaData?.ogImage}
           pageOgType="instead"
         />
         <header>
-          <h1>{instead?.title}</h1>
+          <h1>{instead?.attributes.title}</h1>
         </header>
         {instead ? (
           <>
             <div className={styles.opengraph}>
               <div className={styles['og-container']}>
-                <AnchorLink href={instead.addr}>
-                  원본:{' '}
-                  {instead.insteadMetaData?.ogSiteName
-                    ? instead.insteadMetaData?.ogSiteName
-                    : instead.insteadMetaData?.twitterSite}
-                </AnchorLink>
-                {instead.insteadMetaData?.ownerAvatar ? (
-                  <img src={instead.insteadMetaData?.ogImage} alt="" />
+                <Anchor href={instead.attributes.address}>
+                  원본: {instead.metaData?.ogSiteName ? instead.metaData?.ogSiteName : instead.metaData?.twitterSite}
+                </Anchor>
+                {instead.metaData?.ownerAvatar ? (
+                  <img src={instead.metaData?.ogImage} alt="" />
                 ) : (
                   <div className={styles.thumbnails}>
-                    <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
-                    <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-background']} />
+                    <img src={instead.metaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                    <img src={instead.metaData?.ogImage} alt="" className={styles['thumbnail-background']} />
                   </div>
                 )}
                 <div className={styles['og-info']}>
                   {isTablet ? (
                     <>
                       <div className={styles.summary}>
-                        <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                        <strong>{instead.metaData?.ogTitle}</strong>{' '}
                         <div className={styles.user}>
-                          {instead.insteadMetaData?.ownerAvatar ? (
-                            <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                          {instead.metaData?.ownerAvatar ? (
+                            <img src={instead.metaData?.ownerAvatar} alt="" />
                           ) : (
-                            <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                            <img src={instead.metaData?.pressAvatar} alt="" />
                           )}
                           <div className={styles['user-info']}>
                             <cite>
-                              {instead.insteadMetaData?.ownerName
-                                ? instead.insteadMetaData?.ownerName
-                                : instead.insteadMetaData?.twitterCreator}
+                              {instead.metaData?.ownerName
+                                ? instead.metaData?.ownerName
+                                : instead.metaData?.twitterCreator}
                             </cite>
-                            {instead.insteadMetaData?.datePublished ? (
-                              <time dateTime={instead.insteadMetaData?.datePublished}>
-                                {foramtDate(instead.insteadMetaData?.datePublished)}
+                            {instead.metaData?.datePublished ? (
+                              <time dateTime={instead.metaData?.datePublished}>
+                                {FormatDate(instead.metaData?.datePublished)}
                               </time>
                             ) : (
-                              <time dateTime={instead.insteadMetaData?.pressPublished}>
-                                {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                              <time dateTime={instead.metaData?.pressPublished}>
+                                {FormatDate(`${instead.metaData?.pressPublished}`)}
                               </time>
                             )}
                           </div>
@@ -162,32 +173,32 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
                         </div>
                       </div>
                       <div className={styles.description}>
-                        {instead.insteadMetaData?.ogDescription}
+                        {instead.metaData?.ogDescription}
                         ...
                       </div>
                     </>
                   ) : (
                     <div className={styles.detail}>
-                      {instead.insteadMetaData?.ownerAvatar ? (
-                        <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                      {instead.metaData?.ownerAvatar ? (
+                        <img src={instead.metaData?.ownerAvatar} alt="" />
                       ) : (
-                        <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                        <img src={instead.metaData?.pressAvatar} alt="" />
                       )}
                       <div className={styles['user-info']}>
-                        <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                        <strong>{instead.metaData?.ogTitle}</strong>{' '}
                         <div className={styles.user}>
                           <cite>
-                            {instead.insteadMetaData?.ownerName
-                              ? instead.insteadMetaData?.ownerName
-                              : instead.insteadMetaData?.twitterCreator}
+                            {instead.metaData?.ownerName
+                              ? instead.metaData?.ownerName
+                              : instead.metaData?.twitterCreator}
                           </cite>
-                          {instead.insteadMetaData?.datePublished ? (
-                            <time dateTime={instead.insteadMetaData?.datePublished}>
-                              {foramtDate(instead.insteadMetaData?.datePublished)}
+                          {instead.metaData?.datePublished ? (
+                            <time dateTime={instead.metaData?.datePublished}>
+                              {FormatDate(instead.metaData?.datePublished)}
                             </time>
                           ) : (
-                            <time dateTime={instead.insteadMetaData?.pressPublished}>
-                              {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                            <time dateTime={instead.metaData?.pressPublished}>
+                              {FormatDate(`${instead.metaData?.pressPublished}`)}
                             </time>
                           )}
                         </div>
@@ -198,7 +209,7 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
               </div>
             </div>
             <div className={styles.description}>
-              <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
+              <PreviewComment comment={instead.attributes.comment} />
             </div>
           </>
         ) : (
@@ -250,7 +261,7 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
               <div key={index} className={commentStyles.comment}>
                 <div className={commentStyles.user}>
                   <cite>{comment.username}</cite>
-                  <time>{foramtDate(comment.created)}</time>
+                  <time>{FormatDate(comment.created)}</time>
                 </div>
                 <div className={commentStyles.desc}>
                   {comment.comment.split('\n').map((line) => {
@@ -270,9 +281,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const insteadId = context.params?.insteadId;
   let insteadData = null;
 
-  if (insteadId) {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/insteadItem?idx=${insteadId}`);
-    insteadData = response.data;
+  if (insteadId && typeof insteadId === 'string') {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/insteadItem?id=${insteadId.substring(14)}`);
+    const data = (await response.json()) as { data: PreviewRowData[] };
+    insteadData = data;
   }
 
   return {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'news-data';
+const CACHE_NAME = 'short-data';
 
 self.addEventListener('fetch', (event) => {
   if (

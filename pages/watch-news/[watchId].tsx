@@ -6,7 +6,7 @@ import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/Anchor';
 import { images } from '@/components/images';
-import { foramtDate } from '@/components/ForamtDate';
+import { FormatDate } from '@/components/FormatDate';
 import styled from '@emotion/styled';
 import styles from '@/styles/watch.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
@@ -202,7 +202,7 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
                 <div key={index} className={commentStyles.comment}>
                   <div className={commentStyles.user}>
                     <cite>{comment.username}</cite>
-                    <time>{foramtDate(comment.created)}</time>
+                    <time>{FormatDate(comment.created)}</time>
                   </div>
                   <div className={commentStyles.desc}>
                     {comment.comment.split('\n').map((line) => {

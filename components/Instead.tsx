@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Instead, PreviewComment } from 'types';
 import AnchorLink from './Anchor';
 import { images } from './images';
-import { foramtDate } from './ForamtDate';
+import { FormatDate } from './FormatDate';
 import styled from '@emotion/styled';
 import styles from '@/styles/instead.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
@@ -139,11 +139,11 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                           </cite>
                           {insteadItem.insteadMetaData?.datePublished ? (
                             <time dateTime={insteadItem.insteadMetaData?.datePublished}>
-                              {foramtDate(insteadItem.insteadMetaData?.datePublished)}
+                              {FormatDate(insteadItem.insteadMetaData?.datePublished)}
                             </time>
                           ) : (
                             <time dateTime={insteadItem.insteadMetaData?.pressPublished}>
-                              {foramtDate(`${insteadItem.insteadMetaData?.pressPublished}`)}
+                              {FormatDate(`${insteadItem.insteadMetaData?.pressPublished}`)}
                             </time>
                           )}
                         </div>
@@ -204,7 +204,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                       <div key={index} className={commentStyles.comment}>
                         <div className={commentStyles.user}>
                           <cite>{comment.username}</cite>
-                          <time>{foramtDate(comment.created)}</time>
+                          <time>{FormatDate(comment.created)}</time>
                         </div>
                         <div className={commentStyles.desc}>
                           {comment.comment.split('\n').map((line) => {

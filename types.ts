@@ -332,3 +332,27 @@ interface PreviewCommentChild {
 export interface PreviewComment {
   children: PreviewCommentChild[];
 }
+
+export type PreviewRowData = {
+  attributes: {
+    idx: string;
+    title: string;
+    description: string;
+    address: string;
+    comment: PreviewComment[];
+  };
+  metaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogSiteName?: string;
+    twitterSite?: string;
+    twitterCreator?: string;
+    datePublished?: string;
+    ownerAvatar?: string;
+    ownerName?: string;
+    pressPublished?: string;
+    pressAvatar?: string;
+  };
+};

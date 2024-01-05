@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Image from 'next/image';
 import { CommentResponse, NaverItemData } from 'types';
-import { foramtDate } from '@/components/ForamtDate';
+import { FormatDate } from '@/components/FormatDate';
 import { images } from '@/components/images';
 import AnchorLink from '@/components/Anchor';
 import Seo from '@/components/Seo';
@@ -187,7 +187,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
                 <div key={index} className={commentStyles.comment}>
                   <div className={commentStyles.user}>
                     <cite>{comment.username}</cite>
-                    <time>{foramtDate(comment.created)}</time>
+                    <time>{FormatDate(comment.created)}</time>
                   </div>
                   <div className={commentStyles.desc}>
                     {comment.comment.split('\n').map((line) => {

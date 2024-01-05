@@ -8,7 +8,7 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Instead, PreviewComment } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
-import { foramtDate } from '@/components/ForamtDate';
+import { FormatDate } from '@/components/FormatDate';
 import InsteadDetail from '@/components/Instead';
 import AnchorLink from '@/components/Anchor';
 import styles from '@/styles/insteads.module.sass';
@@ -212,11 +212,11 @@ function InsteadsView() {
                                   </cite>
                                   {instead.insteadMetaData?.datePublished ? (
                                     <time dateTime={instead.insteadMetaData?.datePublished}>
-                                      {foramtDate(instead.insteadMetaData?.datePublished)}
+                                      {FormatDate(instead.insteadMetaData?.datePublished)}
                                     </time>
                                   ) : (
                                     <time dateTime={instead.insteadMetaData?.pressPublished}>
-                                      {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                                      {FormatDate(`${instead.insteadMetaData?.pressPublished}`)}
                                     </time>
                                   )}
                                 </div>
@@ -247,11 +247,11 @@ function InsteadsView() {
                                 </cite>
                                 {instead.insteadMetaData?.datePublished ? (
                                   <time dateTime={instead.insteadMetaData?.datePublished}>
-                                    {foramtDate(instead.insteadMetaData?.datePublished)}
+                                    {FormatDate(instead.insteadMetaData?.datePublished)}
                                   </time>
                                 ) : (
                                   <time dateTime={instead.insteadMetaData?.pressPublished}>
-                                    {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                                    {FormatDate(`${instead.insteadMetaData?.pressPublished}`)}
                                   </time>
                                 )}
                               </div>
