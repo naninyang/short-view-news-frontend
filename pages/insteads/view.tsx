@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { Instead } from 'types';
+import { Instead, PreviewComment } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import { foramtDate } from '@/components/ForamtDate';
 import InsteadDetail from '@/components/Instead';
@@ -53,7 +53,7 @@ function InsteadsView() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/api/previews?start=${pageIndex * 20}&count=20`;
+    return `/api/previews?start=${pageIndex + 1}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -113,8 +113,19 @@ function InsteadsView() {
     window.location.reload();
   };
 
-  const isDesktop = useDesktop();
   const isTablet = useTablet();
+
+  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+    return (
+      <>
+        {comment.map((cmt, index) => (
+          <p className={styles.comment} key={index}>
+            {cmt.children[0].text}
+          </p>
+        ))}
+      </>
+    );
+  };
 
   return (
     <>
@@ -251,7 +262,7 @@ function InsteadsView() {
                     </div>
                   </div>
                   <div className={styles.description}>
-                    <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
+                    <PreviewComment comment={instead.comment} />
                   </div>
                 </article>
               ))}

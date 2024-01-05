@@ -1,4 +1,4 @@
-import { NaverItemsData, YouTubeItemData, YouTubePlaylistData } from 'types';
+import { Instead, NaverItemsData, YouTubeItemData, YouTubePlaylistData } from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -177,6 +177,52 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
 async function fetchArticleMetadata(url: string) {
   try {
     const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch article metadata', error);
+    return {};
+  }
+}
+
+export async function getPreviewData(start?: number, count?: number) {
+  const response = await fetch(
+    `${process.env.STRAPI_URL}instead-prodctions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
+      },
+    },
+  );
+  console.log(`${process.env.STRAPI_URL}instead-productions?pagination[page]=${start}&pagination[pageSize]=${count}`);
+  const data = await response.json();
+  console.log('data: ', data);
+  const filesData = data.data;
+  const rowsData: Instead[] = filesData.map((data: any) => ({
+    idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
+    title: data.attributes.subject,
+    addr: data.attributes.address,
+    comment: data.attributes.comment,
+  }));
+
+  const sortedRowsData = rowsData.sort((a: Instead, b: Instead) => b.idx.localeCompare(a.idx));
+  const fullData = await Promise.all(
+    sortedRowsData.map(async (preview) => {
+      const insteadMetaData = await fetchPreviewMetadata(preview.addr);
+      return {
+        ...preview,
+        insteadMetaData,
+      };
+    }),
+  );
+
+  return fullData;
+}
+
+async function fetchPreviewMetadata(url: string) {
+  try {
+    const response = await fetch(`${process.env.PREVIEW_API_URL}?url=${encodeURIComponent(url)}`);
     const data = await response.json();
     return data;
   } catch (error) {

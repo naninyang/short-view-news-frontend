@@ -65,7 +65,7 @@ export type Instead = {
   title: string;
   description: string;
   addr: string;
-  comment: string;
+  comment: PreviewComment[];
   insteadMetaData?: {
     ogTitle: string;
     ogUrl: string;
@@ -323,4 +323,12 @@ export interface NaverItemData {
     thumbnail: string;
   };
   metaData: any;
+}
+
+interface PreviewCommentChild {
+  text: string;
+}
+
+export interface PreviewComment {
+  children: PreviewCommentChild[];
 }

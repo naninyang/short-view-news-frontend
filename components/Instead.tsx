@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
+import { Instead, PreviewComment } from 'types';
 import AnchorLink from './Anchor';
 import { images } from './images';
 import { foramtDate } from './ForamtDate';
@@ -10,30 +11,8 @@ import styles from '@/styles/instead.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-type InsteadData = {
-  idx: string;
-  title: string;
-  description: string;
-  addr: string;
-  comment: string;
-  insteadMetaData?: {
-    ogTitle: string;
-    ogUrl: string;
-    ogImage: string;
-    ogDescription: string;
-    ogSiteName?: string;
-    twitterSite?: string;
-    twitterCreator?: string;
-    datePublished?: string;
-    ownerAvatar?: string;
-    ownerName?: string;
-    pressPublished?: string;
-    pressAvatar?: string;
-  };
-};
-
 interface insteadProps {
-  insteadItem: InsteadData | undefined;
+  insteadItem: Instead | undefined;
 }
 
 type DataResponse = {
@@ -97,6 +76,18 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
   useEffect(() => {
     fetchInsteadData();
   }, []);
+
+  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+    return (
+      <>
+        {comment.map((cmt, index) => (
+          <p className={styles.comment} key={index}>
+            {cmt.children[0].text}
+          </p>
+        ))}
+      </>
+    );
+  };
 
   return (
     <div className={`${styles.instead} ${styles['instead-container']}`}>
@@ -166,7 +157,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                 </div>
               )}
               <div className={styles.description}>
-                <p className={styles.comment} dangerouslySetInnerHTML={{ __html: insteadItem.comment }} />
+                <PreviewComment comment={insteadItem.comment} />
               </div>
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>
