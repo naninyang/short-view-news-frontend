@@ -65,7 +65,7 @@ export default function Home() {
   const title = 'Home';
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchTitleData() {
       try {
         const response = await axios.get(`/api/pages?title=${title}`);
         setData(response.data);
@@ -74,7 +74,7 @@ export default function Home() {
       }
     }
 
-    fetchData();
+    fetchTitleData();
   }, [title]);
 
   useEffect(() => {
@@ -85,19 +85,20 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get<Counts>(`${process.env.NEXT_PUBLIC_API_URL}/api/contentTotalCount`);
-        setCount(response.data);
-        setLoading(false);
-      } catch (err: any) {
-        setError(err.message);
-        setLoading(false);
-      }
+  async function fetchCountData() {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contentTotalCount`);
+      const data = await response.json();
+      setCount(data);
+      setLoading(false);
+    } catch (err: any) {
+      setError(err.message);
+      setLoading(false);
     }
+  }
 
-    fetchData();
+  useEffect(() => {
+    fetchCountData();
   }, []);
 
   function formatNumber(value: number): string {
