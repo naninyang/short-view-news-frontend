@@ -40,7 +40,7 @@ export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (pageIndex: number, previousPageData: any) => {
   if (previousPageData && !previousPageData.length) return null;
-  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheetsPlaylist?start=${pageIndex + 1}&count=20`;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/youtubePlaylist?start=${pageIndex + 1}&count=20`;
 };
 
 export default function WatchesPlaylist() {
