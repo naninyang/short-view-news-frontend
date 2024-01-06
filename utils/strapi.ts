@@ -244,7 +244,6 @@ export async function getPeriodtOmtData(start?: number, count?: number) {
   }));
 
   const sortedRowsData = rowsData.sort((a: PeriodtOmtData, b: PeriodtOmtData) => b.idx.localeCompare(a.idx));
-
   return sortedRowsData;
 }
 
@@ -294,7 +293,6 @@ export async function getPeriodtTimelineData(start?: number, count?: number) {
   }));
 
   const sortedRowsData = rowsData.sort((a: PeriodtTimelineData, b: PeriodtTimelineData) => b.idx.localeCompare(a.idx));
-  console.log('sortedRowsData: ', sortedRowsData);
   return sortedRowsData;
 }
 
