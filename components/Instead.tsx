@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import { Instead, PreviewComment } from 'types';
+import { ArrayData, Instead } from 'types';
 import AnchorLink from './Anchor';
 import { images } from './images';
 import { FormatDate } from './FormatDate';
@@ -77,7 +77,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
     fetchInsteadData();
   }, []);
 
-  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
     return (
       <>
         {comment.map((cmt, index) => (
