@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { notion } from '@/utils/notion';
-import { getCommentData } from '@/utils/comments';
+import { getCommentData, notion } from '@/utils/notion';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {

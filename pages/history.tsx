@@ -4,8 +4,6 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useMediaQuery } from 'react-responsive';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { YouTubeAPIResponse } from '@/utils/historyYouTube';
-import { NaverAPIResponse } from '@/utils/historyNaver';
 import Accordion from '@/components/Accordion';
 import AccordionItem from '@/components/AccordionItem';
 import YouTubeController from '@/components/YouTubeController';
@@ -15,6 +13,7 @@ import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
 import tabs from '@/styles/tabs.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { NaverAPIResponse, YouTubeAPIResponse } from 'types';
 
 export function useDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);

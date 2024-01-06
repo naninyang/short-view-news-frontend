@@ -32,6 +32,471 @@ export type NotionRawResponse = {
   next_cursor: string | null;
 };
 
+export interface NaverResult {
+  properties: NaverProperties;
+}
+
+export interface NaverAPIResponse {
+  results: NaverResult[];
+}
+
+export interface YouTubeProperties {
+  title: {
+    title: NotionRichText[];
+  };
+  update: {
+    date: NotionDate;
+  };
+  due: {
+    checkbox: boolean;
+  };
+  video_id1: {
+    rich_text: NotionRichText[];
+  };
+  datetime1: {
+    date: NotionDate;
+  };
+  subject1: {
+    rich_text: NotionRichText[];
+  };
+  description1: {
+    rich_text: NotionRichText[];
+  };
+  video_id2: {
+    rich_text: NotionRichText[];
+  };
+  datetime2: {
+    date: NotionDate;
+  };
+  subject2: {
+    rich_text: NotionRichText[];
+  };
+  description2: {
+    rich_text: NotionRichText[];
+  };
+  video_id3: {
+    rich_text: NotionRichText[];
+  };
+  datetime3: {
+    date: NotionDate;
+  };
+  subject3: {
+    rich_text: NotionRichText[];
+  };
+  description3: {
+    rich_text: NotionRichText[];
+  };
+  video_id4: {
+    rich_text: NotionRichText[];
+  };
+  datetime4: {
+    date: NotionDate;
+  };
+  subject4: {
+    rich_text: NotionRichText[];
+  };
+  description4: {
+    rich_text: NotionRichText[];
+  };
+  video_id5: {
+    rich_text: NotionRichText[];
+  };
+  datetime5: {
+    date: NotionDate | null;
+  };
+  subject5: {
+    rich_text: NotionRichText[];
+  };
+  description5: {
+    rich_text: NotionRichText[];
+  };
+}
+
+export interface NaverProperties {
+  title: {
+    title: NotionRichText[];
+  };
+  update: {
+    date: NotionDate;
+  };
+  due: {
+    checkbox: boolean;
+  };
+  article_id1: {
+    rich_text: NotionRichText[];
+  };
+  datetime1: {
+    date: NotionDate;
+  };
+  article_id2: {
+    rich_text: NotionRichText[];
+  };
+  datetime2: {
+    date: NotionDate;
+  };
+  article_id3: {
+    rich_text: NotionRichText[];
+  };
+  datetime3: {
+    date: NotionDate;
+  };
+  article_id4: {
+    rich_text: NotionRichText[];
+  };
+  datetime4: {
+    date: NotionDate;
+  };
+  article_id5: {
+    rich_text: NotionRichText[];
+  };
+  datetime5: {
+    date: NotionDate | null;
+  };
+  article_id6: {
+    rich_text: NotionRichText[];
+  };
+  datetime6: {
+    date: NotionDate | null;
+  };
+  article_id7: {
+    rich_text: NotionRichText[];
+  };
+  datetime7: {
+    date: NotionDate | null;
+  };
+  article_id8: {
+    rich_text: NotionRichText[];
+  };
+  datetime8: {
+    date: NotionDate | null;
+  };
+  article_id9: {
+    rich_text: NotionRichText[];
+  };
+  datetime9: {
+    date: NotionDate | null;
+  };
+  article_id10: {
+    rich_text: NotionRichText[];
+  };
+  datetime10: {
+    date: NotionDate | null;
+  };
+  article_id11: {
+    rich_text: NotionRichText[];
+  };
+  datetime11: {
+    date: NotionDate | null;
+  };
+  article_id12: {
+    rich_text: NotionRichText[];
+  };
+  datetime12: {
+    date: NotionDate | null;
+  };
+  article_id13: {
+    rich_text: NotionRichText[];
+  };
+  datetime13: {
+    date: NotionDate | null;
+  };
+  article_id14: {
+    rich_text: NotionRichText[];
+  };
+  datetime14: {
+    date: NotionDate | null;
+  };
+  article_id15: {
+    rich_text: NotionRichText[];
+  };
+  datetime15: {
+    date: NotionDate | null;
+  };
+  article_id16: {
+    rich_text: NotionRichText[];
+  };
+  datetime16: {
+    date: NotionDate | null;
+  };
+  article_id17: {
+    rich_text: NotionRichText[];
+  };
+  datetime17: {
+    date: NotionDate | null;
+  };
+  article_id18: {
+    rich_text: NotionRichText[];
+  };
+  datetime18: {
+    date: NotionDate | null;
+  };
+  article_id19: {
+    rich_text: NotionRichText[];
+  };
+  datetime19: {
+    date: NotionDate | null;
+  };
+  article_id20: {
+    rich_text: NotionRichText[];
+  };
+  datetime20: {
+    date: NotionDate | null;
+  };
+}
+
+export interface NaverProperties {
+  title: {
+    title: NotionRichText[];
+  };
+  update: {
+    date: NotionDate;
+  };
+  due: {
+    checkbox: boolean;
+  };
+  article_id1: {
+    rich_text: NotionRichText[];
+  };
+  datetime1: {
+    date: NotionDate;
+  };
+  article_id2: {
+    rich_text: NotionRichText[];
+  };
+  datetime2: {
+    date: NotionDate;
+  };
+  article_id3: {
+    rich_text: NotionRichText[];
+  };
+  datetime3: {
+    date: NotionDate;
+  };
+  article_id4: {
+    rich_text: NotionRichText[];
+  };
+  datetime4: {
+    date: NotionDate;
+  };
+  article_id5: {
+    rich_text: NotionRichText[];
+  };
+  datetime5: {
+    date: NotionDate | null;
+  };
+  article_id6: {
+    rich_text: NotionRichText[];
+  };
+  datetime6: {
+    date: NotionDate | null;
+  };
+  article_id7: {
+    rich_text: NotionRichText[];
+  };
+  datetime7: {
+    date: NotionDate | null;
+  };
+  article_id8: {
+    rich_text: NotionRichText[];
+  };
+  datetime8: {
+    date: NotionDate | null;
+  };
+  article_id9: {
+    rich_text: NotionRichText[];
+  };
+  datetime9: {
+    date: NotionDate | null;
+  };
+  article_id10: {
+    rich_text: NotionRichText[];
+  };
+  datetime10: {
+    date: NotionDate | null;
+  };
+  article_id11: {
+    rich_text: NotionRichText[];
+  };
+  datetime11: {
+    date: NotionDate | null;
+  };
+  article_id12: {
+    rich_text: NotionRichText[];
+  };
+  datetime12: {
+    date: NotionDate | null;
+  };
+  article_id13: {
+    rich_text: NotionRichText[];
+  };
+  datetime13: {
+    date: NotionDate | null;
+  };
+  article_id14: {
+    rich_text: NotionRichText[];
+  };
+  datetime14: {
+    date: NotionDate | null;
+  };
+  article_id15: {
+    rich_text: NotionRichText[];
+  };
+  datetime15: {
+    date: NotionDate | null;
+  };
+  article_id16: {
+    rich_text: NotionRichText[];
+  };
+  datetime16: {
+    date: NotionDate | null;
+  };
+  article_id17: {
+    rich_text: NotionRichText[];
+  };
+  datetime17: {
+    date: NotionDate | null;
+  };
+  article_id18: {
+    rich_text: NotionRichText[];
+  };
+  datetime18: {
+    date: NotionDate | null;
+  };
+  article_id19: {
+    rich_text: NotionRichText[];
+  };
+  datetime19: {
+    date: NotionDate | null;
+  };
+  article_id20: {
+    rich_text: NotionRichText[];
+  };
+  datetime20: {
+    date: NotionDate | null;
+  };
+}
+
+export interface YouTubeProperties {
+  title: {
+    title: NotionRichText[];
+  };
+  update: {
+    date: NotionDate;
+  };
+  due: {
+    checkbox: boolean;
+  };
+  video_id1: {
+    rich_text: NotionRichText[];
+  };
+  datetime1: {
+    date: NotionDate;
+  };
+  subject1: {
+    rich_text: NotionRichText[];
+  };
+  description1: {
+    rich_text: NotionRichText[];
+  };
+  video_id2: {
+    rich_text: NotionRichText[];
+  };
+  datetime2: {
+    date: NotionDate;
+  };
+  subject2: {
+    rich_text: NotionRichText[];
+  };
+  description2: {
+    rich_text: NotionRichText[];
+  };
+  video_id3: {
+    rich_text: NotionRichText[];
+  };
+  datetime3: {
+    date: NotionDate;
+  };
+  subject3: {
+    rich_text: NotionRichText[];
+  };
+  description3: {
+    rich_text: NotionRichText[];
+  };
+  video_id4: {
+    rich_text: NotionRichText[];
+  };
+  datetime4: {
+    date: NotionDate;
+  };
+  subject4: {
+    rich_text: NotionRichText[];
+  };
+  description4: {
+    rich_text: NotionRichText[];
+  };
+  video_id5: {
+    rich_text: NotionRichText[];
+  };
+  datetime5: {
+    date: NotionDate | null;
+  };
+  subject5: {
+    rich_text: NotionRichText[];
+  };
+  description5: {
+    rich_text: NotionRichText[];
+  };
+}
+
+export interface YouTubeResult {
+  properties: YouTubeProperties;
+}
+
+export interface YouTubeAPIResponse {
+  results: YouTubeResult[];
+}
+
+export interface NaverResult {
+  properties: NaverProperties;
+}
+
+export interface NaverAPIResponse {
+  results: NaverResult[];
+}
+
+export type NotionPageResponse = {
+  object: string;
+  results: {
+    object: string;
+    id: string;
+    properties: {
+      description: {
+        id: string;
+        type: string;
+        rich_text: Array<{
+          type: string;
+          text: {
+            content: string;
+            link: null | string;
+          };
+          annotations: {
+            bold: boolean;
+            italic: boolean;
+            strikethrough: boolean;
+            underline: boolean;
+            code: boolean;
+            color: string;
+          };
+          plain_text: string;
+          href: null | string;
+        }>;
+      };
+      [key: string]: any;
+    }[];
+    [key: string]: any;
+  };
+};
+
 export type Article = {
   idx: string;
   description: string;

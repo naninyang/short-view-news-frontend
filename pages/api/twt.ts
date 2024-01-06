@@ -1,7 +1,6 @@
-import { VercelRequest, VercelResponse } from '@vercel/node';
-import axios from 'axios';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-export default async (req: VercelRequest, res: VercelResponse) => {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { url } = req.query;
 
   if (typeof url !== 'string') {
@@ -10,9 +9,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const response = await axios.get(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
-    res.json(response.data);
+    const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    res.json(data.data);
   } catch (error: any) {
-    res.status(error.response?.status || 500).json(error.response?.data || {});
+    res.status(error.data?.status || 500).json(error.data?.data || {});
   }
-};
+}

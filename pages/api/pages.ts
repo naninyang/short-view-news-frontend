@@ -1,5 +1,5 @@
-import { getPageInfo } from '@/utils/pages';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getPageInfo } from '@/utils/notion';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {

@@ -1,5 +1,5 @@
-import { notion } from '@/utils/notion';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { notion } from '@/utils/notion';
 
 const databaseId = process.env.NOTION_DATABASE_ID_CONTACT as any;
 

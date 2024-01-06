@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getHistoryNaver } from '@/utils/historyNaver';
+import { getHistoryNaver } from '@/utils/notion';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

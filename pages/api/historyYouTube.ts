@@ -1,5 +1,5 @@
-import { getHistoryYouTube } from '@/utils/historyYouTube';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getHistoryYouTube } from '@/utils/notion';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
