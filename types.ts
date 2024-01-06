@@ -65,7 +65,7 @@ export type Instead = {
   title: string;
   description: string;
   addr: string;
-  comment: PreviewComment[];
+  comment: ArrayData[];
   insteadMetaData?: {
     ogTitle: string;
     ogUrl: string;
@@ -325,12 +325,12 @@ export interface NaverItemData {
   metaData: any;
 }
 
-interface PreviewCommentChild {
+interface ArrayDataChild {
   text: string;
 }
 
-export interface PreviewComment {
-  children: PreviewCommentChild[];
+export interface ArrayData {
+  children: ArrayDataChild[];
 }
 
 export type PreviewRowData = {
@@ -339,7 +339,7 @@ export type PreviewRowData = {
     title: string;
     description: string;
     address: string;
-    comment: PreviewComment[];
+    comment: ArrayData[];
   };
   metaData?: {
     ogTitle: string;
@@ -356,3 +356,22 @@ export type PreviewRowData = {
     pressAvatar?: string;
   };
 };
+
+export interface PeriodtData {
+  idx: string;
+  subject: string;
+  quoteUser: string;
+  quoteNumber: string;
+  quoteTwit: ArrayData[];
+  quoteThumbnail1?: string;
+  quoteThumbnail2?: string;
+  quoteThumbnail3?: string;
+  quoteThumbnail4?: string;
+  originUser: string;
+  originNumber: string;
+  originTwit: ArrayData[];
+  originThumbnail1?: string;
+  originThumbnail2?: string;
+  originThumbnail3?: string;
+  originThumbnail4?: string;
+}

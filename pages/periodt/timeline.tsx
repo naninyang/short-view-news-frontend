@@ -6,10 +6,10 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { PeriodtTimeline } from 'types';
 import AnchorLink from '@/components/Anchor';
-import styled from '@emotion/styled';
-import styles from '@/styles/periodts.module.sass';
 import { images } from '@/components/images';
 import { rem } from '@/styles/designSystem';
+import styled from '@emotion/styled';
+import styles from '@/styles/periodts.module.sass';
 
 interface ContentComponentProps {
   text: string;
@@ -50,7 +50,7 @@ function PeriodtTimeline() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/api/periodtTimeline?start=${pageIndex * 20}&count=20`;
+    return `/api/periodtTimeline?start=${pageIndex + 1}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {

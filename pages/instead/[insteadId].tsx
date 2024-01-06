@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { Instead, PreviewComment, PreviewRowData } from 'types';
+import { ArrayData, PreviewRowData } from 'types';
 import { useMediaQuery } from 'react-responsive';
 import { images } from '@/components/images';
 import { FormatDate } from '@/components/FormatDate';
@@ -90,7 +90,7 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
 
   const isTablet = useTablet();
 
-  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
     return (
       <>
         {comment.map((cmt, index) => (

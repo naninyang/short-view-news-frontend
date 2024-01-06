@@ -1,4 +1,4 @@
-import { Instead, NaverItemsData, YouTubeItemData, YouTubePlaylistData } from 'types';
+import { Instead, NaverItemsData, PeriodtData, YouTubeItemData, YouTubePlaylistData } from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -204,6 +204,42 @@ export async function getPreviewData(start?: number, count?: number) {
   );
 
   return fullData;
+}
+
+export async function getPeriodtOmtData(start?: number, count?: number) {
+  const url = `${process.env.STRAPI_URL}/api/twitter-omt-prodcutions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
+    },
+  });
+  const data = await response.json();
+  const filesData = data.data;
+
+  const rowsData: PeriodtData[] = filesData.map((data: any) => ({
+    idx: `${data.id}`,
+    subject: data.attributes.subject,
+    quoteUser: data.attributes.quoteUser,
+    quoteNumber: data.attributes.quoteNumber,
+    quoteTwit: data.attributes.quoteTwit,
+    quoteThumbnail1: data.attributes.quoteThumbnail1,
+    quoteThumbnail2: data.attributes.quoteThumbnail2,
+    quoteThumbnail3: data.attributes.quoteThumbnail3,
+    quoteThumbnail4: data.attributes.quoteThumbnail4,
+    originUser: data.attributes.originUser,
+    originNumber: data.attributes.originNumber,
+    originTwit: data.attributes.originTwit,
+    originThumbnail1: data.attributes.originThumbnail1,
+    originThumbnail2: data.attributes.originThumbnail2,
+    originThumbnail3: data.attributes.originThumbnail3,
+    originThumbnail4: data.attributes.originThumbnail4,
+  }));
+
+  const sortedRowsData = rowsData.sort((a: PeriodtData, b: PeriodtData) => b.idx.localeCompare(a.idx));
+
+  return sortedRowsData;
 }
 
 async function fetchArticleMetadata(url: string) {
