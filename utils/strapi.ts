@@ -1,4 +1,11 @@
-import { Instead, NaverItemsData, PeriodtData, YouTubeItemData, YouTubePlaylistData } from 'types';
+import {
+  Instead,
+  NaverItemsData,
+  PeriodtOmtData,
+  PeriodtTimelineData,
+  YouTubeItemData,
+  YouTubePlaylistData,
+} from 'types';
 
 const formatDate = (datetime: string) => {
   const date = new Date(datetime);
@@ -218,7 +225,7 @@ export async function getPeriodtOmtData(start?: number, count?: number) {
   const data = await response.json();
   const filesData = data.data;
 
-  const rowsData: PeriodtData[] = filesData.map((data: any) => ({
+  const rowsData: PeriodtOmtData[] = filesData.map((data: any) => ({
     idx: `${data.id}`,
     subject: data.attributes.subject,
     quoteUser: data.attributes.quoteUser,
@@ -237,8 +244,58 @@ export async function getPeriodtOmtData(start?: number, count?: number) {
     originThumbnail4: data.attributes.originThumbnail4,
   }));
 
-  const sortedRowsData = rowsData.sort((a: PeriodtData, b: PeriodtData) => b.idx.localeCompare(a.idx));
+  const sortedRowsData = rowsData.sort((a: PeriodtOmtData, b: PeriodtOmtData) => b.idx.localeCompare(a.idx));
 
+  return sortedRowsData;
+}
+
+export async function getPeriodtTimelineData(start?: number, count?: number) {
+  const url = `${process.env.STRAPI_URL}/api/twitter-timeline-productions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
+    },
+  });
+  const data = await response.json();
+  const filesData = data.data;
+
+  const rowsData: PeriodtTimelineData[] = filesData.map((data: any) => ({
+    idx: `${data.id}`,
+    subject: data.attributes.subject,
+    originUser: data.attributes.originUser,
+    originNumber: data.attributes.originNumber,
+    originTwit: data.attributes.originTwit,
+
+    relationUser1: data.attributes.relationUser1,
+    relationNumber1: data.attributes.relationNumber1,
+    relationTwit1: data.attributes.relationTwit1,
+    relationDate1: data.attributes.relationDate1,
+
+    relationUser2: data.attributes.relationUser2,
+    relationNumber2: data.attributes.relationNumber2,
+    relationTwit2: data.attributes.relationTwit2,
+    relationDate2: data.attributes.relationDate2,
+
+    relationUser3: data.attributes.relationUser3,
+    relationNumber3: data.attributes.relationNumber3,
+    relationTwit3: data.attributes.relationTwit3,
+    relationDate3: data.attributes.relationDate3,
+
+    relationUser4: data.attributes.relationUser4,
+    relationNumber4: data.attributes.relationNumber4,
+    relationTwit4: data.attributes.relationTwit4,
+    relationDate4: data.attributes.relationDate4,
+
+    relationUser5: data.attributes.relationUser5,
+    relationNumber5: data.attributes.relationNumber5,
+    relationTwit5: data.attributes.relationTwit5,
+    relationDate5: data.attributes.relationDate5,
+  }));
+
+  const sortedRowsData = rowsData.sort((a: PeriodtTimelineData, b: PeriodtTimelineData) => b.idx.localeCompare(a.idx));
+  console.log('sortedRowsData: ', sortedRowsData);
   return sortedRowsData;
 }
 

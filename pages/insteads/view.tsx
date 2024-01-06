@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { Instead, PreviewComment } from 'types';
+import { ArrayData, Instead } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import { FormatDate } from '@/components/FormatDate';
 import InsteadDetail from '@/components/Instead';
@@ -115,7 +115,7 @@ function InsteadsView() {
 
   const isTablet = useTablet();
 
-  const PreviewComment: React.FC<{ comment: PreviewComment[] }> = ({ comment }) => {
+  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
     return (
       <>
         {comment.map((cmt, index) => (

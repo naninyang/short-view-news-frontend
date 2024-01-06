@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { PeriodtTimeline } from 'types';
-import AnchorLink from '@/components/Anchor';
+import { ArrayData, OgData, PeriodtTimeline } from 'types';
+import Anchor from '@/components/Anchor';
 import { images } from '@/components/images';
 import { rem } from '@/styles/designSystem';
 import styled from '@emotion/styled';
@@ -106,86 +106,85 @@ function PeriodtTimeline() {
     window.location.reload();
   };
 
-  const ContentComponent: React.FC<ContentComponentProps> = ({ text }) => {
-    const [renderedContent, setRenderedContent] = useState<React.ReactNode[]>([]);
-
-    useEffect(() => {
-      const fetchContentComponent = async () => {
-        const tempContent = [];
-        const ogContent = [];
-        const parts = text.split(/(https?:\/\/[^\s]+|\n)/g);
-
-        let currentTextGroup = [];
-        for (let i = 0; i < parts.length; i++) {
-          const part = parts[i];
-          if (/https?:\/\/[^\s]+/.test(part)) {
-            let ogData;
-            try {
-              const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/twt?url=${encodeURIComponent(part)}`,
-              );
-              ogData = response.data;
-            } catch (error) {
-              console.error('Failed to fetch OG data:', error);
-            }
-
-            currentTextGroup.push(
-              <AnchorLink key={part} href={part}>
-                {part}
-              </AnchorLink>,
-            );
-
-            if (ogData && ogData.ogImage) {
-              ogContent.push(
-                <div className={styles['og-card']} key={`og-${part}`}>
-                  <AnchorLink href={part}>
-                    <Image
-                      src={ogData.ogImage}
-                      width={640}
-                      height={480}
-                      unoptimized
-                      priority
-                      alt=""
-                      onClick={closeModal}
-                    />
-                    <div className={styles['og-info']}>
-                      {ogData.ogCreator ? <cite>{ogData.ogCreator}</cite> : <cite>{ogData.ogSiteName}</cite>}
-                      <strong>{ogData.ogTitle}</strong>
-                      <p>{ogData.ogDescription}...</p>
-                    </div>
-                  </AnchorLink>
-                </div>,
-              );
-            }
-          } else if (part === '\n') {
-            if (currentTextGroup.length) {
-              tempContent.push(<p key={`text-${i}`}>{currentTextGroup}</p>);
-              currentTextGroup = [];
-            }
-            tempContent.push(<br key={`br-${i}`} />);
-          } else {
-            currentTextGroup.push(part);
-          }
-        }
-
-        if (currentTextGroup.length) {
-          tempContent.push(<p key={`text-end`}>{currentTextGroup}</p>);
-        }
-
-        setRenderedContent([...tempContent, ...ogContent]);
-      };
-
-      fetchContentComponent();
-    }, [text]);
-
-    return <>{renderedContent}</>;
-  };
-
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
 
-  const handleThumbnailClick = (thumbnailUrl: any) => {
-    setSelectedThumbnail(thumbnailUrl);
-    setIsModalOpen(true);
+  const Twit: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
+    const [ogData, setOgData] = useState<Record<string, OgData>>({});
+
+    useEffect(() => {
+      comment.forEach((cmt) => {
+        const url = extractUrl(cmt.children[0].text);
+        if (url && !ogData[url]) {
+          fetchOgData(url);
+        }
+      });
+    }, [comment, ogData]);
+
+    const extractUrl = (text: string): string | null => {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text.match(urlRegex)?.[0] || null;
+    };
+
+    const fetchOgData = async (url: string): Promise<void> => {
+      try {
+        const response = await fetch(`/api/twt?url=${encodeURIComponent(url)}`);
+        const data = await response.json();
+        setOgData((prevData) => ({ ...prevData, [url]: data }));
+      } catch (error) {
+        console.error('Error fetching OG data:', error);
+      }
+    };
+
+    return (
+      <>
+        {comment.map((cmt, index) => {
+          const url = extractUrl(cmt.children[0].text);
+          const validUrl = url && typeof url === 'string';
+
+          return (
+            <React.Fragment key={`cmt-${index}`}>
+              {url ? (
+                <p>
+                  <Anchor href={url}>{url}</Anchor>
+                </p>
+              ) : (
+                <p>{cmt.children[0].text}</p>
+              )}
+              {validUrl && ogData[url] && (
+                <>
+                  {ogData[url].ogTitle && (
+                    <div className={styles['og-card']}>
+                      <Anchor href={`${url}`}>
+                        {ogData[url].ogImage && (
+                          <Image
+                            src={`${ogData[url].ogImage}`}
+                            width={640}
+                            height={480}
+                            unoptimized
+                            priority
+                            alt=""
+                            onClick={closeModal}
+                          />
+                        )}
+                        <div className={styles['og-info']}>
+                          {ogData[url].ogCreator ? (
+                            <cite>{ogData[url].ogCreator}</cite>
+                          ) : ogData[url].ogSiteName ? (
+                            <cite>{ogData[url].ogSiteName}</cite>
+                          ) : null}
+                          {ogData[url].ogTitle && <strong>{ogData[url].ogTitle}</strong>}
+                          {ogData[url].ogDescription && <p>{ogData[url].ogDescription}...</p>}
+                        </div>
+                      </Anchor>
+                    </div>
+                  )}
+                </>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </>
+    );
   };
 
   const closeModal = () => {
@@ -257,187 +256,110 @@ function PeriodtTimeline() {
         <div className={styles['periodt-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={`${styles['periodt-list']} ${styles['timeline-list']}`}>
-              {periodts.map((periodt: PeriodtTimeline) => {
-                const thumbnails = ['thumbnail1', 'thumbnail2', 'thumbnail3', 'thumbnail4'].filter(
-                  (key) => periodt[key],
-                );
-                const thumbnails1 = ['thumbnail11', 'thumbnail21', 'thumbnail31', 'thumbnail41'].filter(
-                  (key) => periodt[key],
-                );
-                const thumbnails2 = ['thumbnail12', 'thumbnail22', 'thumbnail32', 'thumbnail42'].filter(
-                  (key) => periodt[key],
-                );
-                const thumbnails3 = ['thumbnail13', 'thumbnail23', 'thumbnail33', 'thumbnail43'].filter(
-                  (key) => periodt[key],
-                );
-                const thumbnails4 = ['thumbnail14', 'thumbnail24', 'thumbnail34', 'thumbnail44'].filter(
-                  (key) => periodt[key],
-                );
-                const thumbnails5 = ['thumbnail15', 'thumbnail25', 'thumbnail35', 'thumbnail45'].filter(
-                  (key) => periodt[key],
-                );
-                return (
-                  <article key={periodt.idx}>
-                    <div className={styles.profile}>
-                      <cite>@{periodt.user}</cite>
-                      {periodt.quote ? (
-                        <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}/quotes`}>
-                          <span>모든 인용보기</span>
-                          <LinkButton />
-                        </AnchorLink>
-                      ) : (
-                        <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}`}>
-                          <span>모든 멘션보기</span>
-                          <LinkButton />
-                        </AnchorLink>
-                      )}
+              {periodts.map((periodt: PeriodtTimeline) => (
+                <article key={periodt.idx}>
+                  <div className={styles.profile}>
+                    <cite>@{periodt.originUser}</cite>
+                    <Anchor href={`https://twitter.com/${periodt.originUser}/status/${periodt.originNumber}/quotes`}>
+                      <span>모든 인용보기</span>
+                      <LinkButton />
+                    </Anchor>
+                  </div>
+                  <div className={styles.content}>
+                    <div className={styles.origin}>
+                      <div className={styles.description}>
+                        <Twit comment={periodt.originTwit} />
+                      </div>
                     </div>
-                    <div className={styles.content}>
-                      <div className={styles.origin}>
+                    <div className={styles.retweet}>
+                      <div className={styles.profile}>
+                        <cite>@{periodt.relationUser1}</cite>
+                        <Anchor href={`https://twitter.com/${periodt.relationUser1}/status/${periodt.relationNumber1}`}>
+                          <span>원본 링크</span>
+                          <LinkButton />
+                        </Anchor>
+                      </div>
+                      <div className={styles.context}>
                         <div className={styles.description}>
-                          <ContentComponent text={periodt.content} />
-                        </div>
-                        {thumbnails.length > 0 && (
-                          <div className={styles.thumbnails}>
-                            {thumbnails.map((thumbnailKey) => (
-                              <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                  <img src={periodt[thumbnailKey]} alt="" />
-                                </button>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      <div className={styles.retweet}>
-                        <div className={styles.profile}>
-                          <cite>@{periodt.user1}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.user1}/status/${periodt.tweet1}`}>
-                            <span>원본 링크</span>
-                            <LinkButton />
-                          </AnchorLink>
-                        </div>
-                        <div className={styles.context}>
-                          <div className={styles.description}>
-                            <ContentComponent text={periodt.content1} />
-                          </div>
-                          {thumbnails1.length > 0 && (
-                            <div className={styles.thumbnails}>
-                              {thumbnails1.map((thumbnailKey) => (
-                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                    <img src={periodt[thumbnailKey]} alt="" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.retweet}>
-                        <div className={styles.profile}>
-                          <cite>@{periodt.user2}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.user2}/status/${periodt.tweet2}`}>
-                            <span>원본 링크</span>
-                            <LinkButton />
-                          </AnchorLink>
-                        </div>
-                        <div className={styles.context}>
-                          <div className={styles.description}>
-                            <ContentComponent text={periodt.content2} />
-                          </div>
-                          {thumbnails2.length > 0 && (
-                            <div className={styles.thumbnails}>
-                              {thumbnails2.map((thumbnailKey) => (
-                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                    <img src={periodt[thumbnailKey]} alt="" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.retweet}>
-                        <div className={styles.profile}>
-                          <cite>@{periodt.user3}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.user3}/status/${periodt.tweet3}`}>
-                            <span>원본 링크</span>
-                            <LinkButton />
-                          </AnchorLink>
-                        </div>
-                        <div className={styles.context}>
-                          <div className={styles.description}>
-                            <ContentComponent text={periodt.content3} />
-                          </div>
-                          {thumbnails3.length > 0 && (
-                            <div className={styles.thumbnails}>
-                              {thumbnails3.map((thumbnailKey) => (
-                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                    <img src={periodt[thumbnailKey]} alt="" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.retweet}>
-                        <div className={styles.profile}>
-                          <cite>@{periodt.user4}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.user4}/status/${periodt.tweet4}`}>
-                            <span>원본 링크</span>
-                            <LinkButton />
-                          </AnchorLink>
-                        </div>
-                        <div className={styles.context}>
-                          <div className={styles.description}>
-                            <ContentComponent text={periodt.content4} />
-                          </div>
-                          {thumbnails4.length > 0 && (
-                            <div className={styles.thumbnails}>
-                              {thumbnails4.map((thumbnailKey) => (
-                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                    <img src={periodt[thumbnailKey]} alt="" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className={styles.retweet}>
-                        <div className={styles.profile}>
-                          <cite>@{periodt.user5}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.user5}/status/${periodt.tweet5}`}>
-                            <span>원본 링크</span>
-                            <LinkButton />
-                          </AnchorLink>
-                        </div>
-                        <div className={styles.context}>
-                          <div className={styles.description}>
-                            <ContentComponent text={periodt.content5} />
-                          </div>
-                          {thumbnails5.length > 0 && (
-                            <div className={styles.thumbnails}>
-                              {thumbnails5.map((thumbnailKey) => (
-                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
-                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
-                                    <img src={periodt[thumbnailKey]} alt="" />
-                                  </button>
-                                </div>
-                              ))}
-                            </div>
-                          )}
+                          <Twit comment={periodt.relationTwit1} />
                         </div>
                       </div>
                     </div>
-                  </article>
-                );
-              })}
+                    {periodt.relationUser2 && (
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.relationUser2}</cite>
+                          <Anchor
+                            href={`https://twitter.com/${periodt.relationUser2}/status/${periodt.relationNumber2}`}
+                          >
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </Anchor>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <Twit comment={periodt.relationTwit2} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {periodt.relationUser3 && (
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.relationUser3}</cite>
+                          <Anchor
+                            href={`https://twitter.com/${periodt.relationUser3}/status/${periodt.relationNumber3}`}
+                          >
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </Anchor>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <Twit comment={periodt.relationTwit3} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {periodt.relationUser4 && (
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.relationUser4}</cite>
+                          <Anchor
+                            href={`https://twitter.com/${periodt.relationUser4}/status/${periodt.relationNumber4}`}
+                          >
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </Anchor>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <Twit comment={periodt.relationTwit4} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {periodt.relationUser5 && (
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.relationUser5}</cite>
+                          <Anchor
+                            href={`https://twitter.com/${periodt.relationUser5}/status/${periodt.relationNumber5}`}
+                          >
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </Anchor>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <Twit comment={periodt.relationTwit5} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
             </div>
           </PullToRefresh>
           {isReachingEnd !== undefined && (

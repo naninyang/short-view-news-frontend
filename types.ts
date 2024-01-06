@@ -333,6 +333,15 @@ export interface ArrayData {
   children: ArrayDataChild[];
 }
 
+export interface OgData {
+  ogImage?: string;
+  ogCreator?: string;
+  ogSiteName?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  error?: string;
+}
+
 export type PreviewRowData = {
   attributes: {
     idx: string;
@@ -357,7 +366,7 @@ export type PreviewRowData = {
   };
 };
 
-export interface PeriodtData {
+export interface PeriodtOmtData {
   idx: string;
   subject: string;
   quoteUser: string;
@@ -374,4 +383,33 @@ export interface PeriodtData {
   originThumbnail2?: string;
   originThumbnail3?: string;
   originThumbnail4?: string;
+}
+
+export interface PeriodtTimelineData {
+  idx: string;
+  subject: string;
+  originUser: string;
+  originNumber: boolean;
+  originTwit: ArrayData[];
+  originDate: string;
+  relationUser1: string;
+  relationNumber1: string;
+  relationTwit1: ArrayData[];
+  relationDate1: string;
+  relationUser2: string;
+  relationNumber2: string;
+  relationTwit2: ArrayData[];
+  relationDate2: string;
+  relationUser3: string;
+  relationNumber3: string;
+  relationTwit3: ArrayData[];
+  relationDate3: string;
+  relationUser4: string;
+  relationNumber4: string;
+  relationTwit4: ArrayData[];
+  relationDate4: string;
+  relationUser5: string;
+  relationNumber5: string;
+  relationTwit5: ArrayData[];
+  relationDate5: string;
 }

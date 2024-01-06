@@ -4,22 +4,13 @@ import Image from 'next/image';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { ArrayData, PeriodtOmt } from 'types';
+import { ArrayData, OgData, PeriodtOmt } from 'types';
 import AnchorLink from '@/components/Anchor';
 import { images } from '@/components/images';
 import styled from '@emotion/styled';
 import { rem } from '@/styles/designSystem';
 import styles from '@/styles/periodts.module.sass';
 import Anchor from '@/components/Anchor';
-
-interface OgData {
-  ogImage?: string;
-  ogCreator?: string;
-  ogSiteName?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  error?: string;
-}
 
 const LinkButton = styled.i({
   display: 'block',
@@ -112,7 +103,7 @@ function PeriodtOmt() {
     window.location.reload();
   };
 
-  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
+  const Twit: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
     const [ogData, setOgData] = useState<Record<string, OgData>>({});
 
     useEffect(() => {
@@ -289,7 +280,7 @@ function PeriodtOmt() {
                     <div className={styles.content}>
                       <div className={styles.retweet}>
                         <div className={styles.description}>
-                          <PreviewComment comment={periodt.quoteTwit} />
+                          <Twit comment={periodt.quoteTwit} />
                         </div>
                         {thumbnails.length > 0 && (
                           <div className={styles.thumbnails}>
@@ -313,7 +304,7 @@ function PeriodtOmt() {
                         </div>
                         <div className={styles.context}>
                           <div className={styles.description}>
-                            <PreviewComment comment={periodt.originTwit} />
+                            <Twit comment={periodt.originTwit} />
                           </div>
                           {originThumbnails.length > 0 && (
                             <div className={styles.thumbnails}>

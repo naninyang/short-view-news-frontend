@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getPeriodtTimelineData } from '@/utils/periodtTimeline';
+import { getPeriodtTimelineData } from '@/utils/strapi';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
