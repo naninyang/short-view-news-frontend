@@ -126,8 +126,8 @@ export default function WatchesPlaylist() {
           <Link key={data.idx} href={`/watch-playlist/${data.idx}`} scroll={false} shallow={true}>
             <div className={styles['playlist-description']}>
               <strong>{data.title1}</strong>
-              <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
-              <Comment>{data.comment1}</Comment>
+              <p dangerouslySetInnerHTML={{ __html: data.description1.replace(/\n/g, '<br />') }} />
+              <Comment dangerouslySetInnerHTML={{ __html: data.comment1.replace(/\n/g, '<br />') }} />
               <Seemore>
                 <span>더보기</span>
               </Seemore>

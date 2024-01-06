@@ -153,7 +153,10 @@ function ArticlesEntertainment() {
                         scroll={false}
                         shallow={true}
                       >
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                        <p
+                          className={styles.comment}
+                          dangerouslySetInnerHTML={{ __html: article.description.replace(/\n/g, '<br />') }}
+                        />
                       </Link>
                     ) : (
                       <Link
@@ -162,7 +165,10 @@ function ArticlesEntertainment() {
                         scroll={false}
                         shallow={true}
                       >
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                        <p
+                          className={styles.comment}
+                          dangerouslySetInnerHTML={{ __html: article.description.replace(/\n/g, '<br />') }}
+                        />
                       </Link>
                     )}
                     <Image

@@ -168,70 +168,74 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
         />
         <div className={styles['playlist-description']}>
           <strong>{watchData.attributes.subject1}</strong>
-          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description1 }} />
-          <Comment>{watchData.attributes.comment1}</Comment>
+          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description1.replace(/\n/g, '<br />') }} />
+          <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description1.replace(/\n/g, '<br />') }} />
         </div>
-        {watchData.attributes.subject2 && (
+        {watchData.attributes.subject2 && watchData.attributes.description2 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject2}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description2 || '' }} />
-            <Comment>{watchData.attributes.comment2}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description2.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description2.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject3 && (
+        {watchData.attributes.subject3 && watchData.attributes.description3 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject3}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description3 || '' }} />
-            <Comment>{watchData.attributes.comment3}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description3.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description3.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject4 && (
+        {watchData.attributes.subject4 && watchData.attributes.description4 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject4}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description4 || '' }} />
-            <Comment>{watchData.attributes.comment4}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description4.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description4.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject5 && (
+        {watchData.attributes.subject5 && watchData.attributes.description5 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject5}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description5 || '' }} />
-            <Comment>{watchData.attributes.comment5}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description5.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description5.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject6 && (
+        {watchData.attributes.subject6 && watchData.attributes.description6 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject6}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description6 || '' }} />
-            <Comment>{watchData.attributes.comment6}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description6.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description6.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject7 && (
+        {watchData.attributes.subject7 && watchData.attributes.description7 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject7}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description7 || '' }} />
-            <Comment>{watchData.attributes.comment7}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description7.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description7.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject8 && (
+        {watchData.attributes.subject8 && watchData.attributes.description8 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject8}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description8 || '' }} />
-            <Comment>{watchData.attributes.comment8}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description8.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description8.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject9 && (
+        {watchData.attributes.subject9 && watchData.attributes.description9 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject9}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description9 || '' }} />
-            <Comment>{watchData.attributes.comment9}</Comment>
+            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description9.replace(/\n/g, '<br />') || '' }} />
+            <Comment dangerouslySetInnerHTML={{ __html: watchData.attributes.description9.replace(/\n/g, '<br />') }} />
           </div>
         )}
-        {watchData.attributes.subject10 && (
+        {watchData.attributes.subject10 && watchData.attributes.description10 && (
           <div className={styles['playlist-description']}>
             <strong>{watchData.attributes.subject10}</strong>
-            <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description10 || '' }} />
-            <Comment>{watchData.attributes.comment10}</Comment>
+            <p
+              dangerouslySetInnerHTML={{ __html: watchData.attributes.description10.replace(/\n/g, '<br />') || '' }}
+            />
+            <Comment
+              dangerouslySetInnerHTML={{ __html: watchData.attributes.description10.replace(/\n/g, '<br />') }}
+            />
           </div>
         )}
       </article>

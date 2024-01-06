@@ -152,8 +152,8 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
         </header>
         <YouTubeController videoId={watchData.attributes.videoId} isPlaylist={false} />
         <div className={styles.description}>
-          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description }} />
-          <p>{watchData.attributes.comment}</p>
+          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.description.replace(/\n/g, '<br />') }} />
+          <p dangerouslySetInnerHTML={{ __html: watchData.attributes.comment.replace(/\n/g, '<br />') }} />
         </div>
       </article>
       <div className={commentStyles['comment-control']}>

@@ -125,9 +125,9 @@ export default function WatchesNewsItem() {
                 {data.title} <time>{data.created}</time>
               </Link>
             )}
-            <p dangerouslySetInnerHTML={{ __html: data.description }} />
+            <p dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g, '<br />') }} />
           </div>
-          <p>{data.comment}</p>
+          <p dangerouslySetInnerHTML={{ __html: data.comment.replace(/\n/g, '<br />') }} />
         </figcaption>
       </figure>
     </div>

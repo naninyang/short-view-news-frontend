@@ -527,7 +527,7 @@ export default function Header() {
                 </AnchorLink>
               </li>
             </ul>
-            <p>&copy; NEWS CURATORS, 2023</p>
+            <p>&copy; NEWS CURATORS, 2024</p>
           </MenuContainer>
         </Menu>
       )}
