@@ -1,10 +1,10 @@
-const ArticleAPI = 'https://shorts.dev1stud.io/api/sitemapArticle';
-// const ArticleAPI = 'http://localhost:3003/api/sitemapArticle';
+const WatchAPI = 'https://shorts.dev1stud.io/api/sitemapWatch';
+// const WatchAPI = 'http://localhost:3003/api/sitemapWatch';
 
-function generateSiteMap(articles) {
+function generateSiteMap(watchs) {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${articles
+      ${watchs
         .map(({ idx, created }) => {
           return `
             <url>
@@ -21,10 +21,10 @@ function generateSiteMap(articles) {
 function SiteMap() {}
 
 export async function getServerSideProps({ res }) {
-  const articleRequest = await fetch(ArticleAPI);
-  const articles = await articleRequest.json();
+  const watchRequest = await fetch(WatchAPI);
+  const watchs = await watchRequest.json();
 
-  const sitemap = generateSiteMap(articles);
+  const sitemap = generateSiteMap(watchs);
 
   res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);

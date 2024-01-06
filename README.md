@@ -46,7 +46,7 @@ Preview는 대리클릭 콘텐츠 입니다.
 
 ## Troubleshooting
 
-이슈를 등록해 주시거나 [여기](https://news.dev1stud.io/contact-us)를 이용해 주세요.
+이슈를 등록해 주시거나 [여기](https://shorts.dev1stud.io/contact-us)를 이용해 주세요.
 
 ### 발견되거나 알려진 버그
 

@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://news.dev1stud.io/sitemap.xml
+Sitemap: https://shorts.dev1stud.io/sitemap.xml

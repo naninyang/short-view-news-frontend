@@ -40,7 +40,7 @@ function Articles() {
       <Seo
         pageTitle="네이버 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
+        pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <PageName pageName="네이버 뉴스" />
       <div className={styles.list}>

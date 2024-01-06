@@ -12,9 +12,9 @@ const formatDate = (datetime: string) => {
   return `${year}${month}${day}${hours}${minutes}${seconds}`;
 };
 
-async function fetchNaverNewsData() {
+async function fetchYouTubeItemData() {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/naver-news-productions?pagination[page]=1&pagination[pageSize]=10000`,
+    `${process.env.STRAPI_URL}/api/youtube-news-productions?pagination[page]=1&pagination[pageSize]=10000`,
     {
       method: 'GET',
       headers: {
@@ -26,9 +26,9 @@ async function fetchNaverNewsData() {
   return data.data;
 }
 
-async function fetchNaverEntertainmentData() {
+async function fetchYouTubePlaylistData() {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/naver-entertainment-productions?pagination[page]=1&pagination[pageSize]=10000`,
+    `${process.env.STRAPI_URL}/api/youtube-playlist-productions?pagination[page]=1&pagination[pageSize]=10000`,
     {
       method: 'GET',
       headers: {
@@ -42,20 +42,20 @@ async function fetchNaverEntertainmentData() {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const newsData = await fetchNaverNewsData();
-    const entertainmentData = await fetchNaverEntertainmentData();
+    const newsData = await fetchYouTubeItemData();
+    const playlistData = await fetchYouTubePlaylistData();
 
     const newsDataProcessed = newsData.map((newsItem: any) => ({
-      idx: `article-news/${formatDate(newsItem.attributes.createdAt)}${newsItem.id}`,
+      idx: `watch-news/${formatDate(newsItem.attributes.createdAt)}${newsItem.id}`,
       created: newsItem.attributes.createdAt,
     }));
 
-    const entertainmentDataProcessed = entertainmentData.map((entertainmentData: any) => ({
-      idx: `article-entertainment/${formatDate(entertainmentData.attributes.createdAt)}${entertainmentData.id}`,
-      created: entertainmentData.attributes.createdAt,
+    const playlistDataProcessed = playlistData.map((playlistItem: any) => ({
+      idx: `watch-playlist/${formatDate(playlistItem.attributes.createdAt)}${playlistItem.id}`,
+      created: playlistItem.attributes.createdAt,
     }));
 
-    const combinedData = [...newsDataProcessed, ...entertainmentDataProcessed];
+    const combinedData = [...newsDataProcessed, ...playlistDataProcessed];
 
     res.status(200).send(combinedData);
   } catch (error) {

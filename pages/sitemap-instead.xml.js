@@ -1,4 +1,5 @@
-const SheetAPI = 'https://news.dev1stud.io/api/sitemapSheet';
+const SheetAPI = 'https://shorts.dev1stud.io/api/sitemapWatch';
+// const InsteadAPI = 'http://localhost:3003/api/sitemapInstead';
 
 function generateSiteMap(sheets) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -7,7 +8,7 @@ function generateSiteMap(sheets) {
         .map(({ idx, created }) => {
           return `
             <url>
-              <loc>https://news.dev1stud.io/watch/${idx}</loc>
+              <loc>https://shorts.dev1stud.io/${idx}</loc>
               <lastmod>${created}</lastmod>
             </url>
           `;
@@ -20,10 +21,10 @@ function generateSiteMap(sheets) {
 function SiteMap() {}
 
 export async function getServerSideProps({ res }) {
-  const sheetRequest = await fetch(SheetAPI);
-  const sheets = await sheetRequest.json();
+  const insteadRequest = await fetch(InsteadAPI);
+  const insteads = await insteadRequest.json();
 
-  const sitemap = generateSiteMap(sheets);
+  const sitemap = generateSiteMap(insteads);
 
   res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);

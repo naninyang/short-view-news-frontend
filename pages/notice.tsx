@@ -51,7 +51,7 @@ export default function Notice() {
       <Seo
         pageTitle="안내사항"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
+        pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className="top-link">
         {currentPage ? (

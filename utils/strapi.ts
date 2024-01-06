@@ -51,7 +51,6 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_BEARER_TOKEN}`,
-        'Content-Type': 'application/json',
       },
     },
   );
