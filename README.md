@@ -1,4 +1,4 @@
-# 숏뷰 뉴스 {short.view: news}
+# 숏뷰뉴스 short.view.news
 
 YouTube 및 NAVER 뉴스에 업로드 된 뉴스를 요약하고 큐레이터 본인의 생각을 짧게 보여주는 서비스입니다.
 
@@ -14,7 +14,7 @@ Preview는 대리클릭 콘텐츠 입니다.
 
 ### Frontend - This repo
 
-- Next.js w/ React
+- Next.js
 - react-device-detect
 - react-modal w/ Route As Modal
 - TypeScript
@@ -26,10 +26,7 @@ Preview는 대리클릭 콘텐츠 입니다.
 - pull-to-refresh (without Mutate Caching)
 - PWA
 - SWR w/ useSWRInfinite
-- Vercel w/ serverless
-- jsonwebtoken (for Github API Bearer)
-- Notion Client (페이지 관리 및 History 페이지용으로 사용)
-- baselime.io (for Vercel Serverless Console Notification)
+- Notion Client
 
 ### Web Opengraph Scrap API Server
 
@@ -37,12 +34,13 @@ Preview는 대리클릭 콘텐츠 입니다.
 - cheerio (NAVER 링크 미리보기 & Twitter 트윗 링크 미리보기)
 - open-graph-scraper (Preview 탭에서 링크 미리보기)
 
-### Backend - Private repo
+### Backend
 
-- Netlify CMS
-- Netlify
-- Git-gateway
-- Github API (Github App & Github OAuth)
+- AWS EC2
+- Nginx
+- MariaDB
+- Strapi
+- Github Actions
 
 ## Troubleshooting
 
@@ -52,8 +50,6 @@ Preview는 대리클릭 콘텐츠 입니다.
 
 - 첫 댓글 등록시 등록한 댓글 자동으로 확인 불가 (이미 댓글이 1개라도 있을 때는 정상 동작)
   - 저장은 잘 됨
-- Preview 탭에서 데이터 불러오는 속도가 지나치게 느린 현상 (데이터 크롤링을 2중으로 해야하기 때문에 그런 것 같은데 현재 대안 없음)
-  - 현재는 20건을 기본으로 불러오는데 10건 정도로 줄이는 방식으로 임시 수정 예정
 
 ## TO-DO
 
@@ -106,7 +102,7 @@ MS Windows, Apple macOS, Android, iOS, iPadOS 등 대부분의 모던 디바이�
 
 ## 주의사항 및 저작권
 
-이 서비스는 Vercel, Netlify, Twitter(X), Google 그리고 NAVER와 관련이 없습니다.
+이 서비스는 Vercel, Twitter(X), Google 그리고 NAVER와 관련이 없습니다.
 
 큐레이터 본인의 생각이 들어간 부분은 언론사의 의견 또는 입장과 많이 다를 수 있으며, 큐레이터 본인의 생각은 큐레이터 개인의 의견일 뿐입니다.
 
