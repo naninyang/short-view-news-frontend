@@ -161,7 +161,7 @@ function ArticlesEntertainment() {
                     ) : (
                       <Link
                         key={article.idx}
-                        href={`/articlearticle-entertainment/${article.idx}`}
+                        href={`/article-entertainment/${article.idx}`}
                         scroll={false}
                         shallow={true}
                       >

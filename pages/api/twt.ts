@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const response = await fetch(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
     const data = await response.json();
-    res.json(data.data);
+    res.json(data);
   } catch (error: any) {
     res.status(error.data?.status || 500).json(error.data?.data || {});
   }
