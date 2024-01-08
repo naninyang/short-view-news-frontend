@@ -21,7 +21,7 @@ const formatDate = (datetime: string) => {
 
 export async function getYouTubeItemData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/youtube-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/youtube-news-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -32,6 +32,7 @@ export async function getYouTubeItemData(start?: number, count?: number) {
   const data = await response.json();
   const filesData = data.data;
   const rowsData: YouTubeItemData[] = filesData.map((data: any) => ({
+    id: data.id,
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     video_id: data.attributes.videoId,
     description: data.attributes.description,
@@ -40,13 +41,12 @@ export async function getYouTubeItemData(start?: number, count?: number) {
     title: data.attributes.title,
   }));
 
-  const sortedRowsData = rowsData.sort((a: YouTubeItemData, b: YouTubeItemData) => b.idx.localeCompare(a.idx));
-  return sortedRowsData;
+  return rowsData;
 }
 
 export async function getYouTubePlaylistData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/youtube-playlist-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/youtube-playlist-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -57,6 +57,7 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
   const data = await response.json();
   const filesData = data.data;
   const rowsData: YouTubePlaylistData[] = filesData.map((data: any) => ({
+    id: data.id,
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     title: data.attributes.subject,
     created: data.attributes.created,
@@ -102,13 +103,12 @@ export async function getYouTubePlaylistData(start?: number, count?: number) {
     video_id10: data.attributes.videoId10,
   }));
 
-  const sortedRowsData = rowsData.sort((a: YouTubePlaylistData, b: YouTubePlaylistData) => b.idx.localeCompare(a.idx));
-  return sortedRowsData;
+  return rowsData;
 }
 
 export async function getNaverNewsData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/naver-news-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/naver-news-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -119,6 +119,7 @@ export async function getNaverNewsData(start?: number, count?: number) {
   const data = await response.json();
   const filesData = data.data;
   const rowsData: NaverItemsData[] = filesData.map((data: any) => ({
+    ida: `${data.id}`,
     idx: `${formatDate(data.attributes.createdAt)}${data.id}`,
     title: data.attributes.title,
     description: data.attributes.description,
@@ -128,9 +129,8 @@ export async function getNaverNewsData(start?: number, count?: number) {
     aid: data.attributes.aid,
   }));
 
-  const sortedRowsData = rowsData.sort((a: NaverItemsData, b: NaverItemsData) => b.idx.localeCompare(a.idx));
   const fullData = await Promise.all(
-    sortedRowsData.map(async (article) => {
+    rowsData.map(async (article) => {
       const url = `https://n.news.naver.com/article/${article.oid}/${article.aid}`;
       const newsMetaData = await fetchArticleMetadata(url);
       return {
@@ -145,7 +145,7 @@ export async function getNaverNewsData(start?: number, count?: number) {
 
 export async function getNaverEntertainmentData(start?: number, count?: number) {
   const response = await fetch(
-    `${process.env.STRAPI_URL}/api/naver-entertainment-productions?pagination[page]=${start}&pagination[pageSize]=${count}`,
+    `${process.env.STRAPI_URL}/api/naver-entertainment-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`,
     {
       method: 'GET',
       headers: {
@@ -165,9 +165,8 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
     aid: data.attributes.aid,
   }));
 
-  const sortedRowsData = rowsData.sort((a: NaverItemsData, b: NaverItemsData) => b.idx.localeCompare(a.idx));
   const fullData = await Promise.all(
-    sortedRowsData.map(async (article) => {
+    rowsData.map(async (article) => {
       const url = `https://n.news.naver.com/entertain/article/${article.oid}/${article.aid}`;
       const entertainmentMetaData = await fetchArticleMetadata(url);
       return {
@@ -181,7 +180,7 @@ export async function getNaverEntertainmentData(start?: number, count?: number) 
 }
 
 export async function getPreviewData(start?: number, count?: number) {
-  const url = `${process.env.STRAPI_URL}/api/instead-productions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+  const url = `${process.env.STRAPI_URL}/api/instead-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -198,9 +197,8 @@ export async function getPreviewData(start?: number, count?: number) {
     comment: data.attributes.comment,
   }));
 
-  const sortedRowsData = rowsData.sort((a: Instead, b: Instead) => b.idx.localeCompare(a.idx));
   const fullData = await Promise.all(
-    sortedRowsData.map(async (preview) => {
+    rowsData.map(async (preview) => {
       const insteadMetaData = await fetchPreviewMetadata(preview.addr);
       return {
         ...preview,
@@ -213,7 +211,7 @@ export async function getPreviewData(start?: number, count?: number) {
 }
 
 export async function getPeriodtOmtData(start?: number, count?: number) {
-  const url = `${process.env.STRAPI_URL}/api/twitter-omt-prodcutions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+  const url = `${process.env.STRAPI_URL}/api/twitter-omt-prodcutions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -243,12 +241,11 @@ export async function getPeriodtOmtData(start?: number, count?: number) {
     originThumbnail4: data.attributes.originThumbnail4,
   }));
 
-  const sortedRowsData = rowsData.sort((a: PeriodtOmtData, b: PeriodtOmtData) => b.idx.localeCompare(a.idx));
-  return sortedRowsData;
+  return rowsData;
 }
 
 export async function getPeriodtTimelineData(start?: number, count?: number) {
-  const url = `${process.env.STRAPI_URL}/api/twitter-timeline-productions?pagination[page]=${start}&pagination[pageSize]=${count}`;
+  const url = `${process.env.STRAPI_URL}/api/twitter-timeline-productions?sort[0]=id:desc&pagination[page]=${start}&pagination[pageSize]=${count}`;
 
   const response = await fetch(url, {
     method: 'GET',
@@ -292,8 +289,7 @@ export async function getPeriodtTimelineData(start?: number, count?: number) {
     relationDate5: data.attributes.relationDate5,
   }));
 
-  const sortedRowsData = rowsData.sort((a: PeriodtTimelineData, b: PeriodtTimelineData) => b.idx.localeCompare(a.idx));
-  return sortedRowsData;
+  return rowsData;
 }
 
 async function fetchArticleMetadata(url: string) {
