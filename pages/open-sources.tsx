@@ -54,15 +54,11 @@ function OpenSources({ licenses }: { licenses: string[] }) {
         </h1>
         <dl>
           <div>
-            <dt>기획</dt>
+            <dt>기획/UX 디자인</dt>
             <dd>클로이 Chloe</dd>
           </div>
           <div>
-            <dt>UX 디자인</dt>
-            <dd>클로이 Chloe</dd>
-          </div>
-          <div>
-            <dt>프론트엔드 개발</dt>
+            <dt>프론트엔드/백엔드 개발</dt>
             <dd>클로이 Chloe</dd>
           </div>
           <div>
