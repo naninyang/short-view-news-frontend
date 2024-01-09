@@ -30,7 +30,10 @@
         > div
           display: flex
           flex-direction: column
-          gap: rem(10)
+          gap: rem(27)
+
+          +mq(minLarge)
+            gap: rem(17)
 
         &::before
           content: ''
@@ -49,12 +52,12 @@
           display: flex
           flex-direction: column
           align-items: center
+          gap: rem(12)
           font-size: rem(20)
           line-height: 1
 
           +mq(minLarge)
             flex-direction: row
-            gap: rem(5)
 
           i
             display: block

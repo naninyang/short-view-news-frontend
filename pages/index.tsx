@@ -101,48 +101,17 @@ export default function Home() {
     fetchCountData();
   }, []);
 
+  const [deviceSafari, setDeviceSafari] = useState<string>();
+
+  useEffect(() => {
+    if (isSafari) {
+      setDeviceSafari('isSafari');
+    }
+  }, []);
+
   function formatNumber(value: number): string {
     return value.toLocaleString();
   }
-
-  const renderCountInfo = () => {
-    if (loading || error || !count) return <div>..</div>;
-    return (
-      <dl>
-        <div>
-          <dt>가져온 YouTube 뉴스</dt>
-          <dd>{formatNumber(count.youtube)} 건</dd>
-        </div>
-        <div>
-          <dt>가져온 NAVER 뉴스</dt>
-          <dd>{formatNumber(count.naver)} 건</dd>
-        </div>
-        <div>
-          <dt>가져온 Twitter 인용</dt>
-          <dd>{formatNumber(count.twitter)} 건</dd>
-        </div>
-      </dl>
-    );
-  };
-
-  const renderSafari = () => {
-    if (isSafari) {
-      return (
-        <Apple className={main.apple}>
-          <h2>애플 디바이스에서 앱 내려받기</h2>
-          <p>아이폰, 아이패드, 맥에서 앱을 내려받을 수 있습니다.</p>
-          <p>
-            <span>
-              아이폰, 아이패드에서는 사파리에서 <i />를 누르신 뒤,
-            </span>{' '}
-            <span>'홈 화면에 추가'를 누르시고</span>{' '}
-            <span>맥의 사파리에서는 '파일' 메뉴 &gt; 'Dock에 추가'를 누르세요.</span>
-          </p>
-        </Apple>
-      );
-    }
-    return null;
-  };
 
   const timestamp = Date.now();
 
@@ -158,8 +127,35 @@ export default function Home() {
           <span>숏뷰뉴스 short.view.news</span>
         </h1>
         {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
-        {renderCountInfo()}
-        {renderSafari()}
+        {count && (
+          <dl>
+            <div>
+              <dt>가져온 YouTube 뉴스</dt>
+              <dd>{formatNumber(count.youtube)} 건</dd>
+            </div>
+            <div>
+              <dt>가져온 NAVER 뉴스</dt>
+              <dd>{formatNumber(count.naver)} 건</dd>
+            </div>
+            <div>
+              <dt>가져온 Twitter 인용</dt>
+              <dd>{formatNumber(count.twitter)} 건</dd>
+            </div>
+          </dl>
+        )}
+        {deviceSafari === 'isSafari' && (
+          <Apple className={main.apple}>
+            <h2>애플 디바이스에서 앱 내려받기</h2>
+            <p>아이폰, 아이패드, 맥에서 앱을 내려받을 수 있습니다.</p>
+            <p>
+              <span>
+                아이폰, 아이패드에서는 사파리에서 <i />를 누르신 뒤,
+              </span>{' '}
+              <span>'홈 화면에 추가'를 누르시고</span>{' '}
+              <span>맥의 사파리에서는 '파일' 메뉴 &gt; 'Dock에 추가'를 누르세요.</span>
+            </p>
+          </Apple>
+        )}
       </div>
     </main>
   );
