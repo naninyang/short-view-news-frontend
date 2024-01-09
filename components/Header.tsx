@@ -497,18 +497,6 @@ export default function Header() {
             </ol>
             <ul>
               <li>
-                <AnchorLink href="https://dev-il-studio.postype.com">
-                  <Postype />
-                  <span>포스타입</span>
-                </AnchorLink>
-              </li>
-              <li>
-                <AnchorLink href="https://velog.io/@naninyang">
-                  <Velog />
-                  <span>벨로그</span>
-                </AnchorLink>
-              </li>
-              <li>
                 <AnchorLink href="https://dev1stud.io">
                   <Dev1studio />
                   <span>데브런닷스튜디오</span>
@@ -521,9 +509,15 @@ export default function Header() {
                 </AnchorLink>
               </li>
               <li>
-                <AnchorLink href="https://github.com/naninyang/short-view-new">
+                <AnchorLink href="https://velog.io/@naninyang">
+                  <Velog />
+                  <span>벨로그</span>
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink href="https://github.com/naninyang/short-view-new-frontend">
                   <Github />
-                  <span>깃헙 레포</span>
+                  <span>깃헙 저장소</span>
                 </AnchorLink>
               </li>
             </ul>
