@@ -118,7 +118,7 @@ export default function Home() {
   return (
     <main className={`${content.content} ${styles.pages} ${styles.home} ${main.main}`}>
       <Seo
-        pageTitle="숏뷰 뉴스 {short.view: news}"
+        pageTitle="숏뷰뉴스 short.view.news"
         pageDescription="내가 놓친 뉴스 기사를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />

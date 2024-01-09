@@ -140,10 +140,10 @@ const ShortsDocument: React.FC<DocumentProps> & {
           media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
           href="/splash/8.3__iPad_Mini_portrait.png"
         />
-        <meta name="application-name" content="숏뷰 뉴스 {short.view: news}" />
+        <meta name="application-name" content="숏뷰뉴스 short.view.news" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="Black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="숏뷰 뉴스 {short.view: news}" />
+        <meta name="apple-mobile-web-app-title" content="숏뷰뉴스 short.view.news" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
