@@ -78,7 +78,7 @@ function ContactForm() {
     <main className={`${content.content} ${styles.contact_us}`}>
       <Seo
         pageTitle="문의사항"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
+        pageDescription="내가 놓친 뉴스 기사를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className="top-link">

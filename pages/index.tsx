@@ -150,12 +150,12 @@ export default function Home() {
     <main className={`${content.content} ${styles.pages} ${styles.home} ${main.main}`}>
       <Seo
         pageTitle="숏뷰 뉴스 {short.view: news}"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
+        pageDescription="내가 놓친 뉴스 기사를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className={`${styles['pages-content']} ${main['main-content']}`}>
         <h1>
-          <span>{`숏뷰 뉴스 {short.view: news}`}</span>
+          <span>숏뷰뉴스 short.view.news</span>
         </h1>
         {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
         {renderCountInfo()}
