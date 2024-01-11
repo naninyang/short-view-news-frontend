@@ -35,7 +35,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
 
   const [formData, setFormData] = useState({
     collection: `naver-${articleData?.attributes.type}-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article/${articleData?.attributes.idx}`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article-news/${articleData?.attributes.idx}`,
     idx: articleData?.attributes.idx,
     created: new Date().toISOString(),
     username: '',
