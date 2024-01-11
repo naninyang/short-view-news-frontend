@@ -486,7 +486,7 @@ export default function Header() {
               {deferredPrompt && (
                 <li>
                   <button type="button" className={buttonClass} onClick={onInstallPWA}>
-                    <span>숏뷰 뉴스 앱 내려받기</span>
+                    <span>숏뷰뉴스 앱 내려받기</span>
                     <s>
                       <i className="before" />
                       <i className="after" />
