@@ -53,7 +53,7 @@ type WatchData = {
 };
 
 interface watchProps {
-  watchItem: WatchData | undefined;
+  watchNews: WatchData | undefined;
 }
 
 type DataResponse = {
@@ -85,7 +85,7 @@ const Comment = styled.p({
   },
 });
 
-const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
+const watchDetail: React.FC<watchProps> = ({ watchNews }) => {
   const router = useRouter();
   const handleCloseModal = () => {
     router.push('/watches');
@@ -96,9 +96,9 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
   };
 
   const [formData, setFormData] = useState({
-    collection: watchItem?.titles ? `youtube-playlist-${process.env.NODE_ENV}` : `youtube-news-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch/${watchItem?.idx}`,
-    idx: watchItem?.idx,
+    collection: watchNews?.titles ? `youtube-playlist-${process.env.NODE_ENV}` : `youtube-news-${process.env.NODE_ENV}`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch/${watchNews?.idx}`,
+    idx: watchNews?.idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
@@ -120,9 +120,9 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
   const [youtubeData, setYoutubeData] = useState<DataResponse[]>([]);
   const fetchYoutubeData = async () => {
     try {
-      const response = watchItem?.titles
-        ? await axios.get(`/api/comments?collection=youtube-playlist-${process.env.NODE_ENV}&idx=${watchItem?.idx}`)
-        : await axios.get(`/api/comments?collection=youtube-news-${process.env.NODE_ENV}&idx=${watchItem?.idx}`);
+      const response = watchNews?.titles
+        ? await axios.get(`/api/comments?collection=youtube-playlist-${process.env.NODE_ENV}&idx=${watchNews?.idx}`)
+        : await axios.get(`/api/comments?collection=youtube-news-${process.env.NODE_ENV}&idx=${watchNews?.idx}`);
       setYoutubeData(Array.isArray(response.data) ? response.data : [response.data]);
     } catch (error) {
       console.error('Error fetching page info:', error);
@@ -136,9 +136,9 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
   return (
     <div className={`${styles.watch} ${styles['watch-container']}`}>
       <article>
-        {watchItem ? (
+        {watchNews ? (
           <>
-            {watchItem.titles ? (
+            {watchNews.titles ? (
               <>
                 <header>
                   <button type="button" className="close-btn" onClick={handleCloseModal}>
@@ -146,79 +146,79 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                     <span>닫기</span>
                   </button>
                   <h1>
-                    &lt;{watchItem.title}&gt; 외 {countItems(watchItem.titles)}건
+                    &lt;{watchNews.title}&gt; 외 {countItems(watchNews.titles)}건
                   </h1>
-                  <time>{watchItem.created}</time>
+                  <time>{watchNews.created}</time>
                 </header>
                 <div className={styles['watch-content']}>
                   <PerfectScrollbar className={styles['scrollbar-container']}>
-                    <YouTubeController videoId={watchItem.video_ids} titles={watchItem.titles} isPlaylist={true} />
+                    <YouTubeController videoId={watchNews.video_ids} titles={watchNews.titles} isPlaylist={true} />
                     <div className={styles['playlist-description']}>
-                      <strong>{watchItem.title1}</strong>
-                      <p dangerouslySetInnerHTML={{ __html: watchItem.description1 }} />
-                      <Comment>{watchItem.comment1}</Comment>
+                      <strong>{watchNews.title1}</strong>
+                      <p dangerouslySetInnerHTML={{ __html: watchNews.description1 }} />
+                      <Comment>{watchNews.comment1}</Comment>
                     </div>
-                    {watchItem.title2 && (
+                    {watchNews.title2 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title2}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description2 || '' }} />
-                        <Comment>{watchItem.comment2}</Comment>
+                        <strong>{watchNews.title2}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description2 || '' }} />
+                        <Comment>{watchNews.comment2}</Comment>
                       </div>
                     )}
-                    {watchItem.title3 && (
+                    {watchNews.title3 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title3}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description3 || '' }} />
-                        <Comment>{watchItem.comment3}</Comment>
+                        <strong>{watchNews.title3}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description3 || '' }} />
+                        <Comment>{watchNews.comment3}</Comment>
                       </div>
                     )}
-                    {watchItem.title4 && (
+                    {watchNews.title4 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title4}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description4 || '' }} />
-                        <Comment>{watchItem.comment4}</Comment>
+                        <strong>{watchNews.title4}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description4 || '' }} />
+                        <Comment>{watchNews.comment4}</Comment>
                       </div>
                     )}
-                    {watchItem.title5 && (
+                    {watchNews.title5 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title5}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description5 || '' }} />
-                        <Comment>{watchItem.comment5}</Comment>
+                        <strong>{watchNews.title5}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description5 || '' }} />
+                        <Comment>{watchNews.comment5}</Comment>
                       </div>
                     )}
-                    {watchItem.title6 && (
+                    {watchNews.title6 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title6}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description6 || '' }} />
-                        <Comment>{watchItem.comment6}</Comment>
+                        <strong>{watchNews.title6}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description6 || '' }} />
+                        <Comment>{watchNews.comment6}</Comment>
                       </div>
                     )}
-                    {watchItem.title7 && (
+                    {watchNews.title7 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title7}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description7 || '' }} />
-                        <Comment>{watchItem.comment7}</Comment>
+                        <strong>{watchNews.title7}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description7 || '' }} />
+                        <Comment>{watchNews.comment7}</Comment>
                       </div>
                     )}
-                    {watchItem.title8 && (
+                    {watchNews.title8 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title8}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description8 || '' }} />
-                        <Comment>{watchItem.comment8}</Comment>
+                        <strong>{watchNews.title8}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description8 || '' }} />
+                        <Comment>{watchNews.comment8}</Comment>
                       </div>
                     )}
-                    {watchItem.title9 && (
+                    {watchNews.title9 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title9}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description9 || '' }} />
-                        <Comment>{watchItem.comment9}</Comment>
+                        <strong>{watchNews.title9}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description9 || '' }} />
+                        <Comment>{watchNews.comment9}</Comment>
                       </div>
                     )}
-                    {watchItem.title10 && (
+                    {watchNews.title10 && (
                       <div className={styles['playlist-description']}>
-                        <strong>{watchItem.title10}</strong>
-                        <p dangerouslySetInnerHTML={{ __html: watchItem.description10 || '' }} />
-                        <Comment>{watchItem.comment10}</Comment>
+                        <strong>{watchNews.title10}</strong>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.description10 || '' }} />
+                        <Comment>{watchNews.comment10}</Comment>
                       </div>
                     )}
                     <div className={commentStyles['comment-control']}>
@@ -294,15 +294,15 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                     <CrossButton />
                     <span>닫기</span>
                   </button>
-                  <h1>{watchItem.title}</h1>
-                  <time>{watchItem.created}</time>
+                  <h1>{watchNews.title}</h1>
+                  <time>{watchNews.created}</time>
                 </header>
                 <div className={styles['watch-content']}>
                   <PerfectScrollbar className={styles['scrollbar-container']}>
-                    <YouTubeController videoId={watchItem.video_id} isPlaylist={false} />
+                    <YouTubeController videoId={watchNews.video_id} isPlaylist={false} />
                     <div className={styles.description}>
-                      <p dangerouslySetInnerHTML={{ __html: watchItem.description }} />
-                      <p>{watchItem.comment}</p>
+                      <p dangerouslySetInnerHTML={{ __html: watchNews.description }} />
+                      <p>{watchNews.comment}</p>
                     </div>
                     <div className={commentStyles['comment-control']}>
                       <form onSubmit={handleSubmit}>

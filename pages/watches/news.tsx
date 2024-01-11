@@ -31,7 +31,7 @@ const getKey = (pageIndex: number, previousPageData: any) => {
   return `${process.env.NEXT_PUBLIC_API_URL}/api/youtubeNews?start=${pageIndex + 1}&count=20`;
 };
 
-export default function WatchesNewsItem() {
+export default function WatchesNews() {
   const router = useRouter();
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -146,7 +146,7 @@ export default function WatchesNewsItem() {
         contentLabel="Watch Modal"
         style={modalContainer}
       >
-        <WatchDetail watchItem={selectedWatch} />
+        <WatchDetail watchNews={selectedWatch} />
       </Modal>
       {isLoading && <div className={styles.loading}>뉴스를 불러오는 중입니다.</div>}
       {error && (

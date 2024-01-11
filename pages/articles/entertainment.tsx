@@ -44,7 +44,7 @@ function ArticlesEntertainment() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `/api/articlesEntertainment?start=${pageIndex + 1}&count=20`;
+    return `/api/naverEntertainment?start=${pageIndex + 1}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {

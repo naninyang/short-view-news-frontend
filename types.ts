@@ -65,6 +65,15 @@ export type NotionRawResponse = {
   next_cursor: string | null;
 };
 
+export interface NotionRichText {
+  plain_text: string;
+  href?: string | null;
+}
+
+export interface NotionDate {
+  start: string;
+}
+
 export interface NaverCommentResult {
   properties: NaverProperties;
 }
@@ -408,15 +417,6 @@ export interface PeriodtTimeline {
   thumbnail35?: string;
   thumbnail45?: string;
   [key: string]: any;
-}
-
-export interface NotionRichText {
-  plain_text: string;
-  href?: string | null;
-}
-
-export interface NotionDate {
-  start: string;
 }
 
 export type CommentResponse = {

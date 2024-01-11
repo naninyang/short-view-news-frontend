@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
-import WatchesNewsItem from './newsItem';
+import WatchesNews from './news';
 import WatchesPlaylist from './playlist';
 import tabs from '@/styles/tabs.module.sass';
 import styles from '@/styles/watches.module.sass';
@@ -66,7 +66,7 @@ export default function Watches() {
             </li>
           </ul>
         </nav>
-        {(activeArea === null || activeArea === 1) && <WatchesNewsItem />}
+        {(activeArea === null || activeArea === 1) && <WatchesNews />}
         {activeArea === 2 && <WatchesPlaylist />}
       </div>
     </main>
