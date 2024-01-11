@@ -1,4 +1,11 @@
-import { NaverAPIResponse, NaverResult, NotionPageResponse, NotionRichText, YouTubeProperties } from 'types';
+import {
+  NaverCommentResponse,
+  NaverCommentResult,
+  NotionPageResponse,
+  NotionRichText,
+  YouTubeCommentResponse,
+  YouTubeCommentResult,
+} from 'types';
 import { Client } from '@notionhq/client';
 export const notion = new Client({ auth: process.env.NOTION_SECRET });
 
@@ -17,15 +24,7 @@ export async function getCommentData() {
   return sortedRowsData;
 }
 
-export interface YouTubeResult {
-  properties: YouTubeProperties;
-}
-
-export interface YouTubeAPIResponse {
-  results: YouTubeResult[];
-}
-
-export async function getHistoryNaver(): Promise<NaverAPIResponse> {
+export async function getHistoryNaver(): Promise<NaverCommentResponse> {
   const databaseId = process.env.NOTION_DATABASE_ID_HISTORY_NAVER;
 
   if (!databaseId) {
@@ -92,7 +91,7 @@ export async function getHistoryNaver(): Promise<NaverAPIResponse> {
           properties,
         };
       })
-      .filter((item): item is NaverResult => item !== null);
+      .filter((item): item is NaverCommentResult => item !== null);
     return {
       results: RowData,
     };
@@ -128,7 +127,7 @@ export async function getPageInfo(titleValue: string): Promise<string | null> {
   return null;
 }
 
-export async function getHistoryYouTube(): Promise<YouTubeAPIResponse> {
+export async function getHistoryYouTube(): Promise<YouTubeCommentResponse> {
   const databaseId = process.env.NOTION_DATABASE_ID_HISTORY_YOUTUBE;
 
   if (!databaseId) {
@@ -181,7 +180,7 @@ export async function getHistoryYouTube(): Promise<YouTubeAPIResponse> {
           properties,
         };
       })
-      .filter((item): item is YouTubeResult => item !== null);
+      .filter((item): item is YouTubeCommentResult => item !== null);
     return {
       results: RowData,
     };

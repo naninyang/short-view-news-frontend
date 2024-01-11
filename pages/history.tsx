@@ -13,7 +13,7 @@ import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
 import tabs from '@/styles/tabs.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import { NaverAPIResponse, YouTubeAPIResponse } from 'types';
+import { NaverCommentResponse, YouTubeCommentResponse } from 'types';
 
 export function useDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -25,13 +25,13 @@ export function useDesktop() {
 }
 
 export default function History() {
-  const [youTubeData, setYouTubeData] = useState<YouTubeAPIResponse | null>(null);
-  const [naverData, setNaverData] = useState<NaverAPIResponse | null>(null);
+  const [youTubeData, setYouTubeData] = useState<YouTubeCommentResponse | null>(null);
+  const [naverData, setNaverData] = useState<NaverCommentResponse | null>(null);
 
   useEffect(() => {
     async function fetchYouTubeData() {
       try {
-        const response = await axios.get<YouTubeAPIResponse>('/api/historyYouTube');
+        const response = await axios.get<YouTubeCommentResponse>('/api/historyYouTube');
         setYouTubeData(response.data);
       } catch (error) {
         console.error('Failed to fetch history from Notion', error);
@@ -41,7 +41,7 @@ export default function History() {
 
     async function fetchNaverData() {
       try {
-        const response = await axios.get<NaverAPIResponse>('/api/historyNaver');
+        const response = await axios.get<NaverCommentResponse>('/api/historyNaver');
         setNaverData(response.data);
       } catch (error) {
         console.error('Failed to fetch history from Notion', error);

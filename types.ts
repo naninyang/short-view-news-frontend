@@ -65,12 +65,12 @@ export type NotionRawResponse = {
   next_cursor: string | null;
 };
 
-export interface NaverResult {
+export interface NaverCommentResult {
   properties: NaverProperties;
 }
 
-export interface NaverAPIResponse {
-  results: NaverResult[];
+export interface NaverCommentResponse {
+  results: NaverCommentResult[];
 }
 
 export interface YouTubeProperties {
@@ -277,12 +277,12 @@ export interface NaverProperties {
   };
 }
 
-export interface YouTubeResult {
+export interface YouTubeCommentResult {
   properties: YouTubeProperties;
 }
 
-export interface YouTubeAPIResponse {
-  results: YouTubeResult[];
+export interface YouTubeCommentResponse {
+  results: YouTubeCommentResult[];
 }
 
 export type Article = {
