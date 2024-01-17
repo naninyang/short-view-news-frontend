@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import AnchorLink from '@/components/Anchor';
 import { images } from '@/components/images';
 import content from '@/styles/content.module.sass';
@@ -49,8 +49,8 @@ export default function Notice() {
   return (
     <main className={`${content.content} ${styles.pages} ${styles.notice}`}>
       <Seo
-        pageTitle="안내사항"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageTitle={`안내사항 - ${originTitle}`}
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className="top-link">

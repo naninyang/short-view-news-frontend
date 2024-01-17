@@ -8,7 +8,7 @@ import Accordion from '@/components/Accordion';
 import AccordionItem from '@/components/AccordionItem';
 import YouTubeController from '@/components/YouTubeController';
 import Opengraph from '@/components/Opengraph';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
 import tabs from '@/styles/tabs.module.sass';
@@ -92,8 +92,8 @@ export default function History() {
   return (
     <main className={styles.history}>
       <Seo
-        pageTitle="사건/사고 히스토리"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageTitle={`사건/사고 히스토리 - ${originTitle}`}
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className={styles.refresh}>

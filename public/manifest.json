@@ -1,7 +1,7 @@
 {
   "name": "숏뷰뉴스 short.view.news",
   "short_name": "숏뷰뉴스",
-  "description": "내가 놓친 뉴스 기사를 보여줘",
+  "description": "내가 놓친 뉴스를 보여줘",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",

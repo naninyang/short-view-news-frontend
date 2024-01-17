@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import fs from 'fs';
 import path from 'path';
 import styled from '@emotion/styled';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import AnchorLink from '@/components/Anchor';
 import { images } from '@/components/images';
 import content from '@/styles/content.module.sass';
@@ -31,8 +31,8 @@ function OpenSources({ licenses }: { licenses: string[] }) {
   return (
     <main className={`${content.content} ${styles['open_sources']}`}>
       <Seo
-        pageTitle="오픈소스"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageTitle={`오픈소스 - ${originTitle}`}
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className="top-link">

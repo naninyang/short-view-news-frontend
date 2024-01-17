@@ -10,13 +10,15 @@ interface Props {
   pageOgType?: string;
 }
 
+export const originTitle = '숏뷰뉴스 short.view.news';
+
 const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight, pageOgType }: Props) => {
   const router = useRouter();
   const pagePath = router.asPath;
   const domain = 'https://shorts.dev1stud.io';
 
-  const defaultTitle = '내가 놓친 뉴스 기사를 보여줘 - 숏뷰뉴스 short.view.news';
-  const defaultDescription = '내가 놓친 뉴스 기사를 보여줘';
+  const defaultTitle = `내가 놓친 뉴스를 보여줘 - ${originTitle}`;
+  const defaultDescription = '내가 놓친 뉴스를 보여줘';
   const title = pageTitle || defaultTitle;
   const description = pageDescription || defaultDescription;
   const url = `${domain}${pagePath}`;

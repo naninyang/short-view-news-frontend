@@ -39,7 +39,7 @@ export default function Watches() {
     <main className={styles.watches}>
       <Seo
         pageTitle="유튜브 쇼츠 뉴스"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <PageName pageName="유튜브 쇼츠 뉴스" />

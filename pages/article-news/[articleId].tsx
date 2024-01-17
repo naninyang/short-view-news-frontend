@@ -7,7 +7,7 @@ import { CommentResponse, NaverItemData } from 'types';
 import { FormatDate } from '@/components/FormatDate';
 import { images } from '@/components/images';
 import AnchorLink from '@/components/Anchor';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
@@ -89,7 +89,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
       </div>
       <article>
         <Seo
-          pageTitle={`${articleData?.attributes.title}`}
+          pageTitle={`${articleData?.attributes.title} - ${originTitle}`}
           pageDescription={`${articleData?.attributes.description}`}
           pageImg={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
             articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'

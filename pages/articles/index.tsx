@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import PageName from '@/components/PageName';
 import ArticlesNews from './news';
 import ArticlesEntertainment from './entertainment';
@@ -38,8 +38,8 @@ function Articles() {
   return (
     <main className={styles.articles}>
       <Seo
-        pageTitle="네이버 뉴스 기사"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageTitle={`네이버 뉴스 기사 - ${originTitle}`}
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <PageName pageName="네이버 뉴스" />

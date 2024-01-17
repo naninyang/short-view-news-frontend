@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import PageName from '@/components/PageName';
 import PeriodtOmt from './omt';
 import PeriodtTimeline from './timeline';
@@ -38,7 +38,7 @@ function Periodt() {
   return (
     <main className={styles.periodts}>
       <Seo
-        pageTitle="트위터 인용/멘션 및 타임라인"
+        pageTitle={`트위터 인용/멘션 및 타임라인 - ${originTitle}`}
         pageDescription="뉴스 기사 트윗에 달린 인용/멘션을 보여드립니다"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />

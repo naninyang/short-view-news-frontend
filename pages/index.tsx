@@ -119,7 +119,7 @@ export default function Home() {
     <main className={`${content.content} ${styles.pages} ${styles.home} ${main.main}`}>
       <Seo
         pageTitle="숏뷰뉴스 short.view.news"
-        pageDescription="내가 놓친 뉴스 기사를 보여줘"
+        pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <div className={`${styles['pages-content']} ${main['main-content']}`}>

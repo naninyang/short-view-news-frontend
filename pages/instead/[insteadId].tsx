@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { images } from '@/components/images';
 import { FormatDate } from '@/components/FormatDate';
 import Anchor from '@/components/Anchor';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/instead.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
@@ -119,8 +119,8 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
       </div>
       <article>
         <Seo
-          pageTitle={`${instead?.attributes.title}`}
-          pageDescription={`${instead?.attributes.description}`}
+          pageTitle={`${instead?.attributes.title} - ${originTitle}`}
+          pageDescription={`${instead?.attributes.comment}`}
           pageImg={instead?.metaData?.ogImage}
           pageOgType="instead"
         />

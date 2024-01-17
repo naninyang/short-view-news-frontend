@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { CommentResponse, PlaylistRowData } from 'types';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/Anchor';
 import { images } from '@/components/images';
@@ -117,21 +117,12 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
 
   return (
     <main className={styles.watch}>
-      {watchData.attributes.type === 'playlist' ? (
-        <Seo
-          pageTitle={watchData.attributes.subject}
-          pageDescription={watchData.attributes.description1}
-          pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId1}/maxresdefault.jpg`}
-          pageOgType="video.other"
-        />
-      ) : (
-        <Seo
-          pageTitle={watchData.attributes.title}
-          pageDescription={watchData.attributes.description}
-          pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId}/maxresdefault.jpg`}
-          pageOgType="video.other"
-        />
-      )}
+      <Seo
+        pageTitle={`${watchData.attributes.title} - ${originTitle}`}
+        pageDescription={watchData.attributes.comment}
+        pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId}/maxresdefault.jpg`}
+        pageOgType="video.other"
+      />
       <div className="top-link">
         {savedScrollPosition ? (
           <button onClick={handleBackClick}>
