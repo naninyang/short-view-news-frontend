@@ -209,7 +209,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   if (articleId && typeof articleId === 'string') {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/naverEntertainment?id=${articleId.substring(14)}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/articlesEntertainment?id=${articleId.substring(14)}`,
     );
     const data = (await response.json()) as { data: NaverItemData[] };
     articleData = data;

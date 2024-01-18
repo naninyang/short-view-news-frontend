@@ -250,7 +250,9 @@ function InsteadsView() {
                     </div>
                   </div>
                   <div className={styles.description}>
-                    <p dangerouslySetInnerHTML={{ __html: instead.comment.replace(/\n/g, '<br />') }} />
+                    {instead.comment.map((cmt: ArrayData, index: number) => (
+                      <p key={index}>{cmt.children[0].text}</p>
+                    ))}
                   </div>
                 </article>
               ))}

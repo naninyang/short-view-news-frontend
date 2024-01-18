@@ -145,7 +145,9 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                 </div>
               )}
               <div className={styles.description}>
-                <p dangerouslySetInnerHTML={{ __html: insteadItem.comment }} />
+                {insteadItem.comment.map((cmt: ArrayData, index: number) => (
+                  <p key={index}>{cmt.children[0].text}</p>
+                ))}
               </div>
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>

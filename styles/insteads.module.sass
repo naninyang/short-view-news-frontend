@@ -301,14 +301,15 @@
             color: var(--txt-subject)
             +line-abbr(2, 36, 1.5)
 
-    .description
+    > .description
+      margin: rem(15)
+
       a
         &:focus
           color: var(--default-text)
           text-decoration: underline
 
-      .comment
-        margin: rem(15)
+      p
         font-size: rem(14)
         line-height: 1.6
         color: var(--txt-blockquote)

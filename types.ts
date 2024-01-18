@@ -327,7 +327,7 @@ export type Instead = {
   title: string;
   description: string;
   addr: string;
-  comment: string;
+  comment: any;
   insteadMetaData?: {
     ogTitle: string;
     ogUrl: string;
@@ -601,7 +601,7 @@ export type PreviewRowData = {
     title: string;
     description: string;
     address: string;
-    comment: string;
+    comment: any;
   };
   metaData?: {
     ogTitle: string;

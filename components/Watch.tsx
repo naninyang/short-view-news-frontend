@@ -146,7 +146,7 @@ const watchDetail: React.FC<watchProps> = ({ watchNews }) => {
                     <span>닫기</span>
                   </button>
                   <h1>
-                    &lt;{watchNews.title}&gt; 외 {countItems(watchNews.titles)}건
+                    🌟{watchNews.title}🌟 외 {countItems(watchNews.titles)}건
                   </h1>
                   <time>{watchNews.created}</time>
                 </header>
@@ -301,8 +301,8 @@ const watchDetail: React.FC<watchProps> = ({ watchNews }) => {
                   <PerfectScrollbar className={styles['scrollbar-container']}>
                     <YouTubeController videoId={watchNews.video_id} isPlaylist={false} />
                     <div className={styles.description}>
-                      <p dangerouslySetInnerHTML={{ __html: watchNews.description }} />
-                      <p>{watchNews.comment}</p>
+                      <p dangerouslySetInnerHTML={{ __html: watchNews.description.replace(/\n/g, '<br />') }} />
+                      <p dangerouslySetInnerHTML={{ __html: watchNews.comment.replace(/\n/g, '<br />') }} />
                     </div>
                     <div className={commentStyles['comment-control']}>
                       <form onSubmit={handleSubmit}>

@@ -197,7 +197,9 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
               </div>
             </div>
             <div className={styles.description}>
-              <p dangerouslySetInnerHTML={{ __html: instead.attributes.comment.replace(/\n/g, '<br />') }} />
+              {instead.attributes.comment.map((cmt: ArrayData, index: number) => (
+                <p key={index}>{cmt.children[0].text}</p>
+              ))}
             </div>
           </>
         ) : (

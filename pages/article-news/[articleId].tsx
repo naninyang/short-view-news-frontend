@@ -34,7 +34,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
   };
 
   const [formData, setFormData] = useState({
-    collection: `naver-${articleData?.attributes.type}-${process.env.NODE_ENV}`,
+    collection: `naver-news`,
     permalink: `${process.env.NEXT_PUBLIC_API_URL}/article-news/${articleData?.attributes.idx}`,
     idx: articleData?.attributes.idx,
     created: new Date().toISOString(),
@@ -208,7 +208,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let articleData = null;
 
   if (articleId && typeof articleId === 'string') {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/naverNews?id=${articleId.substring(14)}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articlesNews?id=${articleId.substring(14)}`);
     const data = (await response.json()) as { data: NaverItemData[] };
     articleData = data;
   }
