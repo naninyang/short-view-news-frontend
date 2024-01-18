@@ -143,7 +143,7 @@ export default function Services() {
         <MenuItem currentRouter={router.pathname === '/' ? true : false}>
           <AnchorLink href="/">
             <i data-icon="home" />
-            <span></span>
+            <span>홈</span>
           </AnchorLink>
         </MenuItem>
         <MenuItem currentRouter={router.pathname === '/watches' || router.pathname.includes('/watch') ? true : false}>
