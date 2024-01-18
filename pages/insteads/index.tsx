@@ -17,7 +17,7 @@ function Insteads() {
       <Seo
         pageTitle={`대리클릭 - ${originTitle}`}
         pageDescription="내용은 궁금하지만 누르기는 귀찮은 뉴스 기사의 결론을 알려드려요"
-        pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
+        pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />
       <PageName pageName="대리 클릭" />
       <div className={styles.list}>

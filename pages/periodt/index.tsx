@@ -40,7 +40,7 @@ function Periodt() {
       <Seo
         pageTitle={`트위터 인용/멘션 및 타임라인 - ${originTitle}`}
         pageDescription="뉴스 기사 트윗에 달린 인용/멘션을 보여드립니다"
-        pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
+        pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />
       <PageName pageName="트위터 인용/멘션 및 타임라인" />
       <div className={styles.list}>

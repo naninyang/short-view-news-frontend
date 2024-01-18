@@ -94,7 +94,7 @@ export default function History() {
       <Seo
         pageTitle={`사건/사고 히스토리 - ${originTitle}`}
         pageDescription="내가 놓친 뉴스를 보여줘"
-        pageImg={`https://shorts.dev1stud.io/og-image.png?ts=${timestamp}`}
+        pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />
       <div className={styles.refresh}>
         <PageName pageName="사건/사고 히스토리" />
