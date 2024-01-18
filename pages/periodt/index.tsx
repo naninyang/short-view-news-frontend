@@ -38,7 +38,8 @@ function Periodt() {
   return (
     <main className={styles.periodts}>
       <Seo
-        pageTitle={`트위터 인용/멘션 및 타임라인 - ${originTitle}`}
+        pageTitles={`트위터 인용/멘션 및 타임라인 - ${originTitle}`}
+        pageTitle="트위터 인용/멘션 및 타임라인"
         pageDescription="뉴스 기사 트윗에 달린 인용/멘션을 보여드립니다"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />

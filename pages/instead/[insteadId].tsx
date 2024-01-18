@@ -107,7 +107,8 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
       </div>
       <article>
         <Seo
-          pageTitle={`${instead?.attributes.title} - ${originTitle}`}
+          pageTitles={`${instead?.attributes.title} - ${originTitle}`}
+          pageTitle={`${instead?.attributes.title}`}
           pageDescription={`${instead?.attributes.comment}`}
           pageImg={instead?.metaData?.ogImage}
           pageOgType="instead"

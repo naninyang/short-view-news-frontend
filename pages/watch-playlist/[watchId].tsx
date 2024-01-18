@@ -123,7 +123,8 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
   return (
     <main className={styles.watch}>
       <Seo
-        pageTitle={`${watchData.attributes.subject} - ${originTitle}`}
+        pageTitles={`${watchData.attributes.subject} - ${originTitle}`}
+        pageTitle={`${watchData.attributes.subject}`}
         pageDescription={watchData.attributes.comment1}
         pageImg={`https://i.ytimg.com/vi/${watchData.attributes.videoId1}/maxresdefault.jpg`}
         pageOgType="video.other"

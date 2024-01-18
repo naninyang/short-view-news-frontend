@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 interface Props {
+  pageTitles?: string;
   pageTitle: string;
   pageDescription: string;
   pageImg?: string;
@@ -12,14 +13,14 @@ interface Props {
 
 export const originTitle = '숏뷰뉴스 short.view.news';
 
-const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight, pageOgType }: Props) => {
+const Seo = ({ pageTitles, pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight, pageOgType }: Props) => {
   const router = useRouter();
   const pagePath = router.asPath;
   const domain = 'https://shorts.dev1stud.io';
 
   const defaultTitle = `내가 놓친 뉴스를 보여줘 - ${originTitle}`;
   const defaultDescription = '내가 놓친 뉴스를 보여줘';
-  const title = pageTitle || defaultTitle;
+  const title = pageTitles || defaultTitle;
   const description = pageDescription || defaultDescription;
   const url = `${domain}${pagePath}`;
   const imgUrl = `${pageImg}`;
@@ -35,7 +36,7 @@ const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight,
       <meta name="description" content={description} />
       <meta property="og:locale" content="ko_KR" />
       <meta property="og:url" content={url} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={pageTitle} />
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />

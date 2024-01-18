@@ -15,7 +15,8 @@ function Insteads() {
   return (
     <main className={styles.insteads}>
       <Seo
-        pageTitle={`대리클릭 - ${originTitle}`}
+        pageTitles={`대리클릭 - ${originTitle}`}
+        pageTitle="대리클릭"
         pageDescription="내용은 궁금하지만 누르기는 귀찮은 뉴스 기사의 결론을 알려드려요"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />

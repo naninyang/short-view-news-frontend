@@ -89,7 +89,8 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
       </div>
       <article>
         <Seo
-          pageTitle={`${articleData?.attributes.title} - ${originTitle}`}
+          pageTitles={`${articleData?.attributes.title} - ${originTitle}`}
+          pageTitle={`${articleData?.attributes.title}`}
           pageDescription={`${articleData?.attributes.description}`}
           pageImg={`https://cdn.dev1stud.io/shorts/${articleData?.attributes.thumbnail}${
             articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Seo from '@/components/Seo';
+import Seo, { originTitle } from '@/components/Seo';
 import PageName from '@/components/PageName';
 import WatchesNews from './news';
 import WatchesPlaylist from './playlist';
@@ -38,6 +38,7 @@ export default function Watches() {
   return (
     <main className={styles.watches}>
       <Seo
+        pageTitles={`유튜브 쇼츠 뉴스 - ${originTitle}`}
         pageTitle="유튜브 쇼츠 뉴스"
         pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}

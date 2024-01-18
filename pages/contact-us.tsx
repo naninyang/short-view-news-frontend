@@ -77,7 +77,8 @@ function ContactForm() {
   return (
     <main className={`${content.content} ${styles.contact_us}`}>
       <Seo
-        pageTitle={`문의사항 - ${originTitle}`}
+        pageTitles={`문의사항 - ${originTitle}`}
+        pageTitle="문의사항"
         pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />

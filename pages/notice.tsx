@@ -49,7 +49,8 @@ export default function Notice() {
   return (
     <main className={`${content.content} ${styles.pages} ${styles.notice}`}>
       <Seo
-        pageTitle={`안내사항 - ${originTitle}`}
+        pageTitles={`안내사항 - ${originTitle}`}
+        pageTitle="안내사항"
         pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />

@@ -38,7 +38,8 @@ function Articles() {
   return (
     <main className={styles.articles}>
       <Seo
-        pageTitle={`네이버 뉴스 기사 - ${originTitle}`}
+        pageTitles={`네이버 뉴스 기사 - ${originTitle}`}
+        pageTitle="네이버 뉴스 기사"
         pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />

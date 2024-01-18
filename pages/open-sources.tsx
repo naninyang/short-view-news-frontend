@@ -31,7 +31,8 @@ function OpenSources({ licenses }: { licenses: string[] }) {
   return (
     <main className={`${content.content} ${styles['open_sources']}`}>
       <Seo
-        pageTitle={`오픈소스 - ${originTitle}`}
+        pageTitles={`오픈소스 - ${originTitle}`}
+        pageTitle="오픈소스"
         pageDescription="내가 놓친 뉴스를 보여줘"
         pageImg={`https://shorts.dev1stud.io/og-image.webp?ts=${timestamp}`}
       />
