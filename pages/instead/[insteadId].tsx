@@ -90,18 +90,6 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
 
   const isTablet = useTablet();
 
-  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
-    return (
-      <>
-        {comment.map((cmt, index) => (
-          <p className={styles.comment} key={index}>
-            {cmt.children[0].text}
-          </p>
-        ))}
-      </>
-    );
-  };
-
   return (
     <main className={styles.instead}>
       <div className="top-link">
@@ -209,7 +197,7 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
               </div>
             </div>
             <div className={styles.description}>
-              <PreviewComment comment={instead.attributes.comment} />
+              <p dangerouslySetInnerHTML={{ __html: instead.attributes.comment.replace(/\n/g, '<br />') }} />
             </div>
           </>
         ) : (

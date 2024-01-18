@@ -115,18 +115,6 @@ function InsteadsView() {
 
   const isTablet = useTablet();
 
-  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
-    return (
-      <>
-        {comment.map((cmt, index) => (
-          <p className={styles.comment} key={index}>
-            {cmt.children[0].text}
-          </p>
-        ))}
-      </>
-    );
-  };
-
   return (
     <>
       <Modal
@@ -262,7 +250,7 @@ function InsteadsView() {
                     </div>
                   </div>
                   <div className={styles.description}>
-                    <PreviewComment comment={instead.comment} />
+                    <p dangerouslySetInnerHTML={{ __html: instead.comment.replace(/\n/g, '<br />') }} />
                   </div>
                 </article>
               ))}
