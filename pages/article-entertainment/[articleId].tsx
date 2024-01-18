@@ -91,7 +91,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
         <Seo
           pageTitle={`${articleData?.attributes.title} - ${originTitle}`}
           pageDescription={`${articleData?.attributes.description}`}
-          pageImg={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+          pageImg={`https://cdn.dev1stud.io/shorts/${articleData?.attributes.thumbnail}${
             articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
           }`}
           pageOgType="article"
@@ -104,7 +104,7 @@ export default function ArticleDetail({ articleData }: { articleData: NaverItemD
             <div className={styles.description}>
               <p dangerouslySetInnerHTML={{ __html: articleData.attributes.description.replace(/\n/g, '<br />') }} />
               <Image
-                src={`https://cat-svn.netlify.app/images/${articleData?.attributes.thumbnail}${
+                src={`https://cdn.dev1stud.io/shorts/${articleData?.attributes.thumbnail}${
                   articleData?.attributes.thumbnail?.endsWith('.gif') ? '' : '.webp'
                 }`}
                 width={640}

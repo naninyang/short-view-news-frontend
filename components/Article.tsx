@@ -125,7 +125,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
               <div className={styles.description}>
                 <p dangerouslySetInnerHTML={{ __html: articleItem.description.replace(/\n/g, '<br />') }} />
                 <Image
-                  src={`https://cat-svn.netlify.app/images/${articleItem?.thumbnail}${
+                  src={`https://cdn.dev1stud.io/shorts/${articleItem?.thumbnail}${
                     articleItem?.thumbnail?.endsWith('.gif') ? '' : '.webp'
                   }`}
                   width={640}

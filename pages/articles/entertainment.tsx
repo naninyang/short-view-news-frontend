@@ -172,7 +172,7 @@ function ArticlesEntertainment() {
                       </Link>
                     )}
                     <Image
-                      src={`https://cat-svn.netlify.app/images/${article?.thumbnail}${
+                      src={`https://cdn.dev1stud.io/shorts/${article?.thumbnail}${
                         article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
                       }`}
                       width={640}
