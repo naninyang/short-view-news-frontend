@@ -36,7 +36,7 @@ const Primary = styled.div({
   gap: rem(15),
   '& h1 a': {
     display: 'block',
-    width: rem(151),
+    width: rem(96),
     height: rem(30),
     'body[data-theme="dark"] &': {
       background: `url(${images.logo.light}) no-repeat 50% 50%/contain`,
