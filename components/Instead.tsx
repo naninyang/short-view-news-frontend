@@ -77,18 +77,6 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
     fetchInsteadData();
   }, []);
 
-  const PreviewComment: React.FC<{ comment: ArrayData[] }> = ({ comment }) => {
-    return (
-      <>
-        {comment.map((cmt, index) => (
-          <p className={styles.comment} key={index}>
-            {cmt.children[0].text}
-          </p>
-        ))}
-      </>
-    );
-  };
-
   return (
     <div className={`${styles.instead} ${styles['instead-container']}`}>
       <article>
@@ -157,7 +145,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                 </div>
               )}
               <div className={styles.description}>
-                <PreviewComment comment={insteadItem.comment} />
+                <p dangerouslySetInnerHTML={{ __html: insteadItem.comment }} />
               </div>
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>

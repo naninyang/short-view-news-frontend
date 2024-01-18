@@ -156,69 +156,69 @@ const watchDetail: React.FC<watchProps> = ({ watchNews }) => {
                     <div className={styles['playlist-description']}>
                       <strong>{watchNews.title1}</strong>
                       <p dangerouslySetInnerHTML={{ __html: watchNews.description1 }} />
-                      <Comment>{watchNews.comment1}</Comment>
+                      <p dangerouslySetInnerHTML={{ __html: watchNews.comment1 }} />
                     </div>
-                    {watchNews.title2 && (
+                    {watchNews.comment2 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title2}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description2 || '' }} />
-                        <Comment>{watchNews.comment2}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment2 }} />
                       </div>
                     )}
-                    {watchNews.title3 && (
+                    {watchNews.comment3 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title3}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description3 || '' }} />
-                        <Comment>{watchNews.comment3}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment3 }} />
                       </div>
                     )}
-                    {watchNews.title4 && (
+                    {watchNews.comment4 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title4}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description4 || '' }} />
-                        <Comment>{watchNews.comment4}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment4 }} />
                       </div>
                     )}
-                    {watchNews.title5 && (
+                    {watchNews.comment5 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title5}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description5 || '' }} />
-                        <Comment>{watchNews.comment5}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment5 }} />
                       </div>
                     )}
-                    {watchNews.title6 && (
+                    {watchNews.comment6 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title6}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description6 || '' }} />
-                        <Comment>{watchNews.comment6}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment6 }} />
                       </div>
                     )}
-                    {watchNews.title7 && (
+                    {watchNews.comment7 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title7}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description7 || '' }} />
-                        <Comment>{watchNews.comment7}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment7 }} />
                       </div>
                     )}
-                    {watchNews.title8 && (
+                    {watchNews.comment8 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title8}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description8 || '' }} />
-                        <Comment>{watchNews.comment8}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment8 }} />
                       </div>
                     )}
-                    {watchNews.title9 && (
+                    {watchNews.comment9 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title9}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description9 || '' }} />
-                        <Comment>{watchNews.comment9}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment9 }} />
                       </div>
                     )}
-                    {watchNews.title10 && (
+                    {watchNews.comment10 && (
                       <div className={styles['playlist-description']}>
                         <strong>{watchNews.title10}</strong>
                         <p dangerouslySetInnerHTML={{ __html: watchNews.description10 || '' }} />
-                        <Comment>{watchNews.comment10}</Comment>
+                        <p dangerouslySetInnerHTML={{ __html: watchNews.comment10 }} />
                       </div>
                     )}
                     <div className={commentStyles['comment-control']}>
