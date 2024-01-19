@@ -32,7 +32,7 @@ const Comment = styled.p({
   },
 });
 
-export default function watchDetail({ watchData }: { watchData: PlaylistRowData | null }) {
+export default function watchDetail({ watchData, idx }: { watchData: PlaylistRowData | null; idx: string }) {
   const router = useRouter();
   let savedScrollPosition;
 
@@ -72,8 +72,8 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
   }
 
   const [formData, setFormData] = useState({
-    collection: `youtube-${watchData.attributes.type}-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch-news/${watchData.attributes.idx}`,
+    collection: `youtube-news`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch-news/${idx}`,
     idx: watchData.attributes.idx,
     created: new Date().toISOString(),
     username: '',
@@ -101,11 +101,9 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
   const [commentData, setCommentData] = useState<CommentResponse[]>([]);
   const fetchCommentData = async () => {
     try {
-      const response = await fetch(
-        `/api/comments?collection=youtube-${watchData?.attributes.type}-${process.env.NODE_ENV}&idx=${watchData?.attributes.idx}`,
-      );
-      const data = await response.json();
-      setCommentData(Array.isArray(data.data) ? data.data : [data.data]);
+      const response = await fetch(`/api/comments?collection=youtube-news&idx=${idx}`);
+      const commentResponse = await response.json();
+      setCommentData(Array.isArray(commentResponse) ? commentResponse : [commentResponse]);
     } catch (error) {
       console.error('Error fetching page info:', error);
     }
@@ -188,8 +186,8 @@ export default function watchDetail({ watchData }: { watchData: PlaylistRowData 
         </form>
         {commentData && (
           <div className={commentStyles.comments}>
-            <strong>댓글 {commentData.length - 1}개</strong>
-            {commentData.length > 1 &&
+            <strong>댓글 {commentData.length}개</strong>
+            {commentData.length > 0 &&
               commentData.map((comment, index) => (
                 <div key={index} className={commentStyles.comment}>
                   <div className={commentStyles.user}>
@@ -231,6 +229,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       watchData,
+      idx: watchId,
     },
     revalidate: 1,
   };

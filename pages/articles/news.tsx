@@ -9,7 +9,7 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { NaverItemsData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
-import ArticleDetail from '@/components/Article';
+import ArticleDetail from '@/components/ArticleNews';
 import AnchorLink from '@/components/Anchor';
 import styles from '@/styles/articles.module.sass';
 

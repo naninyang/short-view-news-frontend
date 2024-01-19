@@ -14,8 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
     res.status(200).json(data);
-  } else {
-    res.status(405).json({ message: 'Unsupported method' });
   }
   if (req.method === 'POST') {
     const databaseId = process.env.NOTION_DATABASE_ID_COMMENTS as any;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import styled from '@emotion/styled';
 import AnchorLink from './Anchor';
 
@@ -31,10 +30,11 @@ const Opengraph = ({ article_id, datetime }: Props) => {
   useEffect(() => {
     async function fetchOpengraph() {
       try {
-        const response = await axios.get(
-          `/api/twt?url=${encodeURIComponent(`https://n.news.naver.com/article/${article_id}`)}`,
+        const response = await fetch(
+          `/api/opengraph?url=${encodeURIComponent(`https://n.news.naver.com/article/${article_id}`)}`,
         );
-        setOpenGraph(response.data);
+        const historyResponse = await response.json();
+        setOpenGraph(historyResponse);
       } catch (error) {
         console.error('Failed to fetch opengraph', error);
       }

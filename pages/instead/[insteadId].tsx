@@ -39,7 +39,7 @@ export function useTablet() {
   return isTablet;
 }
 
-export default function InsteadDetail({ instead }: { instead: PreviewRowData | null }) {
+export default function InsteadDetail({ instead, idx }: { instead: PreviewRowData | null; idx: string }) {
   const router = useRouter();
   let savedScrollPosition;
 
@@ -51,8 +51,8 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
   };
 
   const [formData, setFormData] = useState({
-    collection: `instead-${process.env.NODE_ENV}`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${instead?.attributes.idx}`,
+    collection: `instead`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${idx}`,
     idx: instead?.attributes.idx,
     created: new Date().toISOString(),
     username: '',
@@ -65,27 +65,26 @@ export default function InsteadDetail({ instead }: { instead: PreviewRowData | n
     try {
       const response = await axios.post(`/api/comments`, formData);
       if (response.status === 200) {
-        await fetchPreviewData();
+        await fetchPreviewCommentData();
       }
     } catch (error) {
-      await fetchPreviewData();
+      await fetchPreviewCommentData();
     }
   };
 
   const [previewData, setPreviewData] = useState<DataResponse[]>([]);
-  const fetchPreviewData = async () => {
+  const fetchPreviewCommentData = async () => {
     try {
-      const response = await axios.get(
-        `/api/comments?collection=instead-${process.env.NODE_ENV}&idx=${instead?.attributes.idx}`,
-      );
-      setPreviewData(Array.isArray(response.data) ? response.data : [response.data]);
+      const response = await fetch(`/api/comments?collection=instead&idx=${idx}`);
+      const commentResponse = await response.json();
+      setPreviewData(Array.isArray(commentResponse) ? commentResponse : [commentResponse]);
     } catch (error) {
       console.error('Error fetching page info:', error);
     }
   };
 
   useEffect(() => {
-    fetchPreviewData();
+    fetchPreviewCommentData();
   }, []);
 
   const isTablet = useTablet();
@@ -281,6 +280,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       instead: insteadData,
+      idx: insteadId,
     },
     revalidate: 1,
   };

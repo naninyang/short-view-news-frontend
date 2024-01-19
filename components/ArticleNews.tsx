@@ -1,18 +1,46 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import { ArrayData, Instead } from 'types';
 import AnchorLink from './Anchor';
 import { images } from './images';
 import { FormatDate } from './FormatDate';
 import styled from '@emotion/styled';
-import styles from '@/styles/instead.module.sass';
+import styles from '@/styles/article.module.sass';
 import commentStyles from '@/styles/comment.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-interface insteadProps {
-  insteadItem: Instead | undefined;
+type ArticleData = {
+  idx: string;
+  description: string;
+  thumbnail: string;
+  title: string;
+  oid: string;
+  aid: string;
+  created: string;
+  newsMetaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogCreator: string;
+    datestampTimeContent: any;
+    datestampTimeAttribute: any;
+  };
+  entertainmentMetaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogCreator: string;
+    datestampTimeContent: any;
+    datestampTimeAttribute: any;
+  };
+};
+
+interface articleProps {
+  articleItem: ArticleData | undefined;
 }
 
 type DataResponse = {
@@ -33,16 +61,16 @@ const CrossButton = styled.i({
   },
 });
 
-const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
+const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
   const router = useRouter();
   const handleCloseModal = () => {
-    router.push('/insteads');
+    router.push('/articles');
   };
 
   const [formData, setFormData] = useState({
-    collection: `instead`,
-    permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${insteadItem?.idx}`,
-    idx: insteadItem?.idx,
+    collection: `naver-news`,
+    permalink: `${process.env.NEXT_PUBLIC_API_URL}/article-news/${articleItem?.idx}`,
+    idx: articleItem?.idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
@@ -54,100 +82,93 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
     try {
       const response = await axios.post(`/api/comments`, formData);
       if (response.status === 200) {
-        await fetchInsteadData();
+        await fetchNaverCommentData();
       }
     } catch (error) {
-      await fetchInsteadData();
+      await fetchNaverCommentData();
     }
   };
 
-  const [naverData, setInsteadData] = useState<DataResponse[]>([]);
-  const fetchInsteadData = async () => {
+  const [naverCommentData, setNaverCommentData] = useState<DataResponse[]>([]);
+  const fetchNaverCommentData = async () => {
     try {
-      const response = await fetch(`/api/comments?collection=instead&idx=${insteadItem?.idx}`);
+      const response = await fetch(`/api/comments?collection=naver-news&idx=${articleItem?.idx}`);
       const commentResponse = await response.json();
-      setInsteadData(Array.isArray(commentResponse) ? commentResponse : [commentResponse]);
+      setNaverCommentData(Array.isArray(commentResponse) ? commentResponse : [commentResponse]);
     } catch (error) {
       console.error('Error fetching page info:', error);
     }
   };
 
   useEffect(() => {
-    fetchInsteadData();
+    fetchNaverCommentData();
   }, []);
 
   return (
-    <div className={`${styles.instead} ${styles['instead-container']}`}>
+    <div className={`${styles.article} ${styles['article-container']}`}>
       <article>
-        {insteadItem ? (
+        {articleItem ? (
           <>
             <header>
               <button type="button" className="close-btn" onClick={handleCloseModal}>
                 <CrossButton />
                 <span>닫기</span>
               </button>
-              <h1>{insteadItem?.title}</h1>
+              <h1>{articleItem?.title}</h1>
             </header>
             <PerfectScrollbar className={styles['scrollbar-container']}>
-              {insteadItem.insteadMetaData && (
-                <div className={styles['og-container']}>
-                  <AnchorLink href={insteadItem.addr}>
-                    원본:{' '}
-                    {insteadItem.insteadMetaData?.ogSiteName
-                      ? insteadItem.insteadMetaData?.ogSiteName
-                      : insteadItem.insteadMetaData?.twitterSite}
-                  </AnchorLink>
-                  {insteadItem.insteadMetaData?.ownerAvatar ? (
-                    <img src={insteadItem.insteadMetaData?.ogImage} alt="" />
-                  ) : (
-                    <div className={styles.thumbnails}>
-                      <img src={insteadItem.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
-                      <img
-                        src={insteadItem.insteadMetaData?.ogImage}
-                        alt=""
-                        className={styles['thumbnail-background']}
-                      />
-                    </div>
-                  )}
-                  <div className={styles['og-info']}>
-                    <div className={styles.summary}>
-                      <strong>{insteadItem.insteadMetaData?.ogTitle}</strong>{' '}
-                      <div className={styles.user}>
-                        {insteadItem.insteadMetaData?.ownerAvatar ? (
-                          <img src={insteadItem.insteadMetaData?.ownerAvatar} alt="" />
-                        ) : (
-                          <img src={insteadItem.insteadMetaData?.pressAvatar} alt="" />
-                        )}
-                        <div className={styles['user-info']}>
-                          <cite>
-                            {insteadItem.insteadMetaData?.ownerName
-                              ? insteadItem.insteadMetaData?.ownerName
-                              : insteadItem.insteadMetaData?.twitterCreator}
-                          </cite>
-                          {insteadItem.insteadMetaData?.datePublished ? (
-                            <time dateTime={insteadItem.insteadMetaData?.datePublished}>
-                              {FormatDate(insteadItem.insteadMetaData?.datePublished)}
-                            </time>
-                          ) : (
-                            <time dateTime={insteadItem.insteadMetaData?.pressPublished}>
-                              {FormatDate(`${insteadItem.insteadMetaData?.pressPublished}`)}
-                            </time>
-                          )}
+              <div className={styles.description}>
+                <p dangerouslySetInnerHTML={{ __html: articleItem.description.replace(/\n/g, '<br />') }} />
+                <Image
+                  src={`https://cdn.dev1stud.io/shorts/${articleItem?.thumbnail}${
+                    articleItem?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                  }`}
+                  width={640}
+                  height={480}
+                  unoptimized
+                  priority
+                  alt=""
+                />
+              </div>
+              {articleItem.newsMetaData ? (
+                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                  <div className={styles['og-container']}>
+                    <img src={articleItem.newsMetaData?.ogImage} alt="" />
+                    <div className={styles['og-info']}>
+                      <div className={styles.created}>
+                        <cite>{articleItem.newsMetaData?.ogCreator}</cite>
+                        <time dateTime={articleItem.created}>{articleItem.created}</time>
+                      </div>
+                      <div className={styles.summary}>
+                        <strong>{articleItem.newsMetaData?.ogTitle}</strong>
+                        <div className={styles.description}>
+                          {articleItem.newsMetaData?.ogDescription}
+                          ...
                         </div>
                       </div>
                     </div>
-                    <div className={styles.description}>
-                      {insteadItem.insteadMetaData?.ogDescription}
-                      ...
+                  </div>
+                </AnchorLink>
+              ) : (
+                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                  <div className={styles['og-container']}>
+                    <img src={articleItem.entertainmentMetaData?.ogImage} alt="" />
+                    <div className={styles['og-info']}>
+                      <div className={styles.created}>
+                        <cite>{articleItem.entertainmentMetaData?.ogCreator}</cite>
+                        <time dateTime={articleItem.created}>{articleItem.created}</time>
+                      </div>
+                      <div className={styles.summary}>
+                        <strong>{articleItem.entertainmentMetaData?.ogTitle}</strong>
+                        <div className={styles.description}>
+                          {articleItem.entertainmentMetaData?.ogDescription}
+                          ...
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </AnchorLink>
               )}
-              <div className={styles.description}>
-                {insteadItem.comment.map((cmt: ArrayData, index: number) => (
-                  <p key={index}>{cmt.children[0].text}</p>
-                ))}
-              </div>
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>
                   <fieldset>
@@ -186,10 +207,10 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                     </button>
                   </fieldset>
                 </form>
-                {naverData && (
+                {naverCommentData && (
                   <div className={commentStyles.comments}>
-                    <strong>댓글 {naverData.length}개</strong>
-                    {naverData.map((comment, index) => (
+                    <strong>댓글 {naverCommentData.length}개</strong>
+                    {naverCommentData.map((comment, index) => (
                       <div key={index} className={commentStyles.comment}>
                         <div className={commentStyles.user}>
                           <cite>{comment.username}</cite>
@@ -221,4 +242,4 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
   );
 };
 
-export default insteadDetail;
+export default articleDetail;

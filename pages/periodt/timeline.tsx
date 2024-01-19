@@ -127,7 +127,7 @@ function PeriodtTimeline() {
 
     const fetchOgData = async (url: string): Promise<void> => {
       try {
-        const response = await fetch(`/api/twt?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`/api/opengraph?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         setOgData((prevData) => ({ ...prevData, [url]: data }));
       } catch (error) {
