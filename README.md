@@ -2,13 +2,18 @@
 
 YouTube 및 NAVER 뉴스에 업로드 된 뉴스를 요약하고 큐레이터 본인의 생각을 짧게 보여주는 서비스입니다.
 
-YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이상의 뉴스도 가져옵니다.
+YouTube는 5분 미만의 짧은 뉴스를 가져옵니다.
 
 Twitter의 트윗은 큐레이팅하여 가져올 때는 큐레이터의 의견이 삽입되지 않습니다.
 
 History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 
 Preview는 대리클릭 콘텐츠 입니다.
+
+YouTube의 5분 이상의 긴 뉴스 또는 여러 뉴스를 모아둔 영상과 NAVER의 긴 기사는 기억뉴스상자 웹사이트에 올립니다.
+
+- 기억뉴스상자 저장소: https://github.com/naninyang/memorial-news-box-frontend
+- 기억뉴스상자 서비스: https://memorial.dev1stud.io
 
 ## 사용된 주요 기술
 
