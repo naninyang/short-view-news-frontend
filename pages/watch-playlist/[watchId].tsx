@@ -71,11 +71,6 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
     }
   }
 
-  const countItems = (data: string): number => {
-    const items = data.split('#');
-    return items.filter((item) => item !== 'null').length - 1;
-  };
-
   const [formData, setFormData] = useState({
     collection: `youtube-playlist`,
     permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch-playlist/${idx}`,
@@ -118,6 +113,11 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
     fetchCommentData();
   }, []);
 
+  const countItems = (data: string): number => {
+    const items = data.split('#');
+    return items.filter((item) => item !== 'null').length - 1;
+  };
+
   return (
     <main className={styles.watch}>
       <Seo
@@ -152,8 +152,8 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
           <time>{watchData.attributes.created}</time>
         </header>
         <YouTubeController
-          videoId={`${watchData.attributes.videoId1}.${watchData.attributes.videoId2}.${watchData.attributes.videoId3}.${watchData.attributes.videoId4}.${watchData.attributes.videoId5}.${watchData.attributes.videoId6}.${watchData.attributes.videoId7}.${watchData.attributes.videoId8}.${watchData.attributes.videoId9}.${watchData.attributes.videoId10}`}
-          titles={`${watchData.attributes.subject1}.${watchData.attributes.subject2}.${watchData.attributes.subject3}.${watchData.attributes.subject4}.${watchData.attributes.subject5}.${watchData.attributes.subject6}.${watchData.attributes.subject7}.${watchData.attributes.subject8}.${watchData.attributes.subject9}.${watchData.attributes.subject10}`}
+          videoId={`${watchData.attributes.videoId1}#${watchData.attributes.videoId2}#${watchData.attributes.videoId3}#${watchData.attributes.videoId4}#${watchData.attributes.videoId5}#${watchData.attributes.videoId6}#${watchData.attributes.videoId7}#${watchData.attributes.videoId8}#${watchData.attributes.videoId9}#${watchData.attributes.videoId10}`}
+          titles={`${watchData.attributes.subject1}#${watchData.attributes.subject2}#${watchData.attributes.subject3}#${watchData.attributes.subject4}#${watchData.attributes.subject5}#${watchData.attributes.subject6}#${watchData.attributes.subject7}#${watchData.attributes.subject8}#${watchData.attributes.subject9}#${watchData.attributes.subject10}`}
           isPlaylist={true}
         />
         <div className={styles['playlist-description']}>

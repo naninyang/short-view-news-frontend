@@ -76,8 +76,6 @@ export default function WatchesPlaylist() {
     if (!target || isLoading) return;
   }, [target, isLoading]);
 
-  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === playlistId) : undefined;
-
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
@@ -118,8 +116,8 @@ export default function WatchesPlaylist() {
     <div className={styles.item}>
       <figure>
         <YouTubeController
-          videoId={`${data.video_id1}.${data.video_id2}.${data.video_id3}.${data.video_id4}.${data.video_id5}.${data.video_id6}.${data.video_id7}.${data.video_id8}.${data.video_id9}${data.video_id10}`}
-          titles={`${data.title1}.${data.title2}.${data.title3}.${data.title4}.${data.title5}.${data.title6}.${data.title7}.${data.title8}.${data.title9}.${data.title10}`}
+          videoId={`${data.video_id1}#${data.video_id2}#${data.video_id3}#${data.video_id4}#${data.video_id5}#${data.video_id6}#${data.video_id7}#${data.video_id8}#${data.video_id9}${data.video_id10}`}
+          titles={`${data.title1}#${data.title2}#${data.title3}#${data.title4}#${data.title5}#${data.title6}#${data.title7}#${data.title8}#${data.title9}#${data.title10}`}
           isPlaylist={true}
         />
         <figcaption>

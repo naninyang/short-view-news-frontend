@@ -90,7 +90,7 @@ const YouTubeController = ({ videoId, isPlaylist, titles }: Props) => {
         <>
           {isPlaylist ? (
             <Image
-              src={`https://i.ytimg.com/vi_webp/${videoId.split('.')[0]}/hqdefault.webp`}
+              src={`https://i.ytimg.com/vi_webp/${videoId.split('#')[0]}/hqdefault.webp`}
               width={640}
               height={480}
               unoptimized

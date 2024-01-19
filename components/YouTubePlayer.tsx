@@ -71,8 +71,8 @@ const YouTubePlayer = ({ videoId, isPlaylist, titles }: Props) => {
     }
   };
 
-  const videoIdsArray = videoId ? videoId.split('.') : [];
-  const titlesArray = titles ? titles.split('.') : [];
+  const videoIdsArray = videoId ? videoId.split('#').filter((id) => id !== 'null' && id !== 'nullnull') : [];
+  const titlesArray = titles ? titles.split('#').filter((title) => title !== 'null' && title !== 'nullnull') : [];
 
   return (
     <>
