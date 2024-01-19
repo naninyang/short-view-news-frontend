@@ -79,7 +79,7 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
   const [formData, setFormData] = useState({
     collection: `youtube-playlist`,
     permalink: `${process.env.NEXT_PUBLIC_API_URL}/watch-playlist/${idx}`,
-    idx: watchData.attributes.idx,
+    idx: idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',

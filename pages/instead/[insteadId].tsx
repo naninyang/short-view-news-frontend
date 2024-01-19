@@ -53,7 +53,7 @@ export default function InsteadDetail({ instead, idx }: { instead: PreviewRowDat
   const [formData, setFormData] = useState({
     collection: `instead`,
     permalink: `${process.env.NEXT_PUBLIC_API_URL}/instead/${idx}`,
-    idx: instead?.attributes.idx,
+    idx: idx,
     created: new Date().toISOString(),
     username: '',
     comment: '',
