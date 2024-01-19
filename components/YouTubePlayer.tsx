@@ -41,6 +41,13 @@ const Controllers = styled.div({
 const YouTubePlayer = ({ videoId, isPlaylist, titles }: Props) => {
   const playerRef = useRef<any>(null);
 
+  const videosId = videoId
+    ? videoId
+        .split('#')
+        .filter((id) => id !== 'null' && id !== 'nullnull')
+        .join(',')
+    : '';
+
   const opts: YouTubeProps['opts'] = {
     width: 560,
     height: 315,
@@ -56,7 +63,7 @@ const YouTubePlayer = ({ videoId, isPlaylist, titles }: Props) => {
     playerVars: {
       autoplay: 1,
       rel: 0,
-      playlist: videoId,
+      playlist: videosId,
       loop: 1,
     },
   };
@@ -78,7 +85,7 @@ const YouTubePlayer = ({ videoId, isPlaylist, titles }: Props) => {
     <>
       {isPlaylist ? (
         <>
-          <YouTube videoId={videoId} opts={playList} onReady={onReady} />
+          <YouTube videoId={videosId} opts={playList} onReady={onReady} />
           <Controllers className={styles.controller}>
             <strong>수동으로 영상 넘기기</strong>
             {videoIdsArray.map((id, index) => (
