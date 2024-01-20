@@ -330,14 +330,14 @@ const Dimmed = styled.div({
 export default function Header() {
   const [themeMode, setThemeMode] = useState<string>('light');
   useEffect(() => {
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'light';
     setThemeMode(systemTheme);
   }, []);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('theme');
-    if (!savedTheme || (savedTheme !== 'dark' && savedTheme !== 'light')) {
-      window.localStorage.setItem('theme', 'dark');
+    if (!savedTheme || (savedTheme !== 'light' && savedTheme !== 'dark')) {
+      window.localStorage.setItem('theme', 'light');
     } else {
       setThemeMode(savedTheme);
     }
@@ -350,7 +350,7 @@ export default function Header() {
 
   const themeModeHandle = (event: React.MouseEvent) => {
     event.preventDefault();
-    setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
+    setThemeMode(themeMode === 'light' ? 'dark' : 'light');
   };
 
   const [menuState, setMenuState] = useState<'closed' | 'expanding' | 'expanded'>('closed');
