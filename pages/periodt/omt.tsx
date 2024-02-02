@@ -10,7 +10,6 @@ import { images } from '@/components/images';
 import styled from '@emotion/styled';
 import { rem } from '@/styles/designSystem';
 import styles from '@/styles/periodts.module.sass';
-import Anchor from '@/components/Anchor';
 
 const LinkButton = styled.i({
   display: 'block',
