@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { CommentResponse, PlaylistRowData } from 'types';
 import Seo, { originTitle } from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
-import AnchorLink from '@/components/Anchor';
+import Anchor from '@/components/Anchor';
 import { images } from '@/components/images';
 import { FormatDate } from '@/components/FormatDate';
 import styled from '@emotion/styled';
@@ -58,7 +58,7 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
         <main className={styles.watch}>
           <p className={styles.error}>
             뉴스를 불러오지 못했습니다. 삭제된 기사이거나 인터넷 속도가 느립니다.{' '}
-            <AnchorLink href="/watches">뒤로가기</AnchorLink>
+            <Anchor href="/watches">뒤로가기</Anchor>
           </p>
         </main>
       );
@@ -129,10 +129,10 @@ export default function watchDetail({ watchData, idx }: { watchData: PlaylistRow
             <span>뒤로가기</span>
           </button>
         ) : (
-          <AnchorLink href="/watches">
+          <Anchor href="/watches">
             <BackButton />
             <span>뒤로가기</span>
-          </AnchorLink>
+          </Anchor>
         )}
       </div>
       <article className={styles['article-news']}>

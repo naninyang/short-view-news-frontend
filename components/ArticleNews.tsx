@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import AnchorLink from './Anchor';
+import Anchor from './Anchor';
 import { images } from './images';
 import { FormatDate } from './FormatDate';
 import styled from '@emotion/styled';
@@ -131,7 +131,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                 />
               </div>
               {articleItem.newsMetaData ? (
-                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                <Anchor href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
                   <div className={styles['og-container']}>
                     <img src={articleItem.newsMetaData?.ogImage} alt="" />
                     <div className={styles['og-info']}>
@@ -148,9 +148,9 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                       </div>
                     </div>
                   </div>
-                </AnchorLink>
+                </Anchor>
               ) : (
-                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                <Anchor href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
                   <div className={styles['og-container']}>
                     <img src={articleItem.entertainmentMetaData?.ogImage} alt="" />
                     <div className={styles['og-info']}>
@@ -167,7 +167,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                       </div>
                     </div>
                   </div>
-                </AnchorLink>
+                </Anchor>
               )}
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>

@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { ArrayData, OgData, PeriodtOmt } from 'types';
-import AnchorLink from '@/components/Anchor';
+import Anchor from '@/components/Anchor';
 import { images } from '@/components/images';
 import styled from '@emotion/styled';
 import { rem } from '@/styles/designSystem';
@@ -272,10 +272,10 @@ function PeriodtOmt() {
                   <article key={periodt.idx}>
                     <div className={styles.profile}>
                       <cite>@{periodt.quoteUser}</cite>
-                      <AnchorLink href={`https://twitter.com/${periodt.quoteUser}/status/${periodt.quoteNumber}`}>
+                      <Anchor href={`https://twitter.com/${periodt.quoteUser}/status/${periodt.quoteNumber}`}>
                         <span>원본 링크</span>
                         <LinkButton />
-                      </AnchorLink>
+                      </Anchor>
                     </div>
                     <div className={styles.content}>
                       <div className={styles.retweet}>
@@ -297,10 +297,10 @@ function PeriodtOmt() {
                       <div className={styles.origin}>
                         <div className={styles.profile}>
                           <cite>@{periodt.originUser}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.originUser}/status/${periodt.originNumber}`}>
+                          <Anchor href={`https://twitter.com/${periodt.originUser}/status/${periodt.originNumber}`}>
                             <span>원본 링크</span>
                             <LinkButton />
-                          </AnchorLink>
+                          </Anchor>
                         </div>
                         <div className={styles.context}>
                           <div className={styles.description}>

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import styled from '@emotion/styled';
 import Seo, { originTitle } from '@/components/Seo';
-import AnchorLink from '@/components/Anchor';
+import Anchor from '@/components/Anchor';
 import { images } from '@/components/images';
 import content from '@/styles/content.module.sass';
 import styles from '@/styles/open.module.sass';
@@ -38,15 +38,15 @@ function OpenSources({ licenses }: { licenses: string[] }) {
       />
       <div className="top-link">
         {currentPage ? (
-          <AnchorLink href={`/${currentPage}`}>
+          <Anchor href={`/${currentPage}`}>
             <BackButton />
             <span>뒤로가기</span>
-          </AnchorLink>
+          </Anchor>
         ) : (
-          <AnchorLink href="/">
+          <Anchor href="/">
             <BackButton />
             <span>뒤로가기</span>
-          </AnchorLink>
+          </Anchor>
         )}
       </div>
       <div className={styles['open_sources-content']}>

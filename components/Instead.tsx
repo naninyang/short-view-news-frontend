@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 import { ArrayData, Instead } from 'types';
-import AnchorLink from './Anchor';
+import Anchor from './Anchor';
 import { images } from './images';
 import { FormatDate } from './FormatDate';
 import styled from '@emotion/styled';
@@ -91,12 +91,12 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
             <PerfectScrollbar className={styles['scrollbar-container']}>
               {insteadItem.insteadMetaData && (
                 <div className={styles['og-container']}>
-                  <AnchorLink href={insteadItem.addr}>
+                  <Anchor href={insteadItem.addr}>
                     원본:{' '}
                     {insteadItem.insteadMetaData?.ogSiteName
                       ? insteadItem.insteadMetaData?.ogSiteName
                       : insteadItem.insteadMetaData?.twitterSite}
-                  </AnchorLink>
+                  </Anchor>
                   {insteadItem.insteadMetaData?.ownerAvatar ? (
                     <img src={insteadItem.insteadMetaData?.ogImage} alt="" />
                   ) : (

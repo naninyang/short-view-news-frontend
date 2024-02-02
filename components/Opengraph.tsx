@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import AnchorLink from './Anchor';
+import Anchor from './Anchor';
 
 interface Props {
   article_id: string;
@@ -53,7 +53,7 @@ const Opengraph = ({ article_id, datetime }: Props) => {
               {openGraph.ogCreator} / {openGraph.ogTitle}
             </strong>
             <p>
-              {openGraph.ogDescription}... <AnchorLink href={openGraph.ogUrl}>새창에서 마저 읽기</AnchorLink>
+              {openGraph.ogDescription}... <Anchor href={openGraph.ogUrl}>새창에서 마저 읽기</Anchor>
             </p>
           </figcaption>
         </>

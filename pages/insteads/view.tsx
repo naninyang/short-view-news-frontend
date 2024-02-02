@@ -10,7 +10,7 @@ import { ArrayData, Instead } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import { FormatDate } from '@/components/FormatDate';
 import InsteadDetail from '@/components/Instead';
-import AnchorLink from '@/components/Anchor';
+import Anchor from '@/components/Anchor';
 import styles from '@/styles/insteads.module.sass';
 
 Modal.setAppElement('#__next');
@@ -155,12 +155,12 @@ function InsteadsView() {
                 <article key={instead.idx}>
                   <div className={styles.opengraph}>
                     <div className={styles['og-container']}>
-                      <AnchorLink href={instead.addr}>
+                      <Anchor href={instead.addr}>
                         원본:{' '}
                         {instead.insteadMetaData?.ogSiteName
                           ? instead.insteadMetaData?.ogSiteName
                           : instead.insteadMetaData?.twitterSite}
-                      </AnchorLink>
+                      </Anchor>
                       {instead.insteadMetaData?.ownerAvatar ? (
                         <img src={instead.insteadMetaData?.ogImage} alt="" />
                       ) : (

@@ -10,7 +10,7 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import { NaverItemsData } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
 import ArticleDetail from '@/components/ArticleNews';
-import AnchorLink from '@/components/Anchor';
+import Anchor from '@/components/Anchor';
 import styles from '@/styles/articles.module.sass';
 
 Modal.setAppElement('#__next');
@@ -178,7 +178,7 @@ function ArticlesNews() {
                     />
                   </div>
                   <div className={styles.opengraph}>
-                    <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                    <Anchor href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
                       <div className={styles['og-container']}>
                         <img src={article.newsMetaData?.ogImage} alt="" />
                         <div className={styles['og-info']}>
@@ -195,7 +195,7 @@ function ArticlesNews() {
                           </div>
                         </div>
                       </div>
-                    </AnchorLink>
+                    </Anchor>
                   </div>
                 </article>
               ))}
