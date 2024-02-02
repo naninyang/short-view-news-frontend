@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
       registInit();
     }
   }, []);
-  const noticePage = router.pathname.includes('/notice');
+  const noticePage = router.pathname.includes('/notices');
   const contactPage = router.pathname.includes('/contact-us');
   const openPage = router.pathname.includes('/open-sources');
 
@@ -94,8 +94,16 @@ export default function App({ Component, pageProps }: AppProps) {
           textarea,
           select,
           legend {
-            font-family: ${fontLato.style.fontFamily}, ${fontNoto.style.fontFamily}, -apple-system, BlinkMacSystemFont,
-              system-ui, 'Apple SD Gothic Neo', 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+            font-family:
+              ${fontLato.style.fontFamily},
+              ${fontNoto.style.fontFamily},
+              -apple-system,
+              BlinkMacSystemFont,
+              system-ui,
+              'Apple SD Gothic Neo',
+              'Nanum Gothic',
+              'Malgun Gothic',
+              sans-serif;
           }
         `}
       </style>

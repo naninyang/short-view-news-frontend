@@ -1,0 +1,83 @@
+@import './designSystem'
+
+.notices
+  margin: 0 auto
+  max-width: rem(720)
+  width: 100%
+
+  ul
+    li
+      border-top: 1px solid var(--border)
+
+      &:first-of-type
+        border-top: 0
+
+      a
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding: rem(7) 0
+
+        strong
+          position: relative
+
+          &::before
+            content: ''
+            display: block
+            position: absolute
+            top: 0
+            left: 0
+            width: 0
+            height: 100%
+            border-radius: rem(7)
+            background-color: var(--default-bg)
+            transition: all .4s cubic-bezier(.4,0,.2,1)
+
+          span
+            display: inline-flex
+            position: relative
+            padding: rem(7) rem(17)
+            font-size: rem(16)
+            color: var(--txt-subject)
+            transition: all .4s cubic-bezier(.4,0,.2,1)
+
+        &:focus, &:hover
+          strong
+            &::before
+              background-color: $hex-accent
+              width: 100%
+
+            span
+              color: $hex-white
+
+        time
+          font-size: rem(14)
+          white-space: nowrap
+          color: var(--txt-summary)
+
+.notice
+  article
+    margin: 0 auto
+    padding: 0 rem(15)
+    max-width: rem(720)
+    width: 100%
+
+    header
+      padding: rem(17) 0
+
+      h2
+        font-size: rem(24)
+        line-height: 1.16666667
+        color: var(--txt-subject)
+
+      time
+        font-size: rem(14)
+        color: var(--txt-blockquote)
+
+    .description
+      padding: rem(27) 0
+
+      p
+        font-size: rem(16)
+        line-height: 1.25
+        color: var(--txt-summary)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import AnchorLink from './Anchor';
+import Anchor from './Anchor';
 import { hex, mixIn, rem } from '@/styles/designSystem';
 import { images } from './images';
 
@@ -440,9 +440,9 @@ export default function Header() {
         )}
         <Primary>
           <h1>
-            <AnchorLink href="/">
+            <Anchor href="/">
               <span>short view news</span>
-            </AnchorLink>
+            </Anchor>
           </h1>
           <ThemeChangeButton type="button" themeMode={themeMode === 'dark'} onClick={themeModeHandle}>
             {themeMode === 'dark' ? <span>라이트 모드로 변경</span> : <span>라이트 모드로 변경</span>}
@@ -469,19 +469,19 @@ export default function Header() {
             </Close>
             <ol>
               <li>
-                <AnchorLink href="/notice" onClick={closeMenu}>
+                <Anchor href="/notices" onClick={closeMenu}>
                   안내사항
-                </AnchorLink>
+                </Anchor>
               </li>
               <li>
-                <AnchorLink href="/contact-us" onClick={closeMenu}>
+                <Anchor href="/contact-us" onClick={closeMenu}>
                   문의사항
-                </AnchorLink>
+                </Anchor>
               </li>
               <li>
-                <AnchorLink href="/open-sources" onClick={closeMenu}>
+                <Anchor href="/open-sources" onClick={closeMenu}>
                   오픈소스
-                </AnchorLink>
+                </Anchor>
               </li>
               {deferredPrompt && (
                 <li>
@@ -497,28 +497,28 @@ export default function Header() {
             </ol>
             <ul>
               <li>
-                <AnchorLink href="https://dev1stud.io">
+                <Anchor href="https://dev1stud.io">
                   <Dev1studio />
                   <span>데브런닷스튜디오</span>
-                </AnchorLink>
+                </Anchor>
               </li>
               <li>
-                <AnchorLink href="https://develog.dev1stud.io">
+                <Anchor href="https://develog.dev1stud.io">
                   <Develog />
                   <span>디벨로그</span>
-                </AnchorLink>
+                </Anchor>
               </li>
               <li>
-                <AnchorLink href="https://velog.io/@naninyang">
+                <Anchor href="https://velog.io/@naninyang">
                   <Velog />
                   <span>벨로그</span>
-                </AnchorLink>
+                </Anchor>
               </li>
               <li>
-                <AnchorLink href="https://github.com/naninyang/short-view-new-frontend">
+                <Anchor href="https://github.com/naninyang/short-view-new-frontend">
                   <Github />
                   <span>깃헙 저장소</span>
-                </AnchorLink>
+                </Anchor>
               </li>
             </ul>
             <p>&copy; NEWS CURATORS, 2024</p>
