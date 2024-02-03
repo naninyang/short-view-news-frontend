@@ -127,6 +127,7 @@ export default function InsteadDetail({ instead, idx }: { instead: PreviewRowDat
                 ) : (
                   <div className={styles.thumbnails}>
                     <img src={instead.metaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                    <div className={styles.background} />
                     <img src={instead.metaData?.ogImage} alt="" className={styles['thumbnail-background']} />
                   </div>
                 )}

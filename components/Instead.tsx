@@ -102,6 +102,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                   ) : (
                     <div className={styles.thumbnails}>
                       <img src={insteadItem.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                      <div className={styles.background} />
                       <img
                         src={insteadItem.insteadMetaData?.ogImage}
                         alt=""

@@ -166,6 +166,7 @@ function InsteadsView() {
                       ) : (
                         <div className={styles.thumbnails}>
                           <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                          <div className={styles.background} />
                           <img
                             src={instead.insteadMetaData?.ogImage}
                             alt=""

@@ -200,22 +200,29 @@
             width: rem(246)
             height: rem(138)
 
-          img
-            +mq(minSmall)
-              width: 100%
-              height: 100%
-
           .thumbnail-origin
             object-fit: contain
             position: relative
+            z-index: 2
+            width: 100%
+            height: 100%
+
+          .background
+            position: absolute
+            top: 0
+            left: 0
             z-index: 1
+            width: 100%
+            height: 100%
+            background-color: rgba(0,0,0,.1)
+            backdrop-filter: blur(rem(100))
 
           .thumbnail-background
             position: absolute
             top: 0
             left: 0
-            object-fit: cover
-            backdrop-filter: blur(rem(200))
+            width: 100%
+            height: 100%
 
         .og-info
           display: flex
@@ -292,10 +299,10 @@
 
     .scrollbar-container > .description, .opengraph + .description
       padding: 0 rem(15)
-      font-size: rem(16)
+      font-size: rem(14)
       line-height: 1.25
       color: var(--txt-blockquote)
 
       +mq(minLarge)
         padding: 0 rem(25)
-        font-size: rem(20)
+        font-size: rem(16)
