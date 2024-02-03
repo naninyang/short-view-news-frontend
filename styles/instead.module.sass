@@ -44,7 +44,7 @@
         .opengraph
           a
             top: rem(17)
-            z-index: 2
+            z-index: 3
             right: auto
             left: rem(27)
 
@@ -195,6 +195,9 @@
           position: relative
           overflow: hidden
           border-radius: rem(7)
+
+          +mq(maxExtraSmall)
+            aspect-ratio: 1920 / 1080
 
           +mq(minSmall)
             width: rem(246)
