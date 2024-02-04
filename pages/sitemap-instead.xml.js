@@ -1,4 +1,4 @@
-const SheetAPI = 'https://shorts.dev1stud.io/api/sitemapInstead';
+const InsteadAPI = 'https://shorts.dev1stud.io/api/sitemapInstead';
 // const InsteadAPI = 'http://localhost:3003/api/sitemapInstead';
 
 function generateSiteMap(sheets) {
